@@ -122,6 +122,37 @@ section.content{padding:120px 0;position:relative}
 .booking-link-url{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.02em}
 .booking-link::after{content:'→';font-family:var(--font-mono);color:var(--accent);font-size:14px;margin-left:8px}
 .booking-note{font-family:var(--font-display);font-size:14px;font-style:italic;color:var(--ink-2);background:var(--canvas-2);padding:16px 20px;border-radius:4px;border-left:3px solid var(--accent);margin-top:24px;line-height:1.55}
+.shortlist-header{margin-top:64px;padding-bottom:18px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.shortlist-title{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1.1}
+.shortlist-title em{font-style:italic;color:var(--accent);font-weight:400}
+.shortlist-sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase}
+.shortlist-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.shortlist-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.shortlist-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -16px rgba(15,20,16,0.18)}
+.shortlist-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest)}
+.shortlist-card.two::before{background:var(--gold)}
+.shortlist-eyebrow{font-family:var(--font-mono);font-size:10px;color:var(--forest);letter-spacing:0.2em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:10px}
+.shortlist-card.two .shortlist-eyebrow{color:#A88128}
+.shortlist-eyebrow-dot{width:8px;height:8px;background:currentColor;border-radius:50%}
+.shortlist-name{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1.05}
+.shortlist-tag{font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--ink-2);line-height:1.45}
+.shortlist-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 0;border-top:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft)}
+.shortlist-stat-label{font-family:var(--font-mono);font-size:9px;color:var(--ink-3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;display:block}
+.shortlist-stat-value{font-family:var(--font-display);font-size:18px;font-weight:500;letter-spacing:-0.01em}
+.shortlist-pros{display:flex;flex-direction:column;gap:8px}
+.shortlist-pro{display:grid;grid-template-columns:14px 1fr;gap:10px;font-size:13px;color:var(--ink-2);line-height:1.55}
+.shortlist-pro::before{content:'+';color:var(--forest);font-family:var(--font-mono);font-weight:700;padding-top:1px}
+.shortlist-watch{display:grid;grid-template-columns:14px 1fr;gap:10px;font-size:13px;color:var(--ink-2);line-height:1.55}
+.shortlist-watch::before{content:'!';color:var(--accent);font-family:var(--font-mono);font-weight:700;padding-top:1px}
+.shortlist-price{font-family:var(--font-mono);font-size:12px;color:var(--ink-3);background:var(--canvas-2);padding:12px 14px;border-radius:4px;letter-spacing:0.04em;line-height:1.5}
+.shortlist-price strong{color:var(--ink);font-size:14px;font-weight:600;font-family:var(--font-display);letter-spacing:0}
+.shortlist-ctas{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+.shortlist-cta{flex:1;min-width:120px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:4px;text-decoration:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;transition:all 0.2s ease}
+.shortlist-cta.primary{background:var(--ink);color:var(--canvas)}
+.shortlist-cta.primary:hover{background:var(--accent)}
+.shortlist-cta.secondary{background:var(--canvas-2);color:var(--ink);border:1px solid var(--rule)}
+.shortlist-cta.secondary:hover{background:var(--canvas-3)}
+.shortlist-cta::after{content:'→';font-size:13px}
 .flights-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
 .flight-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;padding:32px 28px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
 .flight-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -16px rgba(15,20,16,0.18)}
@@ -200,7 +231,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:80px 0 60px;te
 .footer-title{font-family:var(--font-display);font-size:24px;font-style:italic;font-weight:300;color:var(--canvas);margin-bottom:12px;letter-spacing:-0.01em}
 .footer-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase}
 .footer-divider{color:rgba(250,247,240,0.3);margin:0 12px}
-@media (max-width:900px){.wrap{padding:0 24px}.hero{padding:32px 0 60px;min-height:auto}.hero-nav{display:none}.hero-content{padding:60px 0 40px}h1{margin-bottom:32px}.hero-stats{grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}.day-nav-inner{padding:12px 24px}.day-nav-brand{display:none}section.content{padding:72px 0}.section-head{grid-template-columns:1fr;gap:16px;margin-bottom:48px}.section-desc{grid-column:1;margin-top:8px}.lodging-grid,.logistics-grid,.booking-grid,.flights-grid{grid-template-columns:1fr;gap:24px}.lodge,.logistics-card{padding:32px 28px}.day-header{padding:28px;grid-template-columns:1fr;gap:16px}.day-date-block{text-align:left}.day-body{padding:28px}.day-narrative{font-size:16px;padding-left:16px;margin-bottom:28px}.stop{grid-template-columns:1fr;gap:6px;padding:18px 0}.stop-time-block{flex-direction:row;gap:10px;align-items:baseline}.vehicle-play{padding:24px}.vehicle-row{grid-template-columns:1fr;gap:4px;padding:12px 0}.pull-quote{padding:56px 32px}.map-header{padding:16px 20px}.map-header-hint{display:none}.map-controls{padding:14px;gap:6px}.map-controls-label{display:none}}
+@media (max-width:900px){.wrap{padding:0 24px}.hero{padding:32px 0 60px;min-height:auto}.hero-nav{display:none}.hero-content{padding:60px 0 40px}h1{margin-bottom:32px}.hero-stats{grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}.day-nav-inner{padding:12px 24px}.day-nav-brand{display:none}section.content{padding:72px 0}.section-head{grid-template-columns:1fr;gap:16px;margin-bottom:48px}.section-desc{grid-column:1;margin-top:8px}.lodging-grid,.logistics-grid,.booking-grid,.flights-grid,.shortlist-grid{grid-template-columns:1fr;gap:24px}.shortlist-stats{grid-template-columns:repeat(2,1fr)}.lodge,.logistics-card{padding:32px 28px}.day-header{padding:28px;grid-template-columns:1fr;gap:16px}.day-date-block{text-align:left}.day-body{padding:28px}.day-narrative{font-size:16px;padding-left:16px;margin-bottom:28px}.stop{grid-template-columns:1fr;gap:6px;padding:18px 0}.stop-time-block{flex-direction:row;gap:10px;align-items:baseline}.vehicle-play{padding:24px}.vehicle-row{grid-template-columns:1fr;gap:4px;padding:12px 0}.pull-quote{padding:56px 32px}.map-header{padding:16px 20px}.map-header-hint{display:none}.map-controls{padding:14px;gap:6px}.map-controls-label{display:none}}
 @media (max-width:480px){h1{font-size:clamp(48px,16vw,80px)}.hero-stats{grid-template-columns:1fr 1fr}.stat-value{font-size:44px}}
 @media print{body{background:white}.day-nav,.hero-nav{display:none}.hero,.pull-quote,.vehicle-play,footer{background:white !important;color:var(--ink) !important}.day-card{page-break-inside:avoid;border:1px solid #999}#mainMap{display:none}.leaflet-container{display:none}}
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease}
@@ -246,6 +277,65 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:80px 0 60px;te
 <div class="lodge-targets"><div class="lodge-targets-label">Search on / target areas</div><div class="lodge-targets-list">Bar N Ranch compound · VRBO 7+ BR filter · Marriott Homes &amp; Villas<br>Hebgen Lake luxury homes · West Yellowstone town (walkable to dining)</div></div>
 </div>
 </div>
+
+<div class="shortlist-header" id="jackson-shortlist">
+<h3 class="shortlist-title">Jackson Hole <em>shortlist</em></h3>
+<div class="shortlist-sub">Two top candidates · Aug 22 – 26 · Teton Village</div>
+</div>
+<div class="shortlist-grid">
+
+<div class="shortlist-card">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option A · Right-Sized</div>
+<h3 class="shortlist-name">Moose Hideaway</h3>
+<p class="shortlist-tag">A 4,145 sq ft modern-western retreat tucked into the trees of Teton Village. Sized exactly to a group of 12.</p>
+<div class="shortlist-stats">
+<div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
+<div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5.5 BA</span></div>
+<div><span class="shortlist-stat-label">Size</span><span class="shortlist-stat-value">4,145 sf</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">12</span></div>
+</div>
+<div class="shortlist-pros">
+<div class="shortlist-pro">4.92★ across 52 reviews — multiple multi-generational family reviews confirm fit for your group structure</div>
+<div class="shortlist-pro">Walking distance to Teton Village base, gondola, dining</div>
+<div class="shortlist-pro">Private indoor hot tub, gourmet kitchen with Sub-Zero + induction range, double-sided fireplace</div>
+<div class="shortlist-pro">Parking for 4 vehicles + 2-car heated garage (room for both SUVs and slack)</div>
+<div class="shortlist-pro">3 Kings + 2 captain's bunks (twin over queen) + 2 twins — flexible for the family mix</div>
+</div>
+<div class="shortlist-watch">Multiple 2024–2025 reviews flag construction noise from a neighboring property. Confirm current status with JHRL before booking.</div>
+<div class="shortlist-price"><strong>Pricing not shown publicly</strong><br>Request a quote — JHRL: 800.443.8613</div>
+<div class="shortlist-ctas">
+<a class="shortlist-cta primary" href="https://www.jhrl.com/vacation-rentals/5bd55ba-moose-hideaway#rcav=%7B%22rcav%22%3A%7B%22begin%22%3A%2208%2F22%2F2026%22%2C%22end%22%3A%2208%2F26%2F2026%22%2C%22adult%22%3A1%2C%22child%22%3A0%2C%22eid%22%3A%22154%22%2C%22flex%22%3A%22%22%2C%22flex_type%22%3A%22d%22%7D%7D" target="_blank" rel="noopener">View Listing</a>
+<a class="shortlist-cta secondary" href="https://my.matterport.com/show/?m=QJCdwYoao26" target="_blank" rel="noopener">3D Tour</a>
+</div>
+</div>
+
+<div class="shortlist-card two">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option B · Estate-Scale</div>
+<h3 class="shortlist-name">Hal'e Teton</h3>
+<p class="shortlist-tag">A 6,600 sq ft fully remodeled estate in Teton Village — 60% larger than Option A. All-new finishes, sleeps up to 22.</p>
+<div class="shortlist-stats">
+<div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
+<div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5.5 BA</span></div>
+<div><span class="shortlist-stat-label">Size</span><span class="shortlist-stat-value">6,600 sf</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">22</span></div>
+</div>
+<div class="shortlist-pros">
+<div class="shortlist-pro">Recently completed full remodel — newest finishes among credible Teton Village options</div>
+<div class="shortlist-pro">Outdoor private hot tub + indoor dry sauna (rare combo)</div>
+<div class="shortlist-pro">Gourmet kitchen with dual Wolf gas ranges, two dishwashers, oversized Sub-Zero, walk-in pantry, private wine room</div>
+<div class="shortlist-pro">Dedicated media room with blackout shades + 3 fireplaces (one wood-burning)</div>
+<div class="shortlist-pro">3 Kings + 1 with 2 Queens + bunk room with 3 full-size bunks (sleeps up to 6 adults or 12 kids)</div>
+</div>
+<div class="shortlist-watch">Only 3 parking spots (both SUVs fit, but tighter than Option A). No A/C — bedroom fans only; mountain nights cool naturally in August.</div>
+<div class="shortlist-price"><strong>$2,299/night × 4 nights ≈ $9,196 base</strong><br>Aug 22–26 confirmed available on the listing</div>
+<div class="shortlist-ctas">
+<a class="shortlist-cta primary" href="https://www.rmrentals.com/jackson-hole-rentals/hale-teton?rcav%5Bbegin%5D=2026-08-22%2000%3A00%3A00&amp;rcav%5Bend%5D=2026-08-26%2000%3A00%3A00&amp;rcav%5Badult%5D=8&amp;rcav%5Bchild%5D=4" target="_blank" rel="noopener">View Listing</a>
+<a class="shortlist-cta secondary" href="https://my.matterport.com/show/?m=JDFawYuhRCq" target="_blank" rel="noopener">3D Tour</a>
+</div>
+</div>
+
+</div>
+
 </div>
 </section>
 
@@ -658,7 +748,7 @@ document.querySelectorAll('.map-day-btn').forEach(btn=>{
 window.addEventListener('resize',()=>map.invalidateSize());
 
 // Reveal on scroll
-const revealEls=document.querySelectorAll('.lodge, .day-card, .logistics-card, .flight-card');
+const revealEls=document.querySelectorAll('.lodge, .day-card, .logistics-card, .flight-card, .shortlist-card');
 revealEls.forEach(el=>el.classList.add('reveal'));
 const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target)}})},{threshold:0.1,rootMargin:'0px 0px -10% 0px'});
 revealEls.forEach(el=>revealObs.observe(el));
