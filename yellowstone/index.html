@@ -228,7 +228,7 @@ section.content{padding:80px 0;position:relative}
 .booking-note{font-family:var(--font-display);font-size:14px;font-style:italic;color:var(--ink-2);background:var(--canvas-2);padding:16px 20px;border-radius:4px;border-left:3px solid var(--accent);margin-top:24px;line-height:1.55}
 
 /* ============ FLIGHTS ============ */
-.flights-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.flights-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .flight-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;padding:32px 28px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
 .flight-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -16px rgba(15,20,16,0.18)}
 .flight-card.outbound::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest)}
@@ -272,10 +272,13 @@ section.content{padding:80px 0;position:relative}
 .leaflet-control-layers-expanded{padding:14px 16px!important}
 .leaflet-control-layers-base label{font-family:var(--font-mono);font-size:13px;color:var(--ink);letter-spacing:0.04em;line-height:2;cursor:pointer;min-height:32px;display:flex;align-items:center;gap:6px}
 .leaflet-control-layers-toggle{width:44px!important;height:44px!important;background-size:24px 24px!important}
-.marker-bubble{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:16px;font-weight:700;box-shadow:0 4px 10px rgba(15,20,16,0.35);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer}
+.marker-bubble{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:15px;font-weight:700;box-shadow:0 4px 10px rgba(15,20,16,0.35);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer;letter-spacing:0}
 .marker-bubble:hover{transform:scale(1.15);box-shadow:0 6px 16px rgba(15,20,16,0.5)}
 .marker-bubble.dimmed{opacity:0.25;transform:scale(0.72)}
-@media (max-width:600px){.marker-bubble{width:48px;height:48px;font-size:18px;border-width:3px}}
+@media (max-width:600px){.marker-bubble{width:48px;height:48px;font-size:17px;border-width:3px}}
+.lodging-marker{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:6px;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:700;background:#0E1A14;color:#D9A441;box-shadow:0 4px 12px rgba(15,20,16,0.45);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer;letter-spacing:0.04em}
+.lodging-marker:hover{transform:scale(1.12);box-shadow:0 6px 16px rgba(15,20,16,0.55)}
+@media (max-width:600px){.lodging-marker{width:44px;height:44px;font-size:14px}}
 .leaflet-marker-icon{background:transparent!important;border:none!important}
 .leaflet-popup-content-wrapper{background:var(--canvas)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;border-radius:6px!important;box-shadow:0 24px 48px -8px rgba(15,20,16,0.35)!important;padding:4px}
 .leaflet-popup-tip{background:var(--canvas)!important;border:1px solid var(--rule)!important}
@@ -652,11 +655,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="wrap">
 <div class="home-overview-head">
 <div class="home-overview-eyebrow">The trip · at a glance</div>
-<h2 class="home-overview-title">Eight days, two parks, <em>one arc</em>.</h2>
 </div>
 <div class="overview-list">
 <div class="overview-row"><span class="num airport">D01</span><span class="date">Sat · Aug 22</span><span class="what"><strong>Arrive Jackson Hole.</strong></span></div>
-<div class="overview-row"><span class="num">D02-04</span><span class="date">Aug 23 – 25</span><span class="what"><strong>Tetons week.</strong> Jenny Lake, Snake River float, flex day.</span></div>
+<div class="overview-row"><span class="num">D02-04</span><span class="date">Aug 23 – 25</span><span class="what"><strong>Tetons week · Dadu's 75th.</strong> Jenny Lake, Snake River float, flex day.</span></div>
 <div class="overview-row"><span class="num transit">D05</span><span class="date">Wed · Aug 26</span><span class="what"><strong>Transit to West Yellowstone.</strong></span></div>
 <div class="overview-row"><span class="num">D06-07</span><span class="date">Aug 27 – 28</span><span class="what"><strong>Yellowstone.</strong> Canyon &amp; Old Faithful. Rakhi on the 28th.</span></div>
 <div class="overview-row"><span class="num airport">D08</span><span class="date">Sat · Aug 29</span><span class="what"><strong>Drive to Bozeman, fly home.</strong></span></div>
@@ -1014,8 +1016,6 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="wrap">
 <div class="section-head"><div><h2 class="section-title">Food &amp; restaurants</h2><p class="section-desc">A relaxed sit-down dinner every night, and a great boxed lunch from the local deli on the way into the parks. The two anchor nights — Dadu's 75th at Glorietta, Rakhi at the rental — set the rest of the week.</p></div></div>
 
-<div class="dining-grid">
-
 <div class="dining-filter">
 <span class="dining-filter-label">Show</span>
 <div class="dining-tabs" role="tablist">
@@ -1024,6 +1024,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <button class="dining-tab" data-loc="all" role="tab">Both</button>
 </div>
 </div>
+
+<div class="dining-grid">
 
 <div class="dining-card evenings">
 <div class="dining-card-eyebrow"><span class="dining-card-eyebrow-dot"></span>Every night · Sit-down dinner</div>
@@ -1401,7 +1403,7 @@ const DAYS=[
 {time:"2:30 PM",duration:"~1 hr",name:"Signal Mountain Summit",lat:43.8489165,lng:-110.5672136,notes:"Drive-up summit road. Panoramic Teton overview entirely from the car."},
 {time:"7:30 PM",duration:"~1 hr",name:"Schwabacher Landing",lat:43.7115652,lng:-110.6703898,notes:"Optional sunset stop. 5-min walk from parking. The iconic Teton reflection shot."}
 ]},
-{day:4,date:"Aug 25",year:"2026",title:"Tetons flex day",narrative:"First real subgroup split. Both groups reconvene at the top of the tram for waffles at Corbet's Cabin. Town dinner in Jackson that evening.",driving:"<1 hr local",vehiclePlay:true,vehicleA:"Whitewater raft Snake River Canyon (half-day, Class II–III). Two rafts for 6 adults + 2 teens. Late-afternoon tram up.",vehicleB:"Sleep in. Late-morning tram together. Lunch at Corbet's Cabin, then back to rental for hot tub. Dadurents + younger kids.",stops:[{time:"11:30 AM",duration:"~3 hrs",name:"Jackson Hole Aerial Tram",lat:43.587535,lng:-110.8276971,notes:"12-min ride to 10,450 ft. Corbet's Cabin waffles at the top. All 12 converge here for lunch midday."}]},
+{day:4,date:"Aug 25",year:"2026",title:"Tetons flex day",narrative:"First real subgroup split. Both groups reconvene at the top of the tram for waffles at Corbet's Cabin. Town dinner in Jackson that evening.",driving:"<1 hr local",vehiclePlay:true,vehicleA:"Whitewater raft Snake River Canyon (half-day, Class II–III). Two rafts for 6 adults + 2 teens. Late-afternoon tram up.",vehicleB:"Sleep in. Late-morning tram together. Lunch at Corbet's Cabin, then back to rental for hot tub. Grandparents + younger kids.",stops:[{time:"11:30 AM",duration:"~3 hrs",name:"Jackson Hole Aerial Tram",lat:43.587535,lng:-110.8276971,notes:"12-min ride to 10,450 ft. Corbet's Cabin waffles at the top. All 12 converge here for lunch midday."}]},
 {day:5,date:"Aug 26",year:"2026",title:"Transit to West Yellowstone",narrative:"The only real driving day — about four hours with stops. Staggered start keeps check-in painless.",driving:"~4 hrs transit",type:"transit",vehiclePlay:true,vehicleA:"Leaves Jackson 9:30 AM. Longer at West Thumb. Arrives ~4 PM.",vehicleB:"Leaves Jackson 8 AM. Quick stops. Arrives ~2 PM, starts unpacking.",stops:[
 {time:"10:30 AM",duration:"~15 min",name:"Lewis Falls",lat:44.2673757,lng:-110.6369631,notes:"5-min roadside photo stop just past Yellowstone's South Entrance.",type:"transit"},
 {time:"11:30 AM",duration:"~1.5 hrs",name:"West Thumb Geyser Basin",lat:44.4155079,lng:-110.5730438,notes:"Perfect first-geyser introduction. Boardwalk loop over Yellowstone Lake. Picnic lunch.",type:"transit"},
@@ -1508,8 +1510,25 @@ mapDayBtns.insertAdjacentHTML('beforeend',`<button class="map-day-btn active" da
 DAYS.forEach(d=>{mapDayBtns.insertAdjacentHTML('beforeend',`<button class="map-day-btn" data-day="${d.day}">D${String(d.day).padStart(2,'0')} · ${d.date}</button>`)});
 
 // ============ LEAFLET MAP ============
+// Lodging anchor points — approximate centroids of each stay's area.
+// Update lat/lng once actual rentals are booked.
+const LODGING_JACKSON={lat:43.5870,lng:-110.8290,name:'Jackson rental (Stay 1)',short:'Stay 1',label:'S1'};
+const LODGING_WY={lat:44.6618,lng:-111.1041,name:'W. Yellowstone rental (Stay 2)',short:'Stay 2',label:'S2'};
+
+// Which lodging anchors each day's route: { start: lodge|null, end: lodge|null }
+function dayLodging(dayNum){
+  switch(dayNum){
+    case 1: return {start:null,end:LODGING_JACKSON};
+    case 2: case 3: case 4: return {start:LODGING_JACKSON,end:LODGING_JACKSON};
+    case 5: return {start:LODGING_JACKSON,end:LODGING_WY};
+    case 6: case 7: return {start:LODGING_WY,end:LODGING_WY};
+    case 8: return {start:LODGING_WY,end:null};
+    default: return {start:null,end:null};
+  }
+}
+
 const allStops=[];
-DAYS.forEach(d=>{d.stops.forEach((s,idx)=>{allStops.push({...s,day:d.day,dayDate:d.date,stopIdx:idx})})});
+DAYS.forEach(d=>{d.stops.forEach((s,idx)=>{allStops.push({...s,day:d.day,dayDate:d.date,stopIdx:idx,stopLetter:String.fromCharCode(65+idx)})})});
 
 const map=L.map('mainMap',{
   center:[44.5,-110.7],
@@ -1521,8 +1540,8 @@ const map=L.map('mainMap',{
 });
 window._map=map;
 
-// Topographic tiles only — simpler, faster, less choice fatigue
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:17}).addTo(map);
+// OpenStreetMap base — most POIs (towns, gas stations, lodges, geyser basins) + larger readable labels
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',maxZoom:19}).addTo(map);
 
 // Full route polyline (used in "All Days" mode)
 const fullRouteLatLngs=allStops.map(s=>[s.lat,s.lng]);
@@ -1536,10 +1555,15 @@ const fullRoutePolyline=L.polyline(fullRouteLatLngs,{
 }).addTo(map);
 
 // Per-day polylines (drawn only when a specific day is selected)
+// Each day's polyline starts/ends at the appropriate lodging anchor so you can see start→end.
 const dayPolylines={};
 DAYS.forEach(d=>{
-  if(d.stops.length<2)return;
-  const latlngs=d.stops.map(s=>[s.lat,s.lng]);
+  const lod=dayLodging(d.day);
+  const latlngs=[];
+  if(lod.start)latlngs.push([lod.start.lat,lod.start.lng]);
+  d.stops.forEach(s=>latlngs.push([s.lat,s.lng]));
+  if(lod.end)latlngs.push([lod.end.lat,lod.end.lng]);
+  if(latlngs.length<2)return;
   const p=L.polyline(latlngs,{
     color:'#C44A1E',
     weight:5,
@@ -1555,24 +1579,43 @@ const allMarkers=[];
 allStops.forEach(stop=>{
   const fill=stop.type==='airport'?'#D9A441':stop.type==='transit'?'#C44A1E':'#2A4A2C';
   const textColor=stop.type==='airport'?'#0F1410':'#FAF7F0';
+  const label=`${stop.day}${stop.stopLetter}`;
   const icon=L.divIcon({
     className:'',
-    html:`<div class="marker-bubble" style="background:${fill};color:${textColor}">${stop.day}</div>`,
-    iconSize:[40,40],
-    iconAnchor:[20,20],
-    popupAnchor:[0,-22]
+    html:`<div class="marker-bubble" style="background:${fill};color:${textColor}">${label}</div>`,
+    iconSize:[44,44],
+    iconAnchor:[22,22],
+    popupAnchor:[0,-24]
   });
   const marker=L.marker([stop.lat,stop.lng],{icon,title:stop.name,riseOnHover:true}).addTo(map);
   marker.dayNum=stop.day;
   marker.stopData=stop;
   marker.bindPopup(
-    `<div class="lp-eyebrow">Day ${String(stop.day).padStart(2,'0')} &middot; ${stop.dayDate}</div>`+
+    `<div class="lp-eyebrow">Day ${String(stop.day).padStart(2,'0')} · Stop ${stop.stopLetter} · ${stop.dayDate}</div>`+
     `<div class="lp-title">${stop.name}</div>`+
     `<div class="lp-notes">${stop.notes}</div>`+
     `<a class="lp-link" href="#day-${stop.day}" data-target-day="${stop.day}">See Day ${stop.day} in itinerary</a>`,
     {maxWidth:320,minWidth:240,autoPan:true,autoPanPadding:[20,20]}
   );
   allMarkers.push(marker);
+});
+
+// Lodging markers — always visible, distinct style (gold square pin)
+[LODGING_JACKSON,LODGING_WY].forEach(lod=>{
+  const icon=L.divIcon({
+    className:'',
+    html:`<div class="lodging-marker" title="${lod.name}">${lod.label}</div>`,
+    iconSize:[40,40],
+    iconAnchor:[20,20],
+    popupAnchor:[0,-22]
+  });
+  const m=L.marker([lod.lat,lod.lng],{icon,title:lod.name,riseOnHover:true}).addTo(map);
+  m.bindPopup(
+    `<div class="lp-eyebrow">${lod.short}</div>`+
+    `<div class="lp-title">${lod.name}</div>`+
+    `<div class="lp-notes">Start/end anchor for each day's route. Update the lat/lng in the JS once the actual rental is booked.</div>`,
+    {maxWidth:280,minWidth:220,autoPan:true,autoPanPadding:[20,20]}
+  );
 });
 
 const routeBounds=L.latLngBounds(fullRouteLatLngs);
@@ -1638,6 +1681,10 @@ function selectDay(day,opts){
       if(el){const bubble=el.querySelector('.marker-bubble');if(bubble)bubble.classList.toggle('dimmed',m.dayNum!==day);}
       if(m.dayNum===day)focusLatLngs.push([m.stopData.lat,m.stopData.lng]);
     });
+    // Include lodging start/end anchors so the route's beginning + end are in view
+    const lod=dayLodging(day);
+    if(lod.start)focusLatLngs.push([lod.start.lat,lod.start.lng]);
+    if(lod.end&&lod.end!==lod.start)focusLatLngs.push([lod.end.lat,lod.end.lng]);
     if(focusLatLngs.length===1)map.setView(focusLatLngs[0],11);
     else if(focusLatLngs.length>1)map.fitBounds(L.latLngBounds(focusLatLngs).pad(0.35));
     if(opts.scrollToCard){
