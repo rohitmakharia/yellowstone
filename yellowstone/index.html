@@ -31,7 +31,7 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font
 .top-nav-links{display:flex;gap:22px}
 .top-nav-links a{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,240,0.7);text-decoration:none;transition:color 0.2s ease;font-weight:500}
 .top-nav-links a:hover,.top-nav-links a.active{color:var(--gold)}
-.hamburger{display:none;background:none;border:none;cursor:pointer;width:36px;height:36px;flex-direction:column;justify-content:center;gap:5px;padding:0;align-items:center}
+.hamburger{display:none;background:none;border:none;cursor:pointer;width:48px;height:48px;flex-direction:column;justify-content:center;gap:5px;padding:0;align-items:center;margin-right:-8px}
 .hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:transform 0.25s ease,opacity 0.25s ease;border-radius:1px}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0}
@@ -43,7 +43,7 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font
 .mobile-menu-backdrop.open{opacity:1;pointer-events:auto}
 .mobile-menu{position:fixed;top:0;right:0;bottom:0;width:300px;max-width:85vw;background:var(--dark);z-index:58;transform:translateX(105%);transition:transform 0.32s cubic-bezier(0.32,0.72,0.34,0.99);padding:74px 28px 28px;display:flex;flex-direction:column;gap:2px;box-shadow:-12px 0 32px rgba(0,0,0,0.4)}
 .mobile-menu.open{transform:translateX(0)}
-.mobile-menu a{font-family:var(--font-display);font-size:26px;color:rgba(250,247,240,0.85);text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(250,247,240,0.08);letter-spacing:-0.01em;transition:color 0.2s ease;display:flex;align-items:baseline;gap:14px}
+.mobile-menu a{font-family:var(--font-display);font-size:28px;color:rgba(250,247,240,0.85);text-decoration:none;padding:18px 0;border-bottom:1px solid rgba(250,247,240,0.08);letter-spacing:-0.01em;transition:color 0.2s ease;display:flex;align-items:baseline;gap:14px;min-height:56px}
 .mobile-menu a:hover,.mobile-menu a:focus,.mobile-menu a.active{color:var(--gold)}
 .mobile-menu a .num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--accent)}
 .mobile-menu-foot{margin-top:auto;padding-top:24px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;color:rgba(250,247,240,0.4);text-transform:uppercase}
@@ -59,12 +59,6 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font
 .subpage-banner h1 em{font-style:italic;color:var(--gold);font-weight:300}
 .subpage-banner .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 @media (max-width:600px){.subpage-banner{height:160px}.subpage-banner h1{font-size:28px}}
-.page-header{padding:24px 0;background:var(--canvas);border-bottom:1px solid var(--rule)}
-.page-header-inner{max-width:1320px;margin:0 auto;padding:0 48px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
-.back-link{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:color 0.2s ease}
-.back-link:hover{color:var(--accent-deep)}
-.page-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-3)}
-@media (max-width:900px){.page-header-inner{padding:0 24px}}
 
 /* ============ HERO (home only) ============ */
 .hero{background:#0E1A14 url('img/hero-tetons.jpg') center 30%/cover no-repeat;color:var(--canvas);padding:120px 0 100px;position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:560px}
@@ -77,7 +71,7 @@ h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:
 h1 .italic{font-style:italic;color:var(--gold);font-weight:300}
 .home-nav-title em,.home-overview-title em,.shortlist-title em,.booking-guide-header h3 em,.trip-itinerary-header h3 em,.nps-section-head h3 em{color:var(--forest)}
 .hero-lede{font-family:var(--font-display);font-size:clamp(20px,2.3vw,28px);font-weight:300;font-style:italic;line-height:1.4;max-width:760px;color:rgba(250,247,240,0.95);letter-spacing:-0.01em;text-shadow:0 2px 16px rgba(0,0,0,0.3)}
-.hero-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-top:40px;margin-top:60px;border-top:1px solid rgba(250,247,240,0.15)}
+.hero-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:32px;padding-top:40px;margin-top:60px;border-top:1px solid rgba(250,247,240,0.15);max-width:560px}
 .stat-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,247,240,0.5);margin-bottom:14px;display:block}
 .stat-value{font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:400;line-height:1;letter-spacing:-0.03em;display:block}
 .stat-detail{font-family:var(--font-mono);font-size:11px;color:var(--gold);margin-top:8px;letter-spacing:0.05em}
@@ -143,9 +137,7 @@ body[data-trip-phase="post"] .pre-only{display:none!important}
 
 /* ============ SECTIONS ============ */
 section.content{padding:80px 0;position:relative}
-.section-head{display:grid;grid-template-columns:200px 1fr;gap:48px;margin-bottom:60px;align-items:baseline}
-.section-num{font-family:var(--font-mono);font-size:12px;letter-spacing:0.18em;color:var(--ink-3);font-weight:500}
-.section-num::before{content:'§ ';color:var(--ink-3)}
+.section-head{margin-bottom:48px;max-width:760px}
 .section-title{font-family:var(--font-display);font-size:clamp(36px,5vw,56px);font-weight:400;line-height:1.05;letter-spacing:-0.025em;font-variation-settings:"opsz" 144}
 .section-title em{font-style:italic;color:var(--forest);font-weight:400}
 .section-desc{font-family:var(--font-display);font-size:19px;font-style:italic;color:var(--ink-2);max-width:560px;margin-top:16px;grid-column:2;line-height:1.45}
@@ -264,33 +256,37 @@ section.content{padding:80px 0;position:relative}
 #mainMap{width:100%;height:580px;background:#E8E0CB;font-family:var(--font-body)}
 @media (max-width:900px){#mainMap{height:480px}}
 @media (max-width:480px){#mainMap{height:420px}}
-.leaflet-container{font-family:var(--font-body);font-size:14px}
-.leaflet-control-attribution{font-family:var(--font-mono);font-size:10px;background:rgba(250,247,240,0.85)!important}
-.leaflet-control-zoom a{background:var(--canvas)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;font-family:var(--font-body);font-weight:500}
-.leaflet-control-zoom a:hover{background:var(--canvas-2)!important}
-.leaflet-control-layers{background:var(--canvas)!important;border:1px solid var(--rule)!important;border-radius:4px!important;box-shadow:0 4px 12px rgba(15,20,16,0.12)!important;font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.05em}
-.leaflet-control-layers-expanded{padding:12px 14px!important}
-.leaflet-control-layers-base label{font-family:var(--font-mono);font-size:11px;color:var(--ink);letter-spacing:0.05em;line-height:1.9;cursor:pointer}
-.marker-bubble{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;font-weight:600;box-shadow:0 4px 10px rgba(15,20,16,0.35);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer}
-.marker-bubble:hover,.marker-bubble.focused{transform:scale(1.12);box-shadow:0 6px 16px rgba(15,20,16,0.5)}
+.leaflet-container{font-family:var(--font-body);font-size:15px}
+.leaflet-control-attribution{font-family:var(--font-mono);font-size:11px;background:rgba(250,247,240,0.92)!important;padding:3px 8px!important}
+.leaflet-control-zoom a{background:var(--canvas)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;font-family:var(--font-body);font-weight:600;font-size:20px!important;width:36px!important;height:36px!important;line-height:34px!important}
+.leaflet-control-zoom a:hover,.leaflet-control-zoom a:active{background:var(--canvas-2)!important}
+@media (max-width:600px){.leaflet-control-zoom a{width:44px!important;height:44px!important;line-height:42px!important;font-size:24px!important}}
+.leaflet-control-layers{background:var(--canvas)!important;border:1px solid var(--rule)!important;border-radius:6px!important;box-shadow:0 4px 12px rgba(15,20,16,0.12)!important;font-family:var(--font-mono)!important;font-size:13px!important;letter-spacing:0.04em}
+.leaflet-control-layers-expanded{padding:14px 16px!important}
+.leaflet-control-layers-base label{font-family:var(--font-mono);font-size:13px;color:var(--ink);letter-spacing:0.04em;line-height:2;cursor:pointer;min-height:32px;display:flex;align-items:center;gap:6px}
+.leaflet-control-layers-toggle{width:44px!important;height:44px!important;background-size:24px 24px!important}
+.marker-bubble{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:16px;font-weight:700;box-shadow:0 4px 10px rgba(15,20,16,0.35);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer}
+.marker-bubble:hover,.marker-bubble.focused{transform:scale(1.15);box-shadow:0 6px 16px rgba(15,20,16,0.5)}
 .marker-bubble.dimmed{opacity:0.25;transform:scale(0.72)}
+@media (max-width:600px){.marker-bubble{width:48px;height:48px;font-size:18px;border-width:3px}}
 .leaflet-marker-icon{background:transparent!important;border:none!important}
 .leaflet-popup-content-wrapper{background:var(--canvas)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;border-radius:6px!important;box-shadow:0 24px 48px -8px rgba(15,20,16,0.35)!important;padding:4px}
 .leaflet-popup-tip{background:var(--canvas)!important;border:1px solid var(--rule)!important}
 .leaflet-popup-content{margin:18px 22px 16px!important;font-family:var(--font-body)!important;min-width:240px;max-width:300px}
-.lp-eyebrow{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;font-weight:500}
-.lp-title{font-family:var(--font-display);font-size:20px;font-weight:500;margin-bottom:10px;letter-spacing:-0.01em;line-height:1.2}
-.lp-notes{font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:14px}
-.lp-link{display:inline-flex;align-items:center;justify-content:space-between;width:100%;font-family:var(--font-mono);font-size:11px;color:var(--accent);text-decoration:none;letter-spacing:0.05em;border-top:1px solid var(--rule);padding-top:12px;font-weight:500;cursor:pointer}
+.lp-eyebrow{font-family:var(--font-mono);font-size:12px;color:var(--accent);letter-spacing:0.16em;text-transform:uppercase;margin-bottom:10px;font-weight:600}
+.lp-title{font-family:var(--font-display);font-size:22px;font-weight:500;margin-bottom:12px;letter-spacing:-0.01em;line-height:1.2}
+.lp-notes{font-size:15px;color:var(--ink-2);line-height:1.55;margin-bottom:16px}
+.lp-link{display:inline-flex;align-items:center;justify-content:space-between;width:100%;font-family:var(--font-mono);font-size:13px;color:var(--accent);text-decoration:none;letter-spacing:0.05em;border-top:1px solid var(--rule);padding-top:14px;font-weight:600;cursor:pointer;min-height:36px}
 .lp-link:hover{color:var(--accent-deep)}
 .lp-link::after{content:'→';margin-left:8px}
 .leaflet-popup-close-button{color:var(--ink-3)!important;font-size:20px!important;padding:8px 10px 0 0!important}
 .leaflet-popup-close-button:hover{color:var(--ink)!important;background:transparent!important}
 .map-controls{padding:18px 24px;background:var(--dark);border-top:1px solid rgba(217,164,65,0.15);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .map-controls-label{font-family:var(--font-mono);font-size:10px;color:rgba(250,247,240,0.5);letter-spacing:0.22em;text-transform:uppercase;margin-right:14px}
-.map-day-btn{font-family:var(--font-mono);font-size:11px;background:transparent;color:rgba(250,247,240,0.7);border:1px solid rgba(250,247,240,0.2);padding:8px 14px;border-radius:999px;cursor:pointer;transition:all 0.2s ease;letter-spacing:0.05em;font-weight:500}
-.map-day-btn:hover{background:rgba(250,247,240,0.08);color:var(--canvas);border-color:rgba(250,247,240,0.4)}
+.map-day-btn{font-family:var(--font-mono);font-size:13px;background:transparent;color:rgba(250,247,240,0.85);border:1px solid rgba(250,247,240,0.25);padding:10px 16px;border-radius:999px;cursor:pointer;transition:all 0.2s ease;letter-spacing:0.04em;font-weight:600;min-height:40px}
+.map-day-btn:hover,.map-day-btn:active{background:rgba(250,247,240,0.1);color:var(--canvas);border-color:rgba(250,247,240,0.5)}
 .map-day-btn.active{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+@media (max-width:600px){.map-day-btn{font-size:14px;padding:12px 18px;min-height:48px}}
 .map-legend{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);font-family:var(--font-mono)}
 .legend-item{display:flex;align-items:center;gap:10px}
 .legend-dot{width:16px;height:16px;border-radius:50%;background:var(--forest);border:2px solid var(--canvas);box-shadow:0 0 0 1px var(--rule)}
@@ -361,9 +357,20 @@ section.content{padding:80px 0;position:relative}
 .logistics-card.expanded .logistics-list li.hidden-extra{display:grid}
 .list-toggle{margin-top:14px;background:transparent;border:1px solid var(--rule);color:var(--ink-3);font-family:var(--font-mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;padding:10px 16px;border-radius:4px;cursor:pointer;width:100%;font-weight:600;transition:all 0.2s ease}
 .list-toggle:hover{background:var(--canvas-2);color:var(--ink)}
-.maps-link{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.06em;color:var(--accent);text-decoration:none;margin-left:8px;padding:2px 8px;border:1px solid var(--rule);border-radius:99px;background:var(--canvas-2);font-weight:600;white-space:nowrap}
-.maps-link:hover{background:var(--canvas-3);color:var(--accent-deep)}
+.maps-link{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);text-decoration:none;margin-left:8px;padding:6px 12px;border:1px solid var(--rule);border-radius:99px;background:var(--canvas-2);font-weight:600;white-space:nowrap;min-height:28px}
+.maps-link:hover,.maps-link:active{background:var(--accent);color:var(--canvas);border-color:var(--accent)}
 .maps-link::before{content:'📍'}
+@media (max-width:600px){.maps-link{font-size:12px;padding:8px 14px;min-height:36px;margin-left:0;margin-top:6px}}
+.tel-link{color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid var(--accent);padding:1px 0;white-space:nowrap}
+.tel-link:hover,.tel-link:active{color:var(--accent-deep);border-bottom-color:var(--accent-deep)}
+@media (max-width:600px){.tel-link{display:inline-block;padding:4px 0;font-size:14px}}
+
+/* ============ MOBILE STICKY BOTTOM NAV ============ */
+.thumb-nav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:200;background:rgba(14,26,20,0.96);backdrop-filter:saturate(140%) blur(8px);-webkit-backdrop-filter:saturate(140%) blur(8px);border-top:1px solid rgba(217,164,65,0.25);padding:8px 8px calc(8px + env(safe-area-inset-bottom));justify-content:space-around;gap:4px}
+.thumb-nav a{flex:1;display:flex;align-items:center;justify-content:center;text-decoration:none;color:rgba(250,247,240,0.65);font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;padding:14px 8px;min-height:48px;border-radius:6px;transition:color 0.15s,background 0.15s;position:relative}
+.thumb-nav a.active,.thumb-nav a:active{color:var(--gold);background:rgba(217,164,65,0.12)}
+.thumb-nav a.active::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:24px;height:2px;background:var(--gold);border-radius:1px}
+@media (max-width:760px){.thumb-nav{display:flex}body{padding-bottom:68px}}
 .pack-group{border-bottom:1px solid var(--rule-soft)}
 .pack-group:last-child{border-bottom:none}
 .pack-group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:transparent;border:none;padding:14px 0;cursor:pointer;font-family:var(--font-display);font-size:16px;font-weight:500;color:var(--ink);letter-spacing:-0.005em;text-align:left}
@@ -379,7 +386,7 @@ section.content{padding:80px 0;position:relative}
 .dining-tab{font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:none;padding:10px 22px;border-radius:999px;cursor:pointer;font-weight:600;transition:color 0.2s ease,background 0.2s ease;white-space:nowrap;min-width:130px;text-align:center}
 .dining-tab:hover{color:var(--ink)}
 .dining-tab.active{background:var(--ink);color:var(--canvas)}
-@media (max-width:560px){.dining-tabs{display:flex;width:100%;border-radius:6px}.dining-tab{flex:1;min-width:0;padding:10px 8px;font-size:10px;letter-spacing:0.08em}.dining-tab.active{border-radius:4px}}
+@media (max-width:560px){.dining-tabs{display:flex;width:100%;border-radius:8px}.dining-tab{flex:1;min-width:0;padding:14px 8px;font-size:12px;letter-spacing:0.08em;min-height:48px}.dining-tab.active{border-radius:6px}}
 .dining-list li[data-loc="jh"],.dining-list li[data-loc="wy"]{display:flex}
 body[data-dining-loc="jh"] .dining-list li[data-loc="wy"]{display:none}
 body[data-dining-loc="wy"] .dining-list li[data-loc="jh"]{display:none}
@@ -424,7 +431,7 @@ body[data-dining-loc="wy"] .dining-list li[data-loc="jh"]{display:none}
 .print-btn-wrap{padding:14px 0;text-align:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-bottom:16px}
 .print-btn{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;background:var(--ink);color:var(--canvas);padding:10px 22px;border:none;border-radius:4px;cursor:pointer;font-weight:600}
 .print-btn:hover{background:var(--accent)}
-@media print{.print-btn-wrap,.back-link,.page-label,.page-header{display:none!important}.print-sheet{padding:0;max-width:none}}
+@media print{.print-btn-wrap{display:none!important}.print-sheet{padding:0;max-width:none}}
 
 /* ============ NPS MAP OVERLAY ============ */
 .nps-section-head{margin-top:32px;padding-bottom:14px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
@@ -433,12 +440,13 @@ body[data-dining-loc="wy"] .dining-list li[data-loc="jh"]{display:none}
 .nps-section-head .sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase}
 .nps-map-wrap{position:relative;background:#F2EDDF;border-radius:6px;overflow:hidden;box-shadow:0 24px 56px -16px rgba(15,20,16,0.22);margin-bottom:48px}
 .nps-map-img{width:100%;display:block}
-.nps-map-marker{position:absolute;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FAF7F0;font-family:var(--font-mono);font-size:13px;font-weight:700;background:#2A4A2C;color:#FAF7F0;box-shadow:0 4px 12px rgba(15,20,16,0.4);transform:translate(-50%,-50%);cursor:default;transition:transform 0.18s ease,box-shadow 0.18s ease;z-index:2}
+.nps-map-marker{position:absolute;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FAF7F0;font-family:var(--font-mono);font-size:15px;font-weight:700;background:#2A4A2C;color:#FAF7F0;box-shadow:0 4px 12px rgba(15,20,16,0.5);transform:translate(-50%,-50%);cursor:pointer;transition:transform 0.18s ease,box-shadow 0.18s ease;z-index:2}
 .nps-map-marker.airport{background:#D9A441;color:#0F1410}
 .nps-map-marker.transit{background:#C44A1E}
-.nps-map-marker:hover{transform:translate(-50%,-50%) scale(1.18);box-shadow:0 6px 18px rgba(15,20,16,0.5);z-index:3}
-.nps-map-marker .tooltip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--canvas);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 10px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.18s ease;font-weight:500}
-.nps-map-marker:hover .tooltip{opacity:1}
+.nps-map-marker:hover,.nps-map-marker:focus,.nps-map-marker.tapped{transform:translate(-50%,-50%) scale(1.18);box-shadow:0 6px 18px rgba(15,20,16,0.6);z-index:4;outline:none}
+.nps-map-marker .tooltip{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--canvas);font-family:var(--font-mono);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;padding:8px 12px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.18s ease;font-weight:600;box-shadow:0 6px 14px rgba(0,0,0,0.4);max-width:220px;white-space:normal;text-align:center;line-height:1.3}
+.nps-map-marker:hover .tooltip,.nps-map-marker:focus .tooltip,.nps-map-marker.tapped .tooltip{opacity:1}
+@media (max-width:600px){.nps-map-marker{width:48px;height:48px;font-size:17px;border-width:3px}.nps-map-marker .tooltip{font-size:13px;padding:10px 14px;bottom:calc(100% + 12px)}}
 .nps-note{font-family:var(--font-display);font-style:italic;font-size:13px;color:var(--ink-2);background:var(--canvas-2);padding:14px 18px;border-radius:4px;border-left:3px solid var(--gold);margin-bottom:32px;line-height:1.55}
 .nps-credit{font-family:var(--font-mono);font-size:10px;color:var(--ink-3);letter-spacing:0.1em;margin-top:8px;text-align:right}
 
@@ -450,11 +458,6 @@ body[data-dining-loc="wy"] .dining-list li[data-loc="jh"]{display:none}
 .credits strong{color:rgba(250,247,240,0.75);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:10px}
 
 /* ============ PULL QUOTE & FOOTER ============ */
-.pull-quote{background:var(--ink);color:var(--canvas);padding:72px 64px;margin:0;position:relative;overflow:hidden}
-.pull-quote::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 20% 50%,rgba(74,101,65,0.3) 0%,transparent 60%);pointer-events:none}
-.pull-quote-inner{max-width:900px;margin:0 auto;position:relative;z-index:2}
-.pull-quote-mark{font-family:var(--font-display);font-size:64px;font-style:italic;line-height:1;color:var(--gold);font-weight:300;margin-bottom:14px}
-.pull-quote-text{font-family:var(--font-display);font-size:clamp(22px,2.8vw,32px);font-style:italic;font-weight:300;line-height:1.4;letter-spacing:-0.015em}
 footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;text-align:center}
 .footer-mark{width:40px;height:40px;border:1.5px solid var(--gold);border-radius:50%;margin:0 auto 20px;position:relative}
 .footer-mark::after{content:'';position:absolute;inset:6px;border:1px solid var(--gold);border-radius:50%}
@@ -468,7 +471,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
   .hero{padding:60px 0 60px}
   .hero-stats{grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
   section.content{padding:64px 0}
-  .section-head{grid-template-columns:1fr;gap:16px;margin-bottom:40px}
+  .section-head{margin-bottom:32px}
   .section-desc{grid-column:1;margin-top:8px}
   .lodging-grid,.logistics-grid,.booking-grid,.flights-grid,.shortlist-grid{grid-template-columns:1fr;gap:24px}
   .shortlist-stats{grid-template-columns:repeat(2,1fr)}
@@ -481,7 +484,6 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
   .stop-time-block{flex-direction:row;gap:10px;align-items:baseline}
   .vehicle-play{padding:22px}
   .vehicle-row{grid-template-columns:1fr;gap:4px;padding:10px 0}
-  .pull-quote{padding:48px 28px}
   .map-header{padding:14px 18px}
   .map-header-hint{display:none}
   .map-controls{padding:14px;gap:6px}
@@ -489,48 +491,88 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
   .home-nav{padding:56px 0 80px}
 }
 @media (max-width:480px){
-  h1{font-size:clamp(44px,15vw,72px)}
+  /* MOBILE: legible for 75-year-olds, big tap targets for 10-year-olds */
+  h1{font-size:clamp(40px,12vw,60px)}
   .hero-stats{grid-template-columns:1fr 1fr;gap:18px}
   .stat-value{font-size:36px}
-  .stat-detail{font-size:10px}
+  .stat-label{font-size:12px}
+  .stat-detail{font-size:12px}
   .home-nav-card{padding:24px 20px;min-height:auto}
-  .home-nav-card h2{font-size:24px}
-  .home-nav-card p{font-size:13px}
-  .home-nav-card .card-num{margin-bottom:14px}
+  .home-nav-card h2{font-size:22px}
+  .home-nav-card p{font-size:15px;line-height:1.5}
+  .home-nav-card .card-num{margin-bottom:14px;font-size:12px}
   .lodge{padding:24px 20px}
-  .lodge-name{font-size:28px;margin-bottom:18px}
-  .lodge-desc{font-size:14px;margin-bottom:20px}
+  .lodge-name{font-size:26px;margin-bottom:18px}
+  .lodge-desc{font-size:15px;margin-bottom:20px;line-height:1.55}
   .shortlist-card{padding:22px 18px;gap:12px}
-  .shortlist-name{font-size:26px}
-  .shortlist-tag{font-size:14px}
+  .shortlist-name{font-size:24px}
+  .shortlist-tag{font-size:15px;line-height:1.5}
   .shortlist-stats{gap:8px}
   .shortlist-stat-value{font-size:15px}
+  .shortlist-stat-label{font-size:11px}
   .dining-card,.logistics-card,.flight-card{padding:22px 20px}
   .dining-card h3,.logistics-card-title{font-size:22px;margin-bottom:18px}
-  .dining-card p.lede{font-size:14px;margin-bottom:16px}
-  .dining-list li,.logistics-list li{font-size:13px;padding:14px 0}
+  .dining-card p.lede{font-size:15px;margin-bottom:16px;line-height:1.55}
+  .dining-list li,.logistics-list li{font-size:15px;padding:18px 0;line-height:1.55;min-height:48px}
+  .dining-list li strong,.logistics-list li strong{font-size:16px;margin-bottom:4px}
   .day-header{padding:20px 22px}
   .day-body{padding:22px}
   .day-title{font-size:24px}
   .day-date{font-size:20px}
-  .day-narrative{font-size:15px;margin-bottom:18px}
-  .day-photo{height:140px}
+  .day-narrative{font-size:16px;margin-bottom:18px;line-height:1.55}
+  .day-photo{height:160px}
   .section-head{margin-bottom:28px}
-  .section-title{font-size:30px}
-  .section-desc{font-size:15px;margin-top:6px}
-  section.content{padding:48px 0}
-  .pull-quote{padding:36px 22px}
-  .pull-quote-mark{font-size:48px}
-  .pull-quote-text{font-size:20px}
-  .subpage-banner{height:140px}
+  .section-title{font-size:28px}
+  .section-desc{font-size:16px;margin-top:8px;line-height:1.55}
+  section.content{padding:40px 0}
+  .subpage-banner{height:100px;padding-bottom:18px}
   .subpage-banner h1{font-size:24px}
-  .subpage-banner .eyebrow{font-size:10px;margin-bottom:8px}
+  .subpage-banner .eyebrow{font-size:12px;margin-bottom:6px}
+  .subpage-banner .wrap{padding-bottom:14px;padding-top:14px}
+  .overview-row .what{font-size:16px;line-height:1.5}
+  .overview-row .num{font-size:12px}
+  .overview-cta a{font-size:12px}
+  .hero-eyebrow{font-size:12px}
+  .hero-lede{font-size:16px;line-height:1.55}
+  .home-overview-eyebrow,.home-nav-eyebrow{font-size:12px}
+  .home-overview-title,.home-nav-title{font-size:28px}
+  .today-card-eyebrow{font-size:12px}
+  .today-card-day{font-size:14px}
+  .today-card-title{font-size:22px}
+  .today-card-narrative{font-size:15px;line-height:1.55}
+  .arrow{font-size:24px}
+  /* Tap targets */
+  .day-toggle{min-height:48px;font-size:14px}
+  .list-toggle,.shortlist-toggle,.pack-group-toggle{min-height:48px;font-size:14px}
+  .dining-tab{min-height:48px;font-size:12px;padding:12px 8px}
+  .shortlist-cta{min-height:48px;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+  /* Footer */
+  footer{font-size:13px}
+}
+@media (max-width:480px){
+  /* Floor key mono labels at 12px so 75-year-olds can read them */
+  .dining-card-eyebrow,.lodge-stamp,.shortlist-eyebrow,.shortlist-sub,
+  .flight-stamp,.flight-pax,.map-header-title,.day-meta,
+  .nps-section-head .sub,.vehicle-play-header,.vehicle-tag,
+  .map-controls-label,.booking-tier-label,.lp-eyebrow,
+  .trip-itinerary-header .sub,.booking-guide-header .sub{font-size:12px;letter-spacing:0.12em}
+  .top-nav-brand{font-size:12px}
+  .flight-leg-meta,.flight-layover,.stop-duration,.pack-count{font-size:11px}
+}
+@media (max-width:380px){
+  /* Smallest phones — still readable */
+  h1{font-size:clamp(36px,11vw,48px)}
+  .section-title{font-size:26px}
+  .home-overview-title,.home-nav-title{font-size:26px}
+  .day-title{font-size:22px}
+  .home-nav-card h2{font-size:20px}
 }
 @media print{
   body{background:white;padding-top:0}
-  .top-nav,.hamburger,.mobile-menu,.mobile-menu-backdrop{display:none}
+  .top-nav,.hamburger,.mobile-menu,.mobile-menu-backdrop,.thumb-nav{display:none}
+  body{padding-bottom:0!important}
   .page{display:block!important}
-  .hero,.pull-quote,.vehicle-play,footer{background:white!important;color:var(--ink)!important}
+  .hero,.vehicle-play,footer{background:white!important;color:var(--ink)!important}
   .day-card{page-break-inside:avoid;border:1px solid #999}
   #mainMap{display:none}
   .leaflet-container{display:none}
@@ -586,8 +628,6 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="wrap hero-stats">
 <div><span class="stat-label" id="countdownLabel">Countdown</span><span class="stat-value" id="countdownNum">—</span><span class="stat-detail" id="countdownDetail">to Jackson</span></div>
 <div><span class="stat-label">Nights</span><span class="stat-value">7</span><span class="stat-detail">Aug 22 → 28</span></div>
-<div><span class="stat-label">Bases</span><span class="stat-value">2</span><span class="stat-detail">Jackson · W. Yellowstone</span></div>
-<div><span class="stat-label">Vehicles</span><span class="stat-value">2</span><span class="stat-detail">JAC → BZN one-way</span></div>
 </div>
 </header>
 
@@ -629,43 +669,43 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 <div class="home-nav-grid">
 <a class="home-nav-card" href="#trip" data-page="trip">
-<div class="card-num">01 · Trip</div>
+<div class="card-num">Trip</div>
 <h2>Map &amp; itinerary</h2>
 <p>Interactive map of every stop. Day-by-day plan. Click a day to see only that route on the map.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#nps" data-page="nps">
-<div class="card-num">02 · Park Maps</div>
+<div class="card-num">Park Maps</div>
 <h2>Official park maps</h2>
 <p>Itinerary overlaid on the official NPS Grand Teton and Yellowstone brochure maps. A different way to see the route.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#dining" data-page="dining">
-<div class="card-num">03 · Food &amp; Dining</div>
+<div class="card-num">Food &amp; Dining</div>
 <h2>Where you'll eat</h2>
 <p>Sit-down dinner every night — Jackson and West Yellowstone. Plus takeout and delivery picks for the easy nights.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#lodging" data-page="lodging">
-<div class="card-num">04 · Lodging</div>
+<div class="card-num">Lodging</div>
 <h2>Where you'll sleep</h2>
 <p>Stay One in Jackson, Stay Two in West Yellowstone. Shortlisted properties for both, plus full booking guide.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#flights" data-page="flights">
-<div class="card-num">05 · Flights</div>
+<div class="card-num">Flights</div>
 <h2>Air travel</h2>
 <p>Detroit → Jackson Hole outbound. Bozeman returns split between Detroit and California.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#bookings" data-page="bookings">
-<div class="card-num">06 · Bookings</div>
+<div class="card-num">Bookings</div>
 <h2>What to book now</h2>
 <p>Priority checklist of activities, vehicles, dinners. Ordered by urgency.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#prep" data-page="prep">
-<div class="card-num">07 · Prep</div>
+<div class="card-num">Prep</div>
 <h2>Trip prep</h2>
 <p>Vehicle ops, bear safety briefing, weather expectations, packing checklist. Read once before flying.</p>
 <div class="arrow">→</div>
@@ -674,26 +714,14 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 </section>
 
-<div class="pull-quote">
-<div class="wrap pull-quote-inner">
-<div class="pull-quote-mark">"</div>
-<p class="pull-quote-text">Mornings outside together. Afternoons to wander or rest. A small group splits off when someone wants the harder hike or the dawn wildlife run, and we all find each other again for dinner.</p>
-</div>
-</div>
 </div>
 
 <!-- ============ LODGING PAGE ============ -->
 <div class="page" id="page-lodging">
-<section class="subpage-banner" style="background-image:url('img/hero-tetons.jpg')"><div class="wrap"><div class="eyebrow">04 · Lodging</div><h1>Where you'll <em>sleep</em></h1></div></section>
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">04 · Lodging</span>
-</div>
-</div>
+<section class="subpage-banner" style="background-image:url('img/hero-tetons.jpg')"><div class="wrap"><div class="eyebrow">Lodging</div><h1>Where you'll sleep</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><span class="section-num">04</span><div><h2 class="section-title">Where you'll <em>sleep</em></h2><p class="section-desc">Two large vacation rentals, three lodging changes avoided, all luggage moves on one day.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">Where you'll sleep</h2><p class="section-desc">Two large vacation rentals, three lodging changes avoided, all luggage moves on one day.</p></div></div>
 <div class="lodging-grid">
 <div class="lodge">
 <div class="lodge-stamp"><span class="lodge-stamp-dot"></span>Stay One</div>
@@ -859,16 +887,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <!-- ============ FLIGHTS PAGE ============ -->
 <div class="page" id="page-flights">
-<section class="subpage-banner" style="background-image:url('img/day1-arrival.jpg')"><div class="wrap"><div class="eyebrow">05 · Flights</div><h1>Air <em>travel</em></h1></div></section>
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">05 · Flights</span>
-</div>
-</div>
+<section class="subpage-banner" style="background-image:url('img/day1-arrival.jpg')"><div class="wrap"><div class="eyebrow">Flights</div><h1>Air travel</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><span class="section-num">05</span><div><h2 class="section-title">The <em>flights</em></h2><p class="section-desc">Nine fly DTW → JAC together on Aug 22. Three join from California (arriving similar times). Aug 29 splits four to Detroit, eight to California.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">The flights</h2><p class="section-desc">Nine fly DTW → JAC together on Aug 22. Three join from California (arriving similar times). Aug 29 splits four to Detroit, eight to California.</p></div></div>
 <div class="flights-grid">
 
 <div class="flight-card outbound">
@@ -926,16 +948,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <!-- ============ TRIP PAGE (Map + Itinerary) ============ -->
 <div class="page" id="page-trip">
-<section class="subpage-banner" style="background-image:url('img/day8-bison.jpg')"><div class="wrap"><div class="eyebrow">01 · Trip</div><h1>Map &amp; <em>itinerary</em></h1></div></section>
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">01 · Trip · Map &amp; Itinerary</span>
-</div>
-</div>
+<section class="subpage-banner" style="background-image:url('img/day8-bison.jpg')"><div class="wrap"><div class="eyebrow">Trip</div><h1>Map &amp; itinerary</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><span class="section-num">01</span><div><h2 class="section-title">Map &amp; <em>itinerary</em></h2><p class="section-desc">Click any day below the map (or any day filter pill) to see only that day's route. Click "All Days" to see the full arc from JAC to BZN.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">Map &amp; itinerary</h2><p class="section-desc">Click any day below the map (or any day filter pill) to see only that day's route. Click "All Days" to see the full arc from JAC to BZN.</p></div></div>
 <div class="map-section-wrap">
 <div class="map-header"><span class="map-header-title">⊕ JAC to BZN · 8 days · 14 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
 <div class="map-canvas" id="mapCanvas">
@@ -962,27 +978,21 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <!-- ============ NPS MAP OVERLAY PAGE ============ -->
 <div class="page" id="page-nps">
-<section class="subpage-banner" style="background-image:url('img/day6-old-faithful.jpg')"><div class="wrap"><div class="eyebrow">02 · Park Maps</div><h1>Park <em>brochures</em></h1></div></section>
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">02 · Park Maps</span>
-</div>
-</div>
+<section class="subpage-banner" style="background-image:url('img/day6-old-faithful.jpg')"><div class="wrap"><div class="eyebrow">Park Maps</div><h1>Park brochures</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><span class="section-num">02</span><div><h2 class="section-title">Park <em>brochure maps</em></h2><p class="section-desc">Itinerary stops overlaid on the official NPS brochure maps. A different way to see the route than the live Leaflet map. Hover any marker for details.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">Park brochure maps</h2><p class="section-desc">Itinerary stops overlaid on the official NPS brochure maps. A different way to see the route than the live Leaflet map. Hover any marker for details.</p></div></div>
 
 <div class="nps-note">Marker positions are calculated from real lat/lng but mapped to the published park brochures, so placement is approximate — within a few miles. The Leaflet map on the Trip page remains the source of truth for precise location.</div>
 
-<div class="nps-section-head"><h3>Grand Teton <em>National Park</em></h3><div class="sub">Days 01 – 04 · Aug 22 – 25</div></div>
+<div class="nps-section-head"><h3>Grand Teton National Park</h3><div class="sub">Days 01 – 04 · Aug 22 – 25</div></div>
 <div class="nps-map-wrap" id="npsTetonWrap">
 <img class="nps-map-img" id="npsTetonImg" src="img/nps-grand-teton.jpg" alt="Grand Teton National Park official NPS brochure map"/>
 <div id="npsTetonMarkers"></div>
 </div>
 <div class="nps-credit">Map © U.S. National Park Service · hosted by NPMaps.com</div>
 
-<div class="nps-section-head" style="margin-top:48px"><h3>Yellowstone <em>National Park</em></h3><div class="sub">Days 05 – 07 · Aug 26 – 28</div></div>
+<div class="nps-section-head" style="margin-top:48px"><h3>Yellowstone National Park</h3><div class="sub">Days 05 – 07 · Aug 26 – 28</div></div>
 <div class="nps-map-wrap" id="npsYellowWrap">
 <img class="nps-map-img" id="npsYellowImg" src="img/nps-yellowstone.jpg" alt="Yellowstone National Park official NPS brochure map"/>
 <div id="npsYellowMarkers"></div>
@@ -995,16 +1005,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <!-- ============ DINING PAGE ============ -->
 <div class="page" id="page-dining">
-<section class="subpage-banner" style="background-image:url('img/day7-lower-falls.jpg')"><div class="wrap"><div class="eyebrow">03 · Food &amp; Dining</div><h1>Where you'll <em>eat</em></h1></div></section>
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">03 · Food &amp; Dining</span>
-</div>
-</div>
+<section class="subpage-banner" style="background-image:url('img/day7-lower-falls.jpg')"><div class="wrap"><div class="eyebrow">Food &amp; Dining</div><h1>Where you'll eat</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><span class="section-num">03</span><div><h2 class="section-title">Food &amp; <em>restaurants</em></h2><p class="section-desc">A relaxed sit-down dinner every night, and a great boxed lunch from the local deli on the way into the parks. The two anchor nights — Dadu's 75th at Glorietta, Rakhi at the rental — set the rest of the week.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">Food &amp; restaurants</h2><p class="section-desc">A relaxed sit-down dinner every night, and a great boxed lunch from the local deli on the way into the parks. The two anchor nights — Dadu's 75th at Glorietta, Rakhi at the rental — set the rest of the week.</p></div></div>
 
 <div class="dining-grid">
 
@@ -1077,16 +1081,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <!-- ============ BOOKINGS PAGE ============ -->
 <div class="page" id="page-bookings">
-<section class="subpage-banner" style="background-image:url('img/day3-hidden-falls.jpg')"><div class="wrap"><div class="eyebrow">06 · Bookings</div><h1>What to <em>book now</em></h1></div></section>
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">06 · Bookings</span>
-</div>
-</div>
+<section class="subpage-banner" style="background-image:url('img/day3-hidden-falls.jpg')"><div class="wrap"><div class="eyebrow">Bookings</div><h1>What to book now</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><span class="section-num">06</span><div><h2 class="section-title">What to <em>book now</em></h2><p class="section-desc">What needs to be booked, with the operators we trust. A few things move fast in late August — Glorietta's private room, the rentals — so those go first.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">What to book now</h2><p class="section-desc">What needs to be booked, with the operators we trust. A few things move fast in late August — Glorietta's private room, the rentals — so those go first.</p></div></div>
 
 <div class="logistics-grid">
 <div class="logistics-card bookings"><h3 class="logistics-card-title">Booking priority — urgency order</h3>
@@ -1183,16 +1181,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <!-- ============ PREP PAGE ============ -->
 <div class="page" id="page-prep">
-<section class="subpage-banner" style="background-image:url('img/day5-west-thumb.jpg')"><div class="wrap"><div class="eyebrow">07 · Prep</div><h1>Trip <em>prep</em></h1></div></section>
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">07 · Prep</span>
-</div>
-</div>
+<section class="subpage-banner" style="background-image:url('img/day5-west-thumb.jpg')"><div class="wrap"><div class="eyebrow">Prep</div><h1>Trip prep</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><span class="section-num">07</span><div><h2 class="section-title">Trip <em>prep</em></h2><p class="section-desc">A few things worth knowing before we fly out — how the two cars work together, bear safety for the kids, what to pack, and what the weather will probably do.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">Trip prep</h2><p class="section-desc">A few things worth knowing before we fly out — how the two cars work together, bear safety for the kids, what to pack, and what the weather will probably do.</p></div></div>
 
 <div class="logistics-grid">
 
@@ -1278,12 +1270,6 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <!-- ============ PRINT PAGE ============ -->
 <div class="page" id="page-print">
-<div class="page-header">
-<div class="page-header-inner">
-<a class="back-link" href="#home">← Home</a>
-<span class="page-label">Print · One-pager</span>
-</div>
-</div>
 <div class="print-sheet">
 <div class="print-btn-wrap"><button class="print-btn" onclick="window.print()">⎙ Print this page</button></div>
 <div class="print-header">
@@ -1710,8 +1696,22 @@ function placeNpsMarkers(){
       div.style.left=x.toFixed(2)+'%';
       div.style.top=y.toFixed(2)+'%';
       div.innerHTML=`${s.day}<span class="tooltip">Day ${String(s.day).padStart(2,'0')} · ${s.name}</span>`;
+      div.tabIndex=0;
+      div.addEventListener('click',e=>{
+        e.stopPropagation();
+        const wasOpen=div.classList.contains('tapped');
+        container.querySelectorAll('.nps-map-marker.tapped').forEach(m=>m.classList.remove('tapped'));
+        if(!wasOpen)div.classList.add('tapped');
+      });
       container.appendChild(div);
     });
+    // Click anywhere else dismisses
+    if(!container._dismissBound){
+      document.addEventListener('click',()=>{
+        container.querySelectorAll('.nps-map-marker.tapped').forEach(m=>m.classList.remove('tapped'));
+      });
+      container._dismissBound=true;
+    }
   }
   const tetonContainer=document.getElementById('npsTetonMarkers');
   const yellowContainer=document.getElementById('npsYellowMarkers');
@@ -1796,6 +1796,38 @@ document.querySelectorAll('.shortlist-card').forEach(card=>{
   });
   card.appendChild(toggle);
 });
+
+// ============ TEL: AUTO-LINK — make every phone number tappable on mobile ============
+(function(){
+  const phoneRe=/(\d{3}-\d{3}-\d{4})/g;
+  // Scan dining lists, bookings/activities lists, and all tables on the print page
+  const scopes=document.querySelectorAll('.dining-list li, .logistics-list li, table');
+  scopes.forEach(scope=>{
+    const walker=document.createTreeWalker(scope,NodeFilter.SHOW_TEXT,{
+      acceptNode:n=>(n.parentNode&&(n.parentNode.tagName==='A'||n.parentNode.tagName==='SCRIPT'||n.parentNode.tagName==='STYLE'))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT
+    });
+    const textNodes=[]; let n;
+    while(n=walker.nextNode())textNodes.push(n);
+    textNodes.forEach(node=>{
+      const txt=node.textContent;
+      if(!phoneRe.test(txt))return;
+      phoneRe.lastIndex=0;
+      const frag=document.createDocumentFragment();
+      let last=0,m;
+      while((m=phoneRe.exec(txt))!==null){
+        if(m.index>last)frag.appendChild(document.createTextNode(txt.slice(last,m.index)));
+        const a=document.createElement('a');
+        a.className='tel-link';
+        a.href='tel:+1'+m[0].replace(/-/g,'');
+        a.textContent=m[0];
+        frag.appendChild(a);
+        last=phoneRe.lastIndex;
+      }
+      if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
+      node.parentNode.replaceChild(frag,node);
+    });
+  });
+})();
 
 // ============ MAP DEEP-LINKING — append "📍 Map" to known places ============
 (function(){
@@ -1916,6 +1948,25 @@ document.querySelectorAll('.dining-tab').forEach(btn=>{
 
 // ============ INIT ============
 handleHash();
+
+// ============ THUMB NAV — sync active state with current page ============
+(function(){
+  function syncThumbNav(){
+    const cur=(location.hash||'#home').replace(/^#/,'');
+    document.querySelectorAll('.thumb-nav a').forEach(a=>{
+      const target=a.getAttribute('href').replace(/^#/,'');
+      a.classList.toggle('active',target===cur);
+    });
+  }
+  syncThumbNav();
+  window.addEventListener('hashchange',syncThumbNav);
+})();
 </script>
+<nav class="thumb-nav" aria-label="Quick navigation">
+<a href="#home"><span>Home</span></a>
+<a href="#trip"><span>Trip</span></a>
+<a href="#dining"><span>Dining</span></a>
+<a href="#bookings"><span>Bookings</span></a>
+</nav>
 </body>
 </html>
