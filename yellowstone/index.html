@@ -71,20 +71,17 @@ h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:
 h1 .italic{font-style:italic;color:var(--gold);font-weight:300}
 .home-nav-title em,.home-overview-title em,.shortlist-title em,.booking-guide-header h3 em,.trip-itinerary-header h3 em,.nps-section-head h3 em{color:var(--forest)}
 .hero-lede{font-family:var(--font-display);font-size:clamp(20px,2.3vw,28px);font-weight:300;font-style:italic;line-height:1.4;max-width:760px;color:rgba(250,247,240,0.95);letter-spacing:-0.01em;text-shadow:0 2px 16px rgba(0,0,0,0.3)}
-.hero-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:32px;padding-top:40px;margin-top:60px;border-top:1px solid rgba(250,247,240,0.15);max-width:560px}
-.stat-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,247,240,0.5);margin-bottom:14px;display:block}
-.stat-value{font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:400;line-height:1;letter-spacing:-0.03em;display:block}
-.stat-detail{font-family:var(--font-mono);font-size:11px;color:var(--gold);margin-top:8px;letter-spacing:0.05em}
-#countdownNum{color:var(--gold)}
-.hero-stats>div:first-child .stat-value{color:var(--gold)}
+.hero-countdown{position:relative;z-index:2;padding-top:36px;margin-top:48px;border-top:1px solid rgba(250,247,240,0.15);display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.countdown-label{font-family:var(--font-mono);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(250,247,240,0.55)}
+.countdown-num{font-family:var(--font-display);font-size:clamp(72px,12vw,140px);font-weight:300;line-height:0.95;letter-spacing:-0.04em;color:var(--gold);text-shadow:0 4px 24px rgba(0,0,0,0.35)}
+.countdown-detail{font-family:var(--font-mono);font-size:13px;color:var(--gold);letter-spacing:0.08em;opacity:0.85}
 
 /* ============ PHASE-AWARE HOME ============ */
 body:not([data-trip-phase="during"]) .during-only{display:none!important}
-body:not([data-trip-phase="post"]) .post-only{display:none!important}
 body[data-trip-phase="during"] .pre-only{display:none!important}
 body[data-trip-phase="post"] .pre-only{display:none!important}
 .today-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
-@media (max-width:700px){.today-pair{grid-template-columns:1fr}}
+@media (max-width:600px){.today-pair{grid-template-columns:1fr}}
 .today-card{background:var(--canvas);border:1px solid var(--rule);border-radius:8px;padding:32px 28px;position:relative;overflow:hidden}
 .today-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent)}
 .today-card-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:600}
@@ -110,11 +107,11 @@ body[data-trip-phase="post"] .pre-only{display:none!important}
 .overview-row .date{font-family:var(--font-mono);font-size:12px;color:var(--ink-3);letter-spacing:0.04em}
 .overview-row .what{font-family:var(--font-display);font-size:17px;color:var(--ink);line-height:1.4;letter-spacing:-0.005em}
 .overview-row .what strong{font-weight:500}
-@media (max-width:700px){.overview-row{grid-template-columns:60px 1fr;gap:16px;padding:14px 18px}.overview-row .date{display:none}.overview-row .what{font-size:15px}}
+@media (max-width:600px){.overview-row{grid-template-columns:60px 1fr;gap:16px;padding:14px 18px}.overview-row .date{display:none}.overview-row .what{font-size:15px}}
 .overview-cta{padding:18px 28px;text-align:right;background:var(--canvas-2);border-top:1px solid var(--rule-soft)}
 .overview-cta a{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid transparent;transition:border-color 0.18s}
 .overview-cta a:hover{border-bottom-color:var(--accent)}
-@media (max-width:700px){.overview-cta{padding:14px 18px;text-align:center}.overview-cta a{font-size:10px}}
+@media (max-width:600px){.overview-cta{padding:14px 18px;text-align:center}.overview-cta a{font-size:12px}}
 
 /* ============ HOME NAV CARDS ============ */
 .home-nav{padding:96px 0 120px;background:var(--canvas)}
@@ -125,6 +122,10 @@ body[data-trip-phase="post"] .pre-only{display:none!important}
 .home-nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 @media (max-width:1000px){.home-nav-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.home-nav-grid{grid-template-columns:1fr}}
+.home-nav-also{margin-top:36px;padding-top:24px;border-top:1px solid var(--rule);font-family:var(--font-mono);font-size:13px;letter-spacing:0.04em;color:var(--ink-3);text-align:center}
+.home-nav-also a{color:var(--ink-2);text-decoration:none;font-weight:600;padding:6px 4px;display:inline-block;min-height:32px;line-height:20px}
+.home-nav-also a:hover{color:var(--accent)}
+@media (max-width:600px){.home-nav-also{font-size:14px;line-height:2;margin-top:28px;padding-top:20px}.home-nav-also a{padding:8px 6px;min-height:36px}}
 .home-nav-card{display:flex;flex-direction:column;padding:36px 32px;background:var(--canvas);border:1px solid var(--rule);border-radius:6px;text-decoration:none;color:inherit;transition:transform 0.25s ease,box-shadow 0.25s ease,border-color 0.25s ease;position:relative;overflow:hidden;min-height:240px;cursor:pointer}
 .home-nav-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest);transition:background 0.25s ease}
 .home-nav-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -16px rgba(15,20,16,0.18);border-color:var(--accent)}
@@ -200,11 +201,17 @@ section.content{padding:80px 0;position:relative}
 .shortlist-cta::after{content:'→';font-size:13px}
 
 /* ============ BOOKING GUIDE (now subsection of Lodging) ============ */
-.booking-guide-header{margin-top:80px;padding-bottom:18px;border-bottom:1px solid var(--rule)}
-.booking-guide-header h3{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1.1}
-.booking-guide-header h3 em{font-style:italic;color:var(--accent);font-weight:400}
-.booking-guide-header .sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase;margin-top:8px}
-.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:32px}
+.marketplace-details{margin-top:48px;border:1px solid var(--rule);border-radius:8px;background:var(--canvas);overflow:hidden}
+.marketplace-summary{cursor:pointer;padding:22px 28px;display:flex;align-items:center;gap:18px;list-style:none;font-family:var(--font-display);transition:background 0.2s ease;min-height:60px}
+.marketplace-summary::-webkit-details-marker{display:none}
+.marketplace-summary:hover{background:var(--canvas-2)}
+.marketplace-summary-label{font-size:18px;font-weight:500;color:var(--ink);letter-spacing:-0.01em;flex-shrink:0}
+.marketplace-summary-hint{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600;flex:1}
+.marketplace-summary-icon{font-family:var(--font-mono);font-size:22px;color:var(--accent);font-weight:300;transition:transform 0.25s ease}
+.marketplace-details[open] .marketplace-summary-icon{transform:rotate(45deg)}
+.marketplace-details[open] .marketplace-summary{border-bottom:1px solid var(--rule);background:var(--canvas-2)}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:28px}
+@media (max-width:900px){.booking-grid{grid-template-columns:1fr;gap:32px;padding:24px}.marketplace-summary{padding:18px 22px;flex-wrap:wrap;gap:8px}.marketplace-summary-hint{font-size:10px;width:100%;order:3}.marketplace-summary-icon{order:2;margin-left:auto}}
 .booking-col{display:flex;flex-direction:column;gap:32px}
 .booking-area-header{font-family:var(--font-display);font-size:28px;font-weight:500;letter-spacing:-0.02em;line-height:1.1;padding-bottom:16px;border-bottom:1px solid var(--rule)}
 .booking-area-header em{font-style:italic;color:var(--accent);font-weight:400}
@@ -266,7 +273,7 @@ section.content{padding:80px 0;position:relative}
 .leaflet-control-layers-base label{font-family:var(--font-mono);font-size:13px;color:var(--ink);letter-spacing:0.04em;line-height:2;cursor:pointer;min-height:32px;display:flex;align-items:center;gap:6px}
 .leaflet-control-layers-toggle{width:44px!important;height:44px!important;background-size:24px 24px!important}
 .marker-bubble{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:16px;font-weight:700;box-shadow:0 4px 10px rgba(15,20,16,0.35);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer}
-.marker-bubble:hover,.marker-bubble.focused{transform:scale(1.15);box-shadow:0 6px 16px rgba(15,20,16,0.5)}
+.marker-bubble:hover{transform:scale(1.15);box-shadow:0 6px 16px rgba(15,20,16,0.5)}
 .marker-bubble.dimmed{opacity:0.25;transform:scale(0.72)}
 @media (max-width:600px){.marker-bubble{width:48px;height:48px;font-size:18px;border-width:3px}}
 .leaflet-marker-icon{background:transparent!important;border:none!important}
@@ -357,10 +364,6 @@ section.content{padding:80px 0;position:relative}
 .logistics-card.expanded .logistics-list li.hidden-extra{display:grid}
 .list-toggle{margin-top:14px;background:transparent;border:1px solid var(--rule);color:var(--ink-3);font-family:var(--font-mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;padding:10px 16px;border-radius:4px;cursor:pointer;width:100%;font-weight:600;transition:all 0.2s ease}
 .list-toggle:hover{background:var(--canvas-2);color:var(--ink)}
-.maps-link{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;color:var(--accent);text-decoration:none;margin-left:8px;padding:6px 12px;border:1px solid var(--rule);border-radius:99px;background:var(--canvas-2);font-weight:600;white-space:nowrap;min-height:28px}
-.maps-link:hover,.maps-link:active{background:var(--accent);color:var(--canvas);border-color:var(--accent)}
-.maps-link::before{content:'📍'}
-@media (max-width:600px){.maps-link{font-size:12px;padding:8px 14px;min-height:36px;margin-left:0;margin-top:6px}}
 .tel-link{color:var(--accent);text-decoration:none;font-weight:600;border-bottom:1px solid var(--accent);padding:1px 0;white-space:nowrap}
 .tel-link:hover,.tel-link:active{color:var(--accent-deep);border-bottom-color:var(--accent-deep)}
 @media (max-width:600px){.tel-link{display:inline-block;padding:4px 0;font-size:14px}}
@@ -382,11 +385,13 @@ section.content{padding:80px 0;position:relative}
 .pack-group .pack-list li{padding-left:22px}
 
 /* ============ DINING ============ */
-.dining-tabs{display:inline-flex;gap:0;margin:0 0 36px;padding:4px;background:var(--canvas-2);border-radius:999px;border:1px solid var(--rule)}
-.dining-tab{font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:none;padding:10px 22px;border-radius:999px;cursor:pointer;font-weight:600;transition:color 0.2s ease,background 0.2s ease;white-space:nowrap;min-width:130px;text-align:center}
+.dining-filter{display:flex;align-items:center;gap:14px;margin:0 0 36px;flex-wrap:wrap}
+.dining-filter-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.dining-tabs{display:inline-flex;gap:0;padding:4px;background:var(--canvas-2);border-radius:999px;border:1px solid var(--rule)}
+.dining-tab{font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);background:transparent;border:none;padding:10px 18px;border-radius:999px;cursor:pointer;font-weight:600;transition:color 0.2s ease,background 0.2s ease;white-space:nowrap;text-align:center}
 .dining-tab:hover{color:var(--ink)}
 .dining-tab.active{background:var(--ink);color:var(--canvas)}
-@media (max-width:560px){.dining-tabs{display:flex;width:100%;border-radius:8px}.dining-tab{flex:1;min-width:0;padding:14px 8px;font-size:12px;letter-spacing:0.08em;min-height:48px}.dining-tab.active{border-radius:6px}}
+@media (max-width:600px){.dining-filter{flex-direction:column;align-items:stretch;gap:10px}.dining-filter-label{align-self:flex-start}.dining-tabs{display:flex;width:100%;border-radius:8px}.dining-tab{flex:1;padding:14px 8px;font-size:12px;letter-spacing:0.08em;min-height:48px}.dining-tab.active{border-radius:6px}}
 .dining-list li[data-loc="jh"],.dining-list li[data-loc="wy"]{display:flex}
 body[data-dining-loc="jh"] .dining-list li[data-loc="wy"]{display:none}
 body[data-dining-loc="wy"] .dining-list li[data-loc="jh"]{display:none}
@@ -459,8 +464,8 @@ body[data-dining-loc="wy"] .dining-list li[data-loc="jh"]{display:none}
 
 /* ============ PULL QUOTE & FOOTER ============ */
 footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;text-align:center}
-.footer-mark{width:40px;height:40px;border:1.5px solid var(--gold);border-radius:50%;margin:0 auto 20px;position:relative}
-.footer-mark::after{content:'';position:absolute;inset:6px;border:1px solid var(--gold);border-radius:50%}
+.footer-mark{width:48px;height:48px;margin:0 auto 20px;display:block;opacity:0.95;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.4))}
+.brand-mark{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:8px;flex-shrink:0;opacity:0.9}
 .footer-title{font-family:var(--font-display);font-size:22px;font-style:italic;font-weight:300;color:var(--canvas);margin-bottom:10px;letter-spacing:-0.01em}
 .footer-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase}
 .footer-divider{color:rgba(250,247,240,0.3);margin:0 12px}
@@ -469,7 +474,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 @media (max-width:900px){
   .wrap{padding:0 24px}
   .hero{padding:60px 0 60px}
-  .hero-stats{grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
+  .hero-countdown{margin-top:36px;padding-top:28px;gap:8px}
   section.content{padding:64px 0}
   .section-head{margin-bottom:32px}
   .section-desc{grid-column:1;margin-top:8px}
@@ -493,10 +498,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 @media (max-width:480px){
   /* MOBILE: legible for 75-year-olds, big tap targets for 10-year-olds */
   h1{font-size:clamp(40px,12vw,60px)}
-  .hero-stats{grid-template-columns:1fr 1fr;gap:18px}
-  .stat-value{font-size:36px}
-  .stat-label{font-size:12px}
-  .stat-detail{font-size:12px}
+  .countdown-num{font-size:clamp(64px,18vw,96px)}
+  .countdown-detail{font-size:12px}
   .home-nav-card{padding:24px 20px;min-height:auto}
   .home-nav-card h2{font-size:22px}
   .home-nav-card p{font-size:15px;line-height:1.5}
@@ -621,13 +624,14 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="page active" id="page-home">
 <header class="hero">
 <div class="wrap hero-content">
-<div class="hero-eyebrow">August 22 – 29, 2026</div>
+<div class="hero-eyebrow">Aug 22 – 29, 2026 · 7 nights</div>
 <h1>2026 Makharia<br><span class="italic">Family Reunion</span></h1>
-<p class="hero-lede">Eight days, three generations, two parks. The whole family meeting in Jackson, weaving north through Yellowstone, and flying home from Bozeman.</p>
+<p class="hero-lede">Eight days, three generations, two parks.</p>
 </div>
-<div class="wrap hero-stats">
-<div><span class="stat-label" id="countdownLabel">Countdown</span><span class="stat-value" id="countdownNum">—</span><span class="stat-detail" id="countdownDetail">to Jackson</span></div>
-<div><span class="stat-label">Nights</span><span class="stat-value">7</span><span class="stat-detail">Aug 22 → 28</span></div>
+<div class="wrap hero-countdown">
+<span class="countdown-label" id="countdownLabel">Countdown</span>
+<span class="countdown-num" id="countdownNum">—</span>
+<span class="countdown-detail" id="countdownDetail">days to Jackson</span>
 </div>
 </header>
 
@@ -651,11 +655,11 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h2 class="home-overview-title">Eight days, two parks, <em>one arc</em>.</h2>
 </div>
 <div class="overview-list">
-<div class="overview-row"><span class="num airport">D01</span><span class="date">Sat · Aug 22</span><span class="what"><strong>Arrive Jackson Hole.</strong> Fly in via JAC, settle into the rental, dinner together.</span></div>
-<div class="overview-row"><span class="num">D02-04</span><span class="date">Aug 23 – 25</span><span class="what"><strong>Tetons week.</strong> Jenny Lake + Dadu's 75th, Snake River float, flex day with the tram and whitewater. Full day-by-day on the Trip page.</span></div>
-<div class="overview-row"><span class="num transit">D05</span><span class="date">Wed · Aug 26</span><span class="what"><strong>Transit to West Yellowstone.</strong> South-to-north drive with a stop at West Thumb Geyser Basin.</span></div>
-<div class="overview-row"><span class="num">D06-07</span><span class="date">Aug 27 – 28</span><span class="what"><strong>Yellowstone.</strong> Canyon &amp; Hayden Valley, then Old Faithful + Rakhi celebration on the 28th.</span></div>
-<div class="overview-row"><span class="num airport">D08</span><span class="date">Sat · Aug 29</span><span class="what"><strong>Drive to Bozeman, fly out.</strong> Gallatin Canyon, drop SUVs at BZN.</span></div>
+<div class="overview-row"><span class="num airport">D01</span><span class="date">Sat · Aug 22</span><span class="what"><strong>Arrive Jackson Hole.</strong></span></div>
+<div class="overview-row"><span class="num">D02-04</span><span class="date">Aug 23 – 25</span><span class="what"><strong>Tetons week.</strong> Jenny Lake, Snake River float, flex day.</span></div>
+<div class="overview-row"><span class="num transit">D05</span><span class="date">Wed · Aug 26</span><span class="what"><strong>Transit to West Yellowstone.</strong></span></div>
+<div class="overview-row"><span class="num">D06-07</span><span class="date">Aug 27 – 28</span><span class="what"><strong>Yellowstone.</strong> Canyon &amp; Old Faithful. Rakhi on the 28th.</span></div>
+<div class="overview-row"><span class="num airport">D08</span><span class="date">Sat · Aug 29</span><span class="what"><strong>Drive to Bozeman, fly home.</strong></span></div>
 <div class="overview-cta"><a href="#trip">See the full day-by-day on Trip →</a></div>
 </div>
 </div>
@@ -671,46 +675,35 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <a class="home-nav-card" href="#trip" data-page="trip">
 <div class="card-num">Trip</div>
 <h2>Map &amp; itinerary</h2>
-<p>Interactive map of every stop. Day-by-day plan. Click a day to see only that route on the map.</p>
-<div class="arrow">→</div>
-</a>
-<a class="home-nav-card" href="#nps" data-page="nps">
-<div class="card-num">Park Maps</div>
-<h2>Official park maps</h2>
-<p>Itinerary overlaid on the official NPS Grand Teton and Yellowstone brochure maps. A different way to see the route.</p>
+<p>Interactive map of every stop. Day-by-day plan.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#dining" data-page="dining">
 <div class="card-num">Food &amp; Dining</div>
 <h2>Where you'll eat</h2>
-<p>Sit-down dinner every night — Jackson and West Yellowstone. Plus takeout and delivery picks for the easy nights.</p>
+<p>Sit-down dinner every night, plus takeout picks for the easy nights.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#lodging" data-page="lodging">
 <div class="card-num">Lodging</div>
 <h2>Where you'll sleep</h2>
-<p>Stay One in Jackson, Stay Two in West Yellowstone. Shortlisted properties for both, plus full booking guide.</p>
-<div class="arrow">→</div>
-</a>
-<a class="home-nav-card" href="#flights" data-page="flights">
-<div class="card-num">Flights</div>
-<h2>Air travel</h2>
-<p>Detroit → Jackson Hole outbound. Bozeman returns split between Detroit and California.</p>
+<p>Stay One in Jackson, Stay Two in West Yellowstone.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#bookings" data-page="bookings">
 <div class="card-num">Bookings</div>
 <h2>What to book now</h2>
-<p>Priority checklist of activities, vehicles, dinners. Ordered by urgency.</p>
+<p>Priority checklist of activities, vehicles, dinners.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#prep" data-page="prep">
 <div class="card-num">Prep</div>
 <h2>Trip prep</h2>
-<p>Vehicle ops, bear safety briefing, weather expectations, packing checklist. Read once before flying.</p>
+<p>Bear safety, weather, packing, vehicle play.</p>
 <div class="arrow">→</div>
 </a>
 </div>
+<div class="home-nav-also">Also · <a href="#nps">Park Maps</a> · <a href="#flights">Flights</a> · <a href="#print">Print one-pager</a></div>
 </div>
 </section>
 
@@ -890,11 +883,11 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <section class="subpage-banner" style="background-image:url('img/day1-arrival.jpg')"><div class="wrap"><div class="eyebrow">Flights</div><h1>Air travel</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><div><h2 class="section-title">The flights</h2><p class="section-desc">Nine fly DTW → JAC together on Aug 22. Three join from California (arriving similar times). Aug 29 splits four to Detroit, eight to California.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">The flights</h2><p class="section-desc">Two inbound parties on Aug 22 — nine from Detroit, three from California — meeting in Jackson Hole. Aug 29 splits four back to Detroit, eight onward to California.</p></div></div>
 <div class="flights-grid">
 
 <div class="flight-card outbound">
-<div class="flight-stamp"><span class="flight-stamp-dot"></span>Outbound · Confirmed</div>
+<div class="flight-stamp"><span class="flight-stamp-dot"></span>Inbound from Detroit · Confirmed</div>
 <div class="flight-date">Sat · Aug 22</div>
 <div class="flight-pax">9 from Detroit · Delta · 1 stop</div>
 <div class="flight-legs">
@@ -915,6 +908,17 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="flight-note">Plan landing buffer: bags, two SUV pickups, 30-min drive to rental. Arrive at the house ~7 PM. Skip bear spray + grocery run that night — push to Sunday morning.</div>
 </div>
 
+<div class="flight-card return-ca tbd">
+<div class="flight-stamp"><span class="flight-stamp-dot"></span>Inbound from California · Tickets Pending</div>
+<div class="flight-date">Sat · Aug 22</div>
+<div class="flight-pax">3 from California · TBD carrier</div>
+<div class="flight-tbd">
+<div class="flight-tbd-tag">TBD</div>
+<div>Flight numbers and times not yet booked. Expected to land at JAC in a similar afternoon window as the Detroit party so the group can settle in together.</div>
+</div>
+<div class="flight-note">Coordinate landing time with the Detroit arrival (4:57 PM) so the SUV pickups can sweep both parties on one airport run if timing aligns.</div>
+</div>
+
 <div class="flight-card return-dtw">
 <div class="flight-stamp"><span class="flight-stamp-dot"></span>Return to Detroit · Confirmed</div>
 <div class="flight-date">Sat · Aug 29</div>
@@ -931,7 +935,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 
 <div class="flight-card return-ca tbd">
-<div class="flight-stamp"><span class="flight-stamp-dot"></span>Return to California · Tickets Pending</div>
+<div class="flight-stamp"><span class="flight-stamp-dot"></span>Onward to California · Tickets Pending</div>
 <div class="flight-date">Sat · Aug 29</div>
 <div class="flight-pax">5 of 9 + 3 from CA = 8 total</div>
 <div class="flight-tbd">
@@ -953,7 +957,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="wrap">
 <div class="section-head"><div><h2 class="section-title">Map &amp; itinerary</h2><p class="section-desc">Click any day below the map (or any day filter pill) to see only that day's route. Click "All Days" to see the full arc from JAC to BZN.</p></div></div>
 <div class="map-section-wrap">
-<div class="map-header"><span class="map-header-title">⊕ JAC to BZN · 8 days · 14 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
+<div class="map-header"><span class="map-header-title"><img src="favicon.svg" class="brand-mark" alt="" aria-hidden="true">JAC to BZN · 8 days · 14 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
 <div class="map-canvas" id="mapCanvas">
 <div id="mainMap" role="application" aria-label="Interactive map of the trip route"></div>
 </div>
@@ -1012,10 +1016,13 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <div class="dining-grid">
 
+<div class="dining-filter">
+<span class="dining-filter-label">Show</span>
 <div class="dining-tabs" role="tablist">
 <button class="dining-tab active" data-loc="jh" role="tab">Jackson</button>
 <button class="dining-tab" data-loc="wy" role="tab">W. Yellowstone</button>
 <button class="dining-tab" data-loc="all" role="tab">Both</button>
+</div>
 </div>
 
 <div class="dining-card evenings">
@@ -1023,11 +1030,11 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h3>The dinner schedule</h3>
 <p class="lede">One restaurant per night across both stays. Aug 23 at Glorietta is the celebration anchor — private room for Dadu's 75th. Late August fills up fast for tables of 12, so the sooner the better on reservations.</p>
 <ul class="dining-list">
-<li data-loc="jh"><div><strong>Fri Aug 22 · Hand Fire Pizza (Jackson)</strong>Arrival night. Casual, wood-fired, group-friendly. Walk-in or call. Address: 120 N Cache St.</div></li>
-<li data-loc="jh"><div><strong>Sat Aug 23 · <em>Glorietta · Dadu's 75th</em></strong>Modern Italian, private dining room. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener">gloriettajackson.com</a> · 307-733-3888 · 242 N Glenwood St. Mention the 75th when booking.</div></li>
-<li data-loc="jh"><div><strong>Sun Aug 24 · Bin 22 (Jackson)</strong>Wine bar + small plates, low-key after the Snake River float day. Address: 200 W Broadway.</div></li>
-<li data-loc="jh"><div><strong>Mon Aug 25 · Snake River Grill (Jackson)</strong>Classic upscale American. Private dining available. <a href="https://www.snakerivergrill.com" target="_blank" rel="noopener">snakerivergrill.com</a> · 307-733-0557 · 84 E Broadway.</div></li>
-<li data-loc="wy"><div><strong>Wed Aug 26 · Madison Crossing Lounge (W. Yellowstone)</strong>Arrival night in W. Yellowstone. Group-friendly American + bar. Address: 121 Madison Ave.</div></li>
+<li data-loc="jh"><div><strong>Fri Aug 22 · Hand Fire Pizza (Jackson)</strong>Arrival night. Casual, wood-fired, group-friendly. Walk-in or call.</div></li>
+<li data-loc="jh"><div><strong>Sat Aug 23 · <em>Glorietta · Dadu's 75th</em></strong>Modern Italian, private dining room. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener">gloriettajackson.com</a> · 307-733-3888. Mention the 75th when booking.</div></li>
+<li data-loc="jh"><div><strong>Sun Aug 24 · Bin 22 (Jackson)</strong>Wine bar + small plates, low-key after the Snake River float day.</div></li>
+<li data-loc="jh"><div><strong>Mon Aug 25 · Snake River Grill (Jackson)</strong>Classic upscale American. Private dining available. <a href="https://www.snakerivergrill.com" target="_blank" rel="noopener">snakerivergrill.com</a> · 307-733-0557.</div></li>
+<li data-loc="wy"><div><strong>Wed Aug 26 · Madison Crossing Lounge (W. Yellowstone)</strong>Arrival night in W. Yellowstone. Group-friendly American + bar.</div></li>
 <li data-loc="wy"><div><strong>Thu Aug 27 · Bar N Ranch — Embers (W. Yellowstone)</strong>On-property dining at Bar N Ranch (if staying there) or open to outside guests. <a href="https://bar-n-ranch.com" target="_blank" rel="noopener">bar-n-ranch.com</a> · 406-646-0300.</div></li>
 <li data-loc="wy"><div><strong>Fri Aug 28 · Rakhi night — your call</strong>Two options: sit-down at Madison Crossing or Bar N Ranch, OR pick up a feast from Wild West Pizzeria and bring it back to the rental to keep the celebration uninterrupted.</div></li>
 </ul>
@@ -1038,10 +1045,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h3>Box-lunch spots</h3>
 <p class="lede">Order or grab a boxed lunch on the way into the parks — sandwich, fruit, chips, cookie, water. All verified working as of May 2026.</p>
 <ul class="dining-list">
-<li data-loc="jh"><div><strong>Jackson · Persephone Bakery</strong>French bakery, sandwiches, salads. Lunch from 10:30 AM. <a href="https://persephonebakery.com" target="_blank" rel="noopener">persephonebakery.com</a> · 307-200-6708 · 145 E Broadway.</div></li>
-<li data-loc="jh"><div><strong>Jackson · Creekside Market &amp; Deli</strong>Purpose-built picnic-lunch deal (sandwich + chips + apple + cookie + water). <a href="https://creeksidejacksonhole.com" target="_blank" rel="noopener">creeksidejacksonhole.com</a> · 545 N Cache St (across from the Elk Refuge).</div></li>
-<li data-loc="jh"><div><strong>Jackson · Picnic</strong>Pre-packed salads + sandwiches in a fridge case — built for park days and float trips. <a href="https://picnicjh.com" target="_blank" rel="noopener">picnicjh.com</a> · in the Hotel Jackson building.</div></li>
-<li data-loc="wy"><div><strong>W. Yellowstone · Ernie's Bakery &amp; Deli</strong>Box lunches: sandwich + chips + drink + apple + cookie. Build-your-own option. <strong>Order by 7 PM the night before.</strong> <a href="https://erniesbakery.com" target="_blank" rel="noopener">erniesbakery.com</a> · 406-646-9467 · 406 Hwy 20.</div></li>
+<li data-loc="jh"><div><strong>Jackson · Persephone Bakery</strong>French bakery, sandwiches, salads. Lunch from 10:30 AM. <a href="https://persephonebakery.com" target="_blank" rel="noopener">persephonebakery.com</a> · 307-200-6708.</div></li>
+<li data-loc="jh"><div><strong>Jackson · Creekside Market &amp; Deli</strong>Purpose-built picnic-lunch deal (sandwich + chips + apple + cookie + water). <a href="https://creeksidejacksonhole.com" target="_blank" rel="noopener">creeksidejacksonhole.com</a>.</div></li>
+<li data-loc="jh"><div><strong>Jackson · Picnic</strong>Pre-packed salads + sandwiches in a fridge case — built for park days and float trips. <a href="https://picnicjh.com" target="_blank" rel="noopener">picnicjh.com</a>.</div></li>
+<li data-loc="wy"><div><strong>W. Yellowstone · Ernie's Bakery &amp; Deli</strong>Box lunches: sandwich + chips + drink + apple + cookie. Build-your-own option. <strong>Order by 7 PM the night before.</strong> <a href="https://erniesbakery.com" target="_blank" rel="noopener">erniesbakery.com</a> · 406-646-9467.</div></li>
 <li data-loc="wy"><div><strong>W. Yellowstone · Mountain Mama's Coffee House &amp; Bakery</strong>Grab-and-go boxes. Locally sourced. <a href="https://store.mountainmamascafe.com" target="_blank" rel="noopener">store.mountainmamascafe.com</a>.</div></li>
 </ul>
 </div>
@@ -1051,10 +1058,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h3>Pickup for low-key nights</h3>
 <p class="lede">For the night when no one wants to leave the hot tub. Or for the Rakhi night if you're celebrating at the rental.</p>
 <ul class="dining-list">
-<li data-loc="jh"><div><strong>Jackson · Pinky G's Pizzeria</strong>Late-night pizza, delivery available, popular with locals. 50 W Broadway.</div></li>
-<li data-loc="jh"><div><strong>Jackson · Hand Fire Pizza</strong>Wood-fired, pickup or DoorDash. 120 N Cache St.</div></li>
+<li data-loc="jh"><div><strong>Jackson · Pinky G's Pizzeria</strong>Late-night pizza, delivery available, popular with locals.</div></li>
+<li data-loc="jh"><div><strong>Jackson · Hand Fire Pizza</strong>Wood-fired, pickup or DoorDash.</div></li>
 <li data-loc="jh"><div><strong>Jackson · Persephone</strong>Daytime pickup — sandwiches, soups, salads, pastries for a casual lunch-as-dinner.</div></li>
-<li data-loc="wy"><div><strong>W. Yellowstone · Wild West Pizzeria / Gusher Pizza &amp; Sandwich Shoppe</strong>Pizza, sandwiches, burgers — takeout. <a href="https://www.yellowstonepizza.com" target="_blank" rel="noopener">yellowstonepizza.com</a> · 14 Madison Ave.</div></li>
+<li data-loc="wy"><div><strong>W. Yellowstone · Wild West Pizzeria / Gusher Pizza &amp; Sandwich Shoppe</strong>Pizza, sandwiches, burgers — takeout. <a href="https://www.yellowstonepizza.com" target="_blank" rel="noopener">yellowstonepizza.com</a>.</div></li>
 <li data-loc="wy"><div><strong>W. Yellowstone · Ernie's Bakery &amp; Deli</strong>Also handles takeout dinners + sandwiches by phone — same shop as the lunch boxes.</div></li>
 </ul>
 </div>
@@ -1064,16 +1071,16 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h3>Where to grocery shop</h3>
 <p class="lede">Two stops total: Sun Aug 23 morning (or Sat Aug 22 night if grocery-hungry) in Jackson, then Wed Aug 26 afternoon when you arrive in West Yellowstone.</p>
 <ul class="dining-list">
-<li data-loc="jh"><div><strong>Jackson · Albertsons</strong>24 hours. Most selection. 105 Buffalo Way.</div></li>
-<li data-loc="jh"><div><strong>Jackson · Jackson Whole Grocer</strong>Upscale, smaller crowds, better produce and prepared food. Closes 9 PM. 974 W Broadway.</div></li>
-<li data-loc="wy"><div><strong>W. Yellowstone · Market Place Foods</strong>Local supermarket, full grocery range. 22 Madison Ave.</div></li>
-<li data-loc="wy"><div><strong>W. Yellowstone · Food Roundup</strong>Smaller backup option in town. 107 Dunraven St.</div></li>
+<li data-loc="jh"><div><strong>Jackson · Albertsons</strong>24 hours. Most selection.</div></li>
+<li data-loc="jh"><div><strong>Jackson · Jackson Whole Grocer</strong>Upscale, smaller crowds, better produce and prepared food. Closes 9 PM.</div></li>
+<li data-loc="wy"><div><strong>W. Yellowstone · Market Place Foods</strong>Local supermarket, full grocery range.</div></li>
+<li data-loc="wy"><div><strong>W. Yellowstone · Food Roundup</strong>Smaller backup option in town.</div></li>
 </ul>
 </div>
 
 </div>
 
-<div class="dining-note">All phone numbers, websites, and addresses above were checked in May 2026. Glorietta has the private dining room for Dadu's night. Persephone and Creekside in Jackson, Ernie's and Mountain Mama's in West Yellowstone, are the lunch-pickup picks.</div>
+<div class="dining-note">All phone numbers and websites above were checked in May 2026. Glorietta has the private dining room for Dadu's night. Persephone and Creekside in Jackson, Ernie's and Mountain Mama's in West Yellowstone, are the lunch-pickup picks.</div>
 
 </div>
 </section>
@@ -1089,32 +1096,24 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="logistics-grid">
 <div class="logistics-card bookings"><h3 class="logistics-card-title">Booking priority — urgency order</h3>
 <ul class="logistics-list">
-<li><div><strong>Both rentals</strong>The two houses that hold the whole family. Shortlists are on the <a href="#lodging" style="color:var(--accent);text-decoration:underline">Lodging page</a>; lock these in first because the rest of the trip shapes around them.</div></li>
-<li><div><strong>Glorietta private dining room, Aug 23</strong>Dadu's 75th. 12 people. Mention the milestone. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener" style="color:var(--accent)">gloriettajackson.com</a> · 307-733-3888</div></li>
-<li><div><strong>Snake River private float, Aug 24 AM</strong>Private 16-passenger boat for 12. Barker-Ewing is the strongest pick. <a href="https://barkerewing.com" target="_blank" rel="noopener" style="color:var(--accent)">barkerewing.com</a> · 307-733-1800</div></li>
-<li><div><strong>Two SUVs, one-way JAC → BZN</strong>Hertz, National, Enterprise, or Avis. Drop fees $300–500/vehicle. Reserve via your usual loyalty platform.</div></li>
-<li><div><strong>Whitewater raft, Aug 25 PM</strong>Active subgroup. Two rafts (6 per boat). Dave Hansen is the strongest pick. <a href="https://www.davehansenwhitewater.com" target="_blank" rel="noopener" style="color:var(--accent)">davehansenwhitewater.com</a> · 307-201-4639</div></li>
-<li><div><strong>Other nightly dinners (Aug 22, 24, 25, 26, 27)</strong>Hand Fire (Aug 22), Bin 22 (Aug 24), Snake River Grill (Aug 25), Madison Crossing (Aug 26), Bar N Ranch / Embers (Aug 27). Full list with phones on the <a href="#dining" style="color:var(--accent);text-decoration:underline">Food &amp; Dining page</a>.</div></li>
-<li><div><strong>Afternoon flight from BZN, Aug 29</strong>Minimum departure 12:30 PM. Morning flights are dangerously tight.</div></li>
-</ul>
-</div>
-
-<div class="logistics-card vehicles"><h3 class="logistics-card-title">Activities — verified booking links</h3>
-<ul class="logistics-list">
-<li><div><strong>Barker-Ewing Scenic Float · Aug 24 AM</strong>3-hour float on the Snake River entirely inside Grand Teton NP. Private 16-passenger boat for 12. ~$95–110/adult. <a href="https://barkerewing.com" target="_blank" rel="noopener" style="color:var(--accent)">barkerewing.com</a> · 307-733-1800</div></li>
-<li><div><strong>Dave Hansen Whitewater · Aug 25 PM</strong>Half-day Snake River Canyon Class II–III rapids. ~$95–115/adult. Office at 225 W Broadway, Jackson. <a href="https://www.davehansenwhitewater.com" target="_blank" rel="noopener" style="color:var(--accent)">davehansenwhitewater.com</a> · 307-201-4639</div></li>
-<li><div><strong>Jackson Hole Aerial Tram · Aug 25</strong>12-min ride to 10,450 ft. Includes Corbet's Cabin waffles. No reservations — first-come-first-served. Buy tickets day-of at Tickets &amp; Guest Services (3395 Cody Ln). Tram runs 9 AM – 5 PM summer. <a href="https://www.jacksonhole.com/aerial-tram" target="_blank" rel="noopener" style="color:var(--accent)">jacksonhole.com/aerial-tram</a></div></li>
-<li><div><strong>Glorietta Trattoria · Aug 23 dinner</strong>Modern Italian, private dining room. Mention 75th birthday when booking. Dinner from 5 PM. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener" style="color:var(--accent)">gloriettajackson.com</a> · 307-733-3888</div></li>
-<li><div><strong>Snake River Grill · Aug 25 dinner</strong>Classic upscale American. Private wine cellar available. <a href="https://www.snakerivergrill.com" target="_blank" rel="noopener" style="color:var(--accent)">snakerivergrill.com</a> · 307-733-0557</div></li>
-<li><div><strong>Bar N Ranch · Aug 27 dinner (and lodging option)</strong>On-property Embers restaurant. <a href="https://bar-n-ranch.com" target="_blank" rel="noopener" style="color:var(--accent)">bar-n-ranch.com</a> · 406-646-0300</div></li>
+<li><div><strong>Both rentals</strong>The two houses that hold the whole family. Shortlists on the <a href="#lodging" style="color:var(--accent);text-decoration:underline">Lodging page</a>. Lock these in first — the rest of the trip shapes around them.</div></li>
+<li><div><strong>Glorietta private dining room · Aug 23</strong>Dadu's 75th. Table of 12. Mention the milestone when booking. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener" style="color:var(--accent)">gloriettajackson.com</a> · 307-733-3888</div></li>
+<li><div><strong>Snake River scenic float · Aug 24 AM</strong>Private 16-passenger boat for 12. Barker-Ewing is the strongest pick. ~$95–110/adult. <a href="https://barkerewing.com" target="_blank" rel="noopener" style="color:var(--accent)">barkerewing.com</a> · 307-733-1800</div></li>
+<li><div><strong>Two SUVs · one-way JAC → BZN</strong>Hertz, National, Enterprise, or Avis. Drop fees $300–500/vehicle. Reserve via your usual loyalty platform.</div></li>
+<li><div><strong>Whitewater raft · Aug 25 PM</strong>Active subgroup, two rafts (6 per boat). Dave Hansen is the strongest pick. ~$95–115/adult. <a href="https://www.davehansenwhitewater.com" target="_blank" rel="noopener" style="color:var(--accent)">davehansenwhitewater.com</a> · 307-201-4639</div></li>
+<li><div><strong>Other nightly dinners</strong>Hand Fire, Bin 22, Snake River Grill, Madison Crossing, Bar N Ranch / Embers. Phones + websites on the <a href="#dining" style="color:var(--accent);text-decoration:underline">Food &amp; Dining page</a>.</div></li>
+<li><div><strong>Aerial Tram · Aug 25</strong>No reservation needed. Buy day-of at Tickets &amp; Guest Services. Tram runs 9 AM – 5 PM. <a href="https://www.jacksonhole.com/aerial-tram" target="_blank" rel="noopener" style="color:var(--accent)">jacksonhole.com/aerial-tram</a></div></li>
+<li><div><strong>Afternoon flight from BZN · Aug 29</strong>Minimum departure 12:30 PM. Morning flights are dangerously tight.</div></li>
 </ul>
 </div>
 </div>
 
-<div class="booking-guide-header">
-<h3>Vacation rental <em>marketplaces</em></h3>
-<div class="sub">If the shortlists don't deliver · Curated → mid-market</div>
-</div>
+<details class="marketplace-details">
+<summary class="marketplace-summary">
+<span class="marketplace-summary-label">Vacation rental marketplaces</span>
+<span class="marketplace-summary-hint">If the shortlists don't deliver · Curated → mid-market</span>
+<span class="marketplace-summary-icon">+</span>
+</summary>
 <div class="booking-grid">
 
 <div class="booking-col">
@@ -1175,6 +1174,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 
 </div>
+</details>
 </div>
 </section>
 </div>
@@ -1380,7 +1380,7 @@ Lower Falls (Day 7) · <a href="https://unsplash.com/@btwilkins" target="_blank"
 
 <footer>
 <div class="wrap">
-<div class="footer-mark"></div>
+<img src="favicon.svg" class="footer-mark" alt="" aria-hidden="true">
 <div class="footer-title">Have a beautiful trip.</div>
 <div class="footer-meta">Drafted for August 2026<span class="footer-divider">·</span>Map needs internet for tiles<span class="footer-divider">·</span>Print to PDF for offline reference</div>
 </div>
@@ -1482,7 +1482,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileMenu.classLis
 const timeline=document.getElementById('timeline');
 DAYS.forEach(d=>{
   const stopsHtml=d.stops.map(s=>`<div class="stop"><div class="stop-time-block"><span class="stop-time">${s.time}</span>${s.duration?`<span class="stop-duration">${s.duration}</span>`:''}</div><div><div class="stop-name">${s.name}</div><div class="stop-notes">${s.notes}</div></div></div>`).join('');
-  const vpHtml=d.vehiclePlay?`<div class="vehicle-play"><div class="vehicle-play-header">⊕ Two-Vehicle Play</div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE A</div><div class="vehicle-detail">${d.vehicleA}</div></div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE B</div><div class="vehicle-detail">${d.vehicleB}</div></div></div>`:'';
+  const vpHtml=d.vehiclePlay?`<div class="vehicle-play"><div class="vehicle-play-header"><img src="favicon.svg" class="brand-mark" alt="" aria-hidden="true">Two-Vehicle Play</div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE A</div><div class="vehicle-detail">${d.vehicleA}</div></div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE B</div><div class="vehicle-detail">${d.vehicleB}</div></div></div>`:'';
   const headerClass=d.type==='airport'?'airport-day':d.type==='transit'?'transit-day':'';
   const photoHtml=DAY_PHOTOS[d.day]?`<div class="day-photo" style="background-image:url('${DAY_PHOTOS[d.day]}')"></div>`:'';
   const stopsCount=d.stops.length;
@@ -1521,14 +1521,8 @@ const map=L.map('mainMap',{
 });
 window._map=map;
 
-const topo=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:17});
-const satellite=L.layerGroup([
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{attribution:'Imagery &copy; Esri',maxZoom:19}),
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,opacity:0.9})
-]);
-const streets=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors',maxZoom:19});
-topo.addTo(map);
-L.control.layers({'Topographic':topo,'Satellite':satellite,'Streets':streets},null,{position:'topright',collapsed:false}).addTo(map);
+// Topographic tiles only — simpler, faster, less choice fatigue
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:17}).addTo(map);
 
 // Full route polyline (used in "All Days" mode)
 const fullRouteLatLngs=allStops.map(s=>[s.lat,s.lng]);
@@ -1826,49 +1820,6 @@ document.querySelectorAll('.shortlist-card').forEach(card=>{
       if(last<txt.length)frag.appendChild(document.createTextNode(txt.slice(last)));
       node.parentNode.replaceChild(frag,node);
     });
-  });
-})();
-
-// ============ MAP DEEP-LINKING — append "📍 Map" to known places ============
-(function(){
-  // address fragment → Google Maps search query
-  const KNOWN_PLACES={
-    '120 N Cache St':'Hand Fire Pizza Jackson WY',
-    '242 N Glenwood St':'Glorietta Trattoria Jackson WY',
-    '200 W Broadway':'Bin 22 Jackson WY',
-    '84 E Broadway':'Snake River Grill Jackson WY',
-    '145 E Broadway':'Persephone Bakery Jackson WY',
-    '545 N Cache St':'Creekside Market Deli Jackson WY',
-    '50 W Broadway':"Pinky G's Pizzeria Jackson WY",
-    'Hotel Jackson':'Picnic Jackson WY',
-    '121 Madison Ave':'Madison Crossing Lounge West Yellowstone MT',
-    '406 Hwy 20':"Ernie's Bakery West Yellowstone MT",
-    '14 Madison Ave':'Wild West Pizzeria West Yellowstone MT',
-    '105 Buffalo Way':'Albertsons Jackson WY',
-    '974 W Broadway':'Jackson Whole Grocer Jackson WY',
-    '22 Madison Ave':'Market Place Foods West Yellowstone MT',
-    '107 Dunraven St':'Food Roundup West Yellowstone MT',
-    'Mountain Mama':"Mountain Mama's Coffee West Yellowstone MT",
-    'Bar N Ranch':'Bar N Ranch West Yellowstone MT'
-  };
-  const sels=['#page-dining .dining-list > li','#page-bookings .logistics-list > li'];
-  document.querySelectorAll(sels.join(',')).forEach(li=>{
-    const div=li.querySelector('div');
-    if(!div||div.querySelector('.maps-link'))return;
-    const txt=div.textContent;
-    let matchKey=null;
-    for(const key of Object.keys(KNOWN_PLACES)){
-      if(txt.indexOf(key)!==-1){matchKey=key;break;}
-    }
-    if(!matchKey)return;
-    const a=document.createElement('a');
-    a.className='maps-link';
-    a.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(KNOWN_PLACES[matchKey]);
-    a.target='_blank';
-    a.rel='noopener';
-    a.textContent='Map';
-    div.appendChild(document.createTextNode(' '));
-    div.appendChild(a);
   });
 })();
 
