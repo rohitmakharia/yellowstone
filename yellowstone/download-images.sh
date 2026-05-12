@@ -43,9 +43,9 @@ echo "Downloading Day 8 photo (Bison — Yellowstone)..."
 curl -fsSL -o day8-bison.jpg \
   "https://images.unsplash.com/photo-1645208966050-3ee80004a719?fm=jpg&q=75&w=1600&auto=format&fit=crop"
 
-echo "Downloading Grand Teton NPS brochure map..."
+echo "Downloading Grand Teton NPS brochure map (older classic, less shading)..."
 curl -fsSL -o nps-grand-teton.jpg \
-  "https://npmaps.com/wp-content/uploads/grand-teton-national-park-map.jpg"
+  "https://npmaps.com/wp-content/uploads/grand-teton-classic-map.jpg"
 
 echo "Downloading Yellowstone NPS brochure map..."
 curl -fsSL -o nps-yellowstone.jpg \
