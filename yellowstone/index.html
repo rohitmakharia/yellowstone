@@ -279,6 +279,10 @@ section.content{padding:80px 0;position:relative}
 .lodging-marker{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:6px;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:13px;font-weight:700;background:#0E1A14;color:#D9A441;box-shadow:0 4px 12px rgba(15,20,16,0.45);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer;letter-spacing:0.04em}
 .lodging-marker:hover{transform:scale(1.12);box-shadow:0 6px 16px rgba(15,20,16,0.55)}
 @media (max-width:600px){.lodging-marker{width:44px;height:44px;font-size:14px}}
+.poi-marker{display:flex;align-items:center;gap:4px;pointer-events:none;transform:translate(-3px,-3px)}
+.poi-dot{width:6px;height:6px;background:#3A4B3A;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(250,247,240,0.8)}
+.poi-label{font-family:var(--font-display);font-size:11px;font-weight:600;color:#1F2A1E;background:rgba(250,247,240,0.85);padding:1px 6px;border-radius:3px;white-space:nowrap;letter-spacing:0.01em;box-shadow:0 1px 2px rgba(0,0,0,0.1)}
+@media (max-width:600px){.poi-label{font-size:10px;padding:1px 5px}}
 .leaflet-marker-icon{background:transparent!important;border:none!important}
 .leaflet-popup-content-wrapper{background:var(--canvas)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;border-radius:6px!important;box-shadow:0 24px 48px -8px rgba(15,20,16,0.35)!important;padding:4px}
 .leaflet-popup-tip{background:var(--canvas)!important;border:1px solid var(--rule)!important}
@@ -1543,6 +1547,65 @@ window._map=map;
 // OpenStreetMap base — most POIs (towns, gas stations, lodges, geyser basins) + larger readable labels
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',maxZoom:19}).addTo(map);
 
+// ============ STATIC POI LABELS — brochure-style context layer ============
+// Always visible. Pure-text labels (no popups) so they orient without competing with stop bubbles.
+const POIS=[
+  // Tetons
+  {lat:43.4799,lng:-110.7624,name:'Jackson'},
+  {lat:43.7517,lng:-110.7218,name:'Jenny Lake'},
+  {lat:43.8730,lng:-110.6310,name:'Jackson Lake'},
+  {lat:43.6588,lng:-110.6605,name:'Mormon Row'},
+  {lat:43.6586,lng:-110.7180,name:'Moose Entrance'},
+  // Yellowstone
+  {lat:44.6618,lng:-111.1041,name:'West Yellowstone'},
+  {lat:44.4605,lng:-110.8281,name:'Old Faithful'},
+  {lat:44.5251,lng:-110.8381,name:'Grand Prismatic'},
+  {lat:44.7300,lng:-110.7036,name:'Norris Basin'},
+  {lat:44.9764,lng:-110.7008,name:'Mammoth Hot Springs'},
+  {lat:44.7270,lng:-110.4960,name:'Canyon Village'},
+  {lat:44.6589,lng:-110.4716,name:'Hayden Valley'},
+  {lat:44.4178,lng:-110.5747,name:'West Thumb'},
+  {lat:44.5630,lng:-110.3850,name:'Yellowstone Lake'},
+  {lat:44.9176,lng:-110.4185,name:'Tower–Roosevelt'},
+  // Entrances + Bozeman
+  {lat:45.0303,lng:-110.7080,name:'North Entrance'},
+  {lat:45.6770,lng:-111.1530,name:'Bozeman (BZN)'}
+];
+POIS.forEach(poi=>{
+  const icon=L.divIcon({
+    className:'',
+    html:`<div class="poi-marker"><span class="poi-dot"></span><span class="poi-label">${poi.name}</span></div>`,
+    iconSize:[1,1],
+    iconAnchor:[3,3]
+  });
+  L.marker([poi.lat,poi.lng],{icon,interactive:false,keyboard:false}).addTo(map);
+});
+
+// ============ ROAD ROUTES — fetch actual driving lines from OSRM, cache in localStorage ============
+const ROUTE_CACHE_KEY='yellowstone-routes-v1';
+let ROUTE_CACHE={};
+try{ROUTE_CACHE=JSON.parse(localStorage.getItem(ROUTE_CACHE_KEY)||'{}');}catch(e){}
+function saveRouteCache(){try{localStorage.setItem(ROUTE_CACHE_KEY,JSON.stringify(ROUTE_CACHE));}catch(e){}}
+function routeKey(coords){return coords.map(c=>[c[0].toFixed(4),c[1].toFixed(4)].join(',')).join('|');}
+async function fetchDrivingRoute(coords){
+  if(coords.length<2)return null;
+  const key=routeKey(coords);
+  if(ROUTE_CACHE[key])return ROUTE_CACHE[key];
+  // OSRM uses lng,lat order
+  const path=coords.map(c=>`${c[1]},${c[0]}`).join(';');
+  const url=`https://router.project-osrm.org/route/v1/driving/${path}?geometries=geojson&overview=full`;
+  try{
+    const res=await fetch(url);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(!data.routes||!data.routes[0])throw new Error('No route');
+    const latlngs=data.routes[0].geometry.coordinates.map(c=>[c[1],c[0]]);
+    ROUTE_CACHE[key]=latlngs;
+    saveRouteCache();
+    return latlngs;
+  }catch(e){console.warn('OSRM route fetch failed for day route:',e.message);return null;}
+}
+
 // Full route polyline (used in "All Days" mode)
 const fullRouteLatLngs=allStops.map(s=>[s.lat,s.lng]);
 const fullRoutePolyline=L.polyline(fullRouteLatLngs,{
@@ -1556,6 +1619,7 @@ const fullRoutePolyline=L.polyline(fullRouteLatLngs,{
 
 // Per-day polylines (drawn only when a specific day is selected)
 // Each day's polyline starts/ends at the appropriate lodging anchor so you can see start→end.
+// Initial line is straight-line waypoints; once OSRM returns the road route, we swap in the real geometry.
 const dayPolylines={};
 DAYS.forEach(d=>{
   const lod=dayLodging(d.day);
@@ -1566,12 +1630,16 @@ DAYS.forEach(d=>{
   if(latlngs.length<2)return;
   const p=L.polyline(latlngs,{
     color:'#C44A1E',
-    weight:5,
+    weight:4,
     opacity:0.95,
     lineJoin:'round',
     lineCap:'round'
   });
   dayPolylines[d.day]=p;
+  // Upgrade to actual driving route in background (cached after first fetch)
+  fetchDrivingRoute(latlngs).then(routeLatlngs=>{
+    if(routeLatlngs&&routeLatlngs.length>1)p.setLatLngs(routeLatlngs);
+  });
 });
 
 // Markers
