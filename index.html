@@ -22,7 +22,7 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font
 .top-nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:500;white-space:nowrap}
 .top-nav-brand .mark{width:18px;height:18px;border:1.5px solid var(--gold);border-radius:50%;position:relative;flex-shrink:0}
 .top-nav-brand .mark::after{content:'';position:absolute;inset:3px;border:1px solid var(--gold);border-radius:50%}
-.top-nav-links{display:flex;gap:28px}
+.top-nav-links{display:flex;gap:22px}
 .top-nav-links a{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,240,0.7);text-decoration:none;transition:color 0.2s ease;font-weight:500}
 .top-nav-links a:hover,.top-nav-links a.active{color:var(--gold)}
 .hamburger{display:none;background:none;border:none;cursor:pointer;width:36px;height:36px;flex-direction:column;justify-content:center;gap:5px;padding:0;align-items:center}
@@ -54,15 +54,15 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font
 @media (max-width:900px){.page-header-inner{padding:0 24px}}
 
 /* ============ HERO (home only) ============ */
-.hero{background:var(--dark);color:var(--canvas);padding:80px 0 80px;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 800px 600px at 15% 25%,rgba(74,101,65,0.35) 0%,transparent 55%),radial-gradient(ellipse 900px 600px at 85% 75%,rgba(196,74,30,0.18) 0%,transparent 60%),radial-gradient(ellipse 1100px 500px at 50% 100%,rgba(217,164,65,0.1) 0%,transparent 55%);pointer-events:none}
-.hero::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600'><g fill='none' stroke='%23D9A441' stroke-width='0.4' opacity='0.35'><path d='M0,300 Q150,200 300,300 T600,300'/><path d='M0,280 Q150,180 300,280 T600,280'/><path d='M0,320 Q150,220 300,320 T600,320'/><path d='M0,260 Q150,160 300,260 T600,260'/><path d='M0,340 Q150,240 300,340 T600,340'/><path d='M0,240 Q150,140 300,240 T600,240'/><path d='M0,360 Q150,260 300,360 T600,360'/></g></svg>");background-size:900px;background-repeat:repeat;opacity:0.5;pointer-events:none}
+.hero{background:#0E1A14 url('img/hero-tetons.jpg') center 30%/cover no-repeat;color:var(--canvas);padding:120px 0 100px;position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:560px}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,26,20,0.55) 0%,rgba(14,26,20,0.65) 60%,rgba(14,26,20,0.92) 100%);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 800px 500px at 15% 25%,rgba(74,101,65,0.25) 0%,transparent 60%),radial-gradient(ellipse 900px 500px at 85% 75%,rgba(196,74,30,0.18) 0%,transparent 60%);pointer-events:none}
 .hero-content{position:relative;z-index:2;padding:40px 0}
 .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:16px;margin-bottom:36px}
 .hero-eyebrow::before{content:'';width:56px;height:1px;background:var(--gold)}
-h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:0.88;letter-spacing:-0.045em;font-weight:400;font-variation-settings:"opsz" 144;margin-bottom:40px}
+h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:0.88;letter-spacing:-0.045em;font-weight:400;font-variation-settings:"opsz" 144;margin-bottom:40px;text-shadow:0 4px 32px rgba(0,0,0,0.4)}
 h1 .italic{font-style:italic;color:var(--gold);font-weight:300}
-.hero-lede{font-family:var(--font-display);font-size:clamp(20px,2.3vw,28px);font-weight:300;font-style:italic;line-height:1.4;max-width:760px;color:rgba(250,247,240,0.85);letter-spacing:-0.01em}
+.hero-lede{font-family:var(--font-display);font-size:clamp(20px,2.3vw,28px);font-weight:300;font-style:italic;line-height:1.4;max-width:760px;color:rgba(250,247,240,0.95);letter-spacing:-0.01em;text-shadow:0 2px 16px rgba(0,0,0,0.3)}
 .hero-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-top:40px;margin-top:60px;border-top:1px solid rgba(250,247,240,0.15)}
 .stat-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,247,240,0.5);margin-bottom:14px;display:block}
 .stat-value{font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:400;line-height:1;letter-spacing:-0.03em;display:block}
@@ -245,7 +245,10 @@ section.content{padding:80px 0;position:relative}
 .trip-itinerary-header h3 em{font-style:italic;color:var(--accent);font-weight:400}
 .trip-itinerary-header .sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase}
 .timeline{position:relative}
-.day-card{background:var(--canvas);border:1px solid var(--rule);border-radius:4px;margin-bottom:24px;overflow:hidden;transition:border-color 0.3s ease,box-shadow 0.3s ease;scroll-margin-top:80px;cursor:pointer}
+.day-photo{height:220px;background-size:cover;background-position:center;position:relative}
+.day-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,20,16,0.0) 0%,rgba(15,20,16,0.0) 60%,rgba(15,20,16,0.35) 100%)}
+@media (max-width:600px){.day-photo{height:170px}}
+.day-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;margin-bottom:24px;overflow:hidden;transition:border-color 0.3s ease,box-shadow 0.3s ease;scroll-margin-top:80px;cursor:pointer}
 .day-card:hover{border-color:var(--ink-3);box-shadow:0 24px 48px -20px rgba(15,20,16,0.12)}
 .day-card.highlighted{border-color:var(--accent);box-shadow:0 0 0 3px rgba(196,74,30,0.15)}
 .day-header{padding:32px 40px;border-bottom:1px solid var(--rule);background:var(--canvas-2);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
@@ -288,6 +291,29 @@ section.content{padding:80px 0;position:relative}
 .logistics-card.bookings li{counter-increment:book}
 .logistics-card.bookings li::before{content:counter(book,decimal-leading-zero);font-family:var(--font-mono);font-size:12px;color:var(--accent);font-weight:600;padding-top:2px}
 .logistics-card.vehicles li::before{content:'↳';font-family:var(--font-mono);font-size:14px;color:var(--forest);font-weight:600;padding-top:1px}
+
+/* ============ NPS MAP OVERLAY ============ */
+.nps-section-head{margin-top:32px;padding-bottom:14px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.nps-section-head h3{font-family:var(--font-display);font-size:28px;font-weight:500;letter-spacing:-0.02em}
+.nps-section-head h3 em{font-style:italic;color:var(--accent);font-weight:400}
+.nps-section-head .sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase}
+.nps-map-wrap{position:relative;background:#F2EDDF;border-radius:6px;overflow:hidden;box-shadow:0 24px 56px -16px rgba(15,20,16,0.22);margin-bottom:48px}
+.nps-map-img{width:100%;display:block}
+.nps-map-marker{position:absolute;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FAF7F0;font-family:var(--font-mono);font-size:13px;font-weight:700;background:#2A4A2C;color:#FAF7F0;box-shadow:0 4px 12px rgba(15,20,16,0.4);transform:translate(-50%,-50%);cursor:default;transition:transform 0.18s ease,box-shadow 0.18s ease;z-index:2}
+.nps-map-marker.airport{background:#D9A441;color:#0F1410}
+.nps-map-marker.transit{background:#C44A1E}
+.nps-map-marker:hover{transform:translate(-50%,-50%) scale(1.18);box-shadow:0 6px 18px rgba(15,20,16,0.5);z-index:3}
+.nps-map-marker .tooltip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--canvas);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 10px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.18s ease;font-weight:500}
+.nps-map-marker:hover .tooltip{opacity:1}
+.nps-note{font-family:var(--font-display);font-style:italic;font-size:13px;color:var(--ink-2);background:var(--canvas-2);padding:14px 18px;border-radius:4px;border-left:3px solid var(--gold);margin-bottom:32px;line-height:1.55}
+.nps-credit{font-family:var(--font-mono);font-size:10px;color:var(--ink-3);letter-spacing:0.1em;margin-top:8px;text-align:right}
+
+/* ============ IMAGE CREDITS ============ */
+.credits{padding:48px 0 24px;background:var(--dark);color:rgba(250,247,240,0.55);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;line-height:1.8}
+.credits .wrap{text-align:center}
+.credits a{color:rgba(250,247,240,0.75);text-decoration:none;border-bottom:1px dotted rgba(250,247,240,0.3)}
+.credits a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+.credits strong{color:rgba(250,247,240,0.75);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:10px}
 
 /* ============ PULL QUOTE & FOOTER ============ */
 .pull-quote{background:var(--ink);color:var(--canvas);padding:72px 64px;margin:0;position:relative;overflow:hidden}
@@ -358,6 +384,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <a href="#lodging" data-page="lodging">Lodging</a>
 <a href="#flights" data-page="flights">Flights</a>
 <a href="#trip" data-page="trip">Trip</a>
+<a href="#nps" data-page="nps">NPS Map</a>
 <a href="#bookings" data-page="bookings">Bookings</a>
 <a href="#logistics" data-page="logistics">Logistics</a>
 </div>
@@ -374,8 +401,9 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <a href="#lodging" data-page="lodging"><span class="num">01</span>Lodging</a>
 <a href="#flights" data-page="flights"><span class="num">02</span>Flights</a>
 <a href="#trip" data-page="trip"><span class="num">03</span>Trip · Map &amp; Itinerary</a>
-<a href="#bookings" data-page="bookings"><span class="num">04</span>Bookings</a>
-<a href="#logistics" data-page="logistics"><span class="num">05</span>Logistics</a>
+<a href="#nps" data-page="nps"><span class="num">04</span>NPS Park Maps</a>
+<a href="#bookings" data-page="bookings"><span class="num">05</span>Bookings</a>
+<a href="#logistics" data-page="logistics"><span class="num">06</span>Logistics</a>
 <div class="mobile-menu-foot">Aug 22 – 29 · 12 travelers</div>
 </aside>
 
@@ -420,14 +448,20 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <p>Interactive map of every stop. Day-by-day plan. Click a day to see only that route on the map.</p>
 <div class="arrow">→</div>
 </a>
+<a class="home-nav-card" href="#nps" data-page="nps">
+<div class="card-num">04 · NPS Park Maps</div>
+<h2>Official park maps</h2>
+<p>Itinerary overlaid on the official NPS Grand Teton and Yellowstone brochure maps. A different way to see the route.</p>
+<div class="arrow">→</div>
+</a>
 <a class="home-nav-card" href="#bookings" data-page="bookings">
-<div class="card-num">04 · Bookings</div>
+<div class="card-num">05 · Bookings</div>
 <h2>What to book now</h2>
 <p>Priority checklist of activities, vehicles, dinners. Ordered by urgency.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#logistics" data-page="logistics">
-<div class="card-num">05 · Logistics</div>
+<div class="card-num">06 · Logistics</div>
 <h2>Two-vehicle ops</h2>
 <p>Drivers, bear spray, parking pinch points, cooler car, comms between vehicles.</p>
 <div class="arrow">→</div>
@@ -794,6 +828,38 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </section>
 </div>
 
+<!-- ============ NPS MAP OVERLAY PAGE ============ -->
+<div class="page" id="page-nps">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">04 · NPS Park Maps</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">04</span><div><h2 class="section-title">Park <em>brochure maps</em></h2><p class="section-desc">Itinerary stops overlaid on the official NPS brochure maps. A different way to see the route than the live Leaflet map. Hover any marker for details.</p></div></div>
+
+<div class="nps-note">Marker positions are calculated from real lat/lng but mapped to the published park brochures, so placement is approximate — within a few miles. The Leaflet map on the Trip page remains the source of truth for precise location.</div>
+
+<div class="nps-section-head"><h3>Grand Teton <em>National Park</em></h3><div class="sub">Days 01 – 04 · Aug 22 – 25</div></div>
+<div class="nps-map-wrap" id="npsTetonWrap">
+<img class="nps-map-img" id="npsTetonImg" src="img/nps-grand-teton.jpg" alt="Grand Teton National Park official NPS brochure map"/>
+<div id="npsTetonMarkers"></div>
+</div>
+<div class="nps-credit">Map © U.S. National Park Service · hosted by NPMaps.com</div>
+
+<div class="nps-section-head" style="margin-top:48px"><h3>Yellowstone <em>National Park</em></h3><div class="sub">Days 05 – 07 · Aug 26 – 28</div></div>
+<div class="nps-map-wrap" id="npsYellowWrap">
+<img class="nps-map-img" id="npsYellowImg" src="img/nps-yellowstone.jpg" alt="Yellowstone National Park official NPS brochure map"/>
+<div id="npsYellowMarkers"></div>
+</div>
+<div class="nps-credit">Map © U.S. National Park Service · hosted by NPMaps.com</div>
+
+</div>
+</section>
+</div>
+
 <!-- ============ BOOKINGS PAGE ============ -->
 <div class="page" id="page-bookings">
 <div class="page-header">
@@ -848,6 +914,17 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </section>
 </div>
 
+<div class="credits">
+<div class="wrap">
+<strong>Photography &amp; Map Credits</strong>
+Tetons hero · <a href="https://unsplash.com/@ndam" target="_blank" rel="noopener">Nandita Damaraju</a> &nbsp;·&nbsp;
+Hidden Falls (Day 3) · <a href="https://unsplash.com/@ojrupp" target="_blank" rel="noopener">Owen Rupp</a> &nbsp;·&nbsp;
+Old Faithful (Day 6) · <a href="https://unsplash.com/@windagh" target="_blank" rel="noopener">Dennis Zhang</a> &nbsp;·&nbsp;
+Lower Falls (Day 7) · <a href="https://unsplash.com/@btwilkins" target="_blank" rel="noopener">Ben Wilkins</a>
+<br>All photos via the <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a> &nbsp;·&nbsp; Park brochure maps © <a href="https://www.nps.gov" target="_blank" rel="noopener">U.S. National Park Service</a>, hosted by <a href="https://npmaps.com" target="_blank" rel="noopener">NPMaps</a>
+</div>
+</div>
+
 <footer>
 <div class="wrap">
 <div class="footer-mark"></div>
@@ -889,7 +966,12 @@ const DAYS=[
 ];
 
 // ============ PAGE ROUTER ============
-const PAGES=['home','lodging','flights','trip','bookings','logistics'];
+const PAGES=['home','lodging','flights','trip','nps','bookings','logistics'];
+const DAY_PHOTOS={
+  3:'img/day3-hidden-falls.jpg',
+  6:'img/day6-old-faithful.jpg',
+  7:'img/day7-lower-falls.jpg'
+};
 function getCurrentPage(){
   const h=window.location.hash.replace(/^#/,'').split('/')[0];
   return PAGES.includes(h)?h:'home';
@@ -941,7 +1023,8 @@ DAYS.forEach(d=>{
   const stopsHtml=d.stops.map(s=>`<div class="stop"><div class="stop-time-block"><span class="stop-time">${s.time}</span>${s.duration?`<span class="stop-duration">${s.duration}</span>`:''}</div><div><div class="stop-name">${s.name}</div><div class="stop-notes">${s.notes}</div></div></div>`).join('');
   const vpHtml=d.vehiclePlay?`<div class="vehicle-play"><div class="vehicle-play-header">⊕ Two-Vehicle Play</div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE A</div><div class="vehicle-detail">${d.vehicleA}</div></div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE B</div><div class="vehicle-detail">${d.vehicleB}</div></div></div>`:'';
   const headerClass=d.type==='airport'?'airport-day':d.type==='transit'?'transit-day':'';
-  timeline.insertAdjacentHTML('beforeend',`<article class="day-card" id="day-${d.day}" data-day="${d.day}"><div class="day-header ${headerClass}"><div><div class="day-marker-big"><span class="day-marker-num">${String(d.day).padStart(2,'0')}</span>Day ${String(d.day).padStart(2,'0')} of 08</div><h3 class="day-title">${d.title}</h3></div><div class="day-date-block"><div class="day-date">${d.date}</div><div class="day-meta">${d.year} · ${d.driving}</div></div></div><div class="day-body"><p class="day-narrative">${d.narrative}</p><div class="stops">${stopsHtml}</div>${vpHtml}</div></article>`);
+  const photoHtml=DAY_PHOTOS[d.day]?`<div class="day-photo" style="background-image:url('${DAY_PHOTOS[d.day]}')"></div>`:'';
+  timeline.insertAdjacentHTML('beforeend',`<article class="day-card" id="day-${d.day}" data-day="${d.day}">${photoHtml}<div class="day-header ${headerClass}"><div><div class="day-marker-big"><span class="day-marker-num">${String(d.day).padStart(2,'0')}</span>Day ${String(d.day).padStart(2,'0')} of 08</div><h3 class="day-title">${d.title}</h3></div><div class="day-date-block"><div class="day-date">${d.date}</div><div class="day-meta">${d.year} · ${d.driving}</div></div></div><div class="day-body"><p class="day-narrative">${d.narrative}</p><div class="stops">${stopsHtml}</div>${vpHtml}</div></article>`);
 });
 
 // ============ MAP DAY FILTER BUTTONS ============
@@ -1023,9 +1106,9 @@ allStops.forEach(stop=>{
   allMarkers.push(marker);
 });
 
-const routeBounds=L.latLngBounds(fullRouteLatLngs).pad(0.12);
-map.fitBounds(routeBounds);
-setTimeout(()=>map.invalidateSize(),250);
+const routeBounds=L.latLngBounds(fullRouteLatLngs).pad(0.04);
+map.fitBounds(routeBounds,{animate:false});
+setTimeout(()=>{map.invalidateSize();map.fitBounds(routeBounds,{animate:false});},300);
 
 // Popup click → scroll to day card
 map.on('popupopen',e=>{
@@ -1107,6 +1190,47 @@ document.querySelectorAll('.day-card').forEach(card=>{
 });
 
 window.addEventListener('resize',()=>map.invalidateSize());
+
+// ============ NPS MAP OVERLAY MARKERS ============
+// Approximate geographic bounds of the published NPS brochure map images
+const NPS_BOUNDS={
+  teton:{north:44.13,south:43.42,west:-110.96,east:-110.40},
+  yellow:{north:45.12,south:44.10,west:-111.20,east:-109.90}
+};
+function placeNpsMarkers(){
+  const tetonStops=allStops.filter(s=>s.day<=4);
+  const yellowStops=allStops.filter(s=>s.day>=5&&s.day<=7);
+  function place(stops,bounds,container){
+    container.innerHTML='';
+    stops.forEach(s=>{
+      const x=((s.lng-bounds.west)/(bounds.east-bounds.west))*100;
+      const y=((bounds.north-s.lat)/(bounds.north-bounds.south))*100;
+      if(x<0||x>100||y<0||y>100)return;
+      const fill=s.type==='airport'?'airport':s.type==='transit'?'transit':'';
+      const div=document.createElement('div');
+      div.className='nps-map-marker '+fill;
+      div.style.left=x.toFixed(2)+'%';
+      div.style.top=y.toFixed(2)+'%';
+      div.innerHTML=`${s.day}<span class="tooltip">Day ${String(s.day).padStart(2,'0')} · ${s.name}</span>`;
+      container.appendChild(div);
+    });
+  }
+  const tetonContainer=document.getElementById('npsTetonMarkers');
+  const yellowContainer=document.getElementById('npsYellowMarkers');
+  if(tetonContainer)place(tetonStops,NPS_BOUNDS.teton,tetonContainer);
+  if(yellowContainer)place(yellowStops,NPS_BOUNDS.yellow,yellowContainer);
+}
+// Wait for the map images to load (they affect container sizing)
+const tetonImg=document.getElementById('npsTetonImg');
+const yellowImg=document.getElementById('npsYellowImg');
+if(tetonImg){
+  if(tetonImg.complete)placeNpsMarkers();
+  else tetonImg.addEventListener('load',placeNpsMarkers);
+}
+if(yellowImg){
+  if(!yellowImg.complete)yellowImg.addEventListener('load',placeNpsMarkers);
+}
+window.addEventListener('resize',placeNpsMarkers);
 
 // ============ NAV LINKS (close menu, smooth scroll for in-page hash) ============
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
