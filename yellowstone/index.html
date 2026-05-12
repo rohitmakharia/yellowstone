@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Makharia Family Reunion · Yellowstone & The Tetons</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root{--canvas:#FAF7F0;--canvas-2:#F2EDDF;--canvas-3:#E8E0CB;--ink:#0F1410;--ink-2:#383F39;--ink-3:#6B7570;--rule:#D8CFB8;--rule-soft:rgba(216,207,184,0.4);--accent:#C44A1E;--accent-deep:#8F351A;--forest:#2A4A2C;--forest-2:#4A6541;--gold:#D9A441;--dark:#0E1A14;--water:#8FB5C8;--font-display:'Fraunces',Georgia,serif;--font-body:'DM Sans',system-ui,sans-serif;--font-mono:'JetBrains Mono',ui-monospace,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:54px}
+.wrap{width:100%;max-width:1320px;margin:0 auto;padding:0 48px}
+
+/* ============ TOP NAV ============ */
+.top-nav{position:fixed;top:0;left:0;right:0;height:54px;z-index:60;background:rgba(14,26,20,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(217,164,65,0.2)}
+.top-nav-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.top-nav-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:500;white-space:nowrap}
+.top-nav-brand .mark{width:18px;height:18px;border:1.5px solid var(--gold);border-radius:50%;position:relative;flex-shrink:0}
+.top-nav-brand .mark::after{content:'';position:absolute;inset:3px;border:1px solid var(--gold);border-radius:50%}
+.top-nav-links{display:flex;gap:22px}
+.top-nav-links a{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,240,0.7);text-decoration:none;transition:color 0.2s ease;font-weight:500}
+.top-nav-links a:hover,.top-nav-links a.active{color:var(--gold)}
+.hamburger{display:none;background:none;border:none;cursor:pointer;width:36px;height:36px;flex-direction:column;justify-content:center;gap:5px;padding:0;align-items:center}
+.hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:transform 0.25s ease,opacity 0.25s ease;border-radius:1px}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media (max-width:900px){.top-nav-links{display:none}.hamburger{display:flex}.top-nav-inner{padding:0 20px}.top-nav-brand{font-size:10px}}
+
+/* ============ MOBILE MENU ============ */
+.mobile-menu-backdrop{position:fixed;inset:0;background:rgba(14,26,20,0.55);z-index:55;opacity:0;pointer-events:none;transition:opacity 0.3s ease;backdrop-filter:blur(2px)}
+.mobile-menu-backdrop.open{opacity:1;pointer-events:auto}
+.mobile-menu{position:fixed;top:0;right:0;bottom:0;width:300px;max-width:85vw;background:var(--dark);z-index:58;transform:translateX(105%);transition:transform 0.32s cubic-bezier(0.32,0.72,0.34,0.99);padding:74px 28px 28px;display:flex;flex-direction:column;gap:2px;box-shadow:-12px 0 32px rgba(0,0,0,0.4)}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu a{font-family:var(--font-display);font-size:26px;color:rgba(250,247,240,0.85);text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(250,247,240,0.08);letter-spacing:-0.01em;transition:color 0.2s ease;display:flex;align-items:baseline;gap:14px}
+.mobile-menu a:hover,.mobile-menu a:focus,.mobile-menu a.active{color:var(--gold)}
+.mobile-menu a .num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;color:var(--accent)}
+.mobile-menu-foot{margin-top:auto;padding-top:24px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.18em;color:rgba(250,247,240,0.4);text-transform:uppercase}
+
+/* ============ PAGES ============ */
+.page{display:none}
+.page.active{display:block;animation:pageFadeIn 0.32s cubic-bezier(0.16,1,0.3,1)}
+@keyframes pageFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.page-header{padding:48px 0 28px;background:var(--canvas);border-bottom:1px solid var(--rule)}
+.page-header-inner{max-width:1320px;margin:0 auto;padding:0 48px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.back-link{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:color 0.2s ease}
+.back-link:hover{color:var(--accent-deep)}
+.page-label{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-3)}
+@media (max-width:900px){.page-header-inner{padding:0 24px}}
+
+/* ============ HERO (home only) ============ */
+.hero{background:#0E1A14 url('img/hero-tetons.jpg') center 30%/cover no-repeat;color:var(--canvas);padding:120px 0 100px;position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:560px}
+.hero::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,26,20,0.55) 0%,rgba(14,26,20,0.65) 60%,rgba(14,26,20,0.92) 100%);pointer-events:none}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 800px 500px at 15% 25%,rgba(74,101,65,0.25) 0%,transparent 60%),radial-gradient(ellipse 900px 500px at 85% 75%,rgba(196,74,30,0.18) 0%,transparent 60%);pointer-events:none}
+.hero-content{position:relative;z-index:2;padding:40px 0}
+.hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:16px;margin-bottom:36px}
+.hero-eyebrow::before{content:'';width:56px;height:1px;background:var(--gold)}
+h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:0.88;letter-spacing:-0.045em;font-weight:400;font-variation-settings:"opsz" 144;margin-bottom:40px;text-shadow:0 4px 32px rgba(0,0,0,0.4)}
+h1 .italic{font-style:italic;color:var(--gold);font-weight:300}
+.hero-lede{font-family:var(--font-display);font-size:clamp(20px,2.3vw,28px);font-weight:300;font-style:italic;line-height:1.4;max-width:760px;color:rgba(250,247,240,0.95);letter-spacing:-0.01em;text-shadow:0 2px 16px rgba(0,0,0,0.3)}
+.hero-stats{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;padding-top:40px;margin-top:60px;border-top:1px solid rgba(250,247,240,0.15)}
+.stat-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,247,240,0.5);margin-bottom:14px;display:block}
+.stat-value{font-family:var(--font-display);font-size:clamp(36px,5vw,64px);font-weight:400;line-height:1;letter-spacing:-0.03em;display:block}
+.stat-detail{font-family:var(--font-mono);font-size:11px;color:var(--gold);margin-top:8px;letter-spacing:0.05em}
+
+/* ============ HOME TRIP OVERVIEW ============ */
+.home-overview{padding:88px 0 16px;background:var(--canvas)}
+.home-overview-head{margin-bottom:36px}
+.home-overview-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.home-overview-title{font-family:var(--font-display);font-size:clamp(28px,3.6vw,42px);font-weight:400;letter-spacing:-0.025em;line-height:1.1}
+.home-overview-title em{font-style:italic;color:var(--accent);font-weight:400}
+.overview-list{display:flex;flex-direction:column;gap:0;background:var(--canvas-2);border-radius:8px;overflow:hidden;border:1px solid var(--rule)}
+.overview-row{display:grid;grid-template-columns:80px 110px 1fr;gap:24px;padding:18px 28px;align-items:baseline;border-bottom:1px solid var(--rule-soft);transition:background 0.18s ease}
+.overview-row:last-child{border-bottom:none}
+.overview-row:hover{background:var(--canvas-3)}
+.overview-row .num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;color:var(--accent);font-weight:600}
+.overview-row .num.airport{color:#A88128}
+.overview-row .num.transit{color:var(--accent)}
+.overview-row .date{font-family:var(--font-mono);font-size:12px;color:var(--ink-3);letter-spacing:0.04em}
+.overview-row .what{font-family:var(--font-display);font-size:17px;color:var(--ink);line-height:1.4;letter-spacing:-0.005em}
+.overview-row .what strong{font-weight:500}
+@media (max-width:700px){.overview-row{grid-template-columns:60px 1fr;gap:16px;padding:14px 18px}.overview-row .date{display:none}.overview-row .what{font-size:15px}}
+
+/* ============ HOME NAV CARDS ============ */
+.home-nav{padding:96px 0 120px;background:var(--canvas)}
+.home-nav-head{margin-bottom:48px}
+.home-nav-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.home-nav-title{font-family:var(--font-display);font-size:clamp(32px,4vw,48px);font-weight:400;letter-spacing:-0.025em;line-height:1.1}
+.home-nav-title em{font-style:italic;color:var(--accent);font-weight:400}
+.home-nav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media (max-width:1000px){.home-nav-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.home-nav-grid{grid-template-columns:1fr}}
+.home-nav-card{display:flex;flex-direction:column;padding:36px 32px;background:var(--canvas);border:1px solid var(--rule);border-radius:6px;text-decoration:none;color:inherit;transition:transform 0.25s ease,box-shadow 0.25s ease,border-color 0.25s ease;position:relative;overflow:hidden;min-height:240px;cursor:pointer}
+.home-nav-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest);transition:background 0.25s ease}
+.home-nav-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -16px rgba(15,20,16,0.18);border-color:var(--accent)}
+.home-nav-card:hover::before{background:var(--accent)}
+.home-nav-card .card-num{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;color:var(--accent);font-weight:600;margin-bottom:24px}
+.home-nav-card h2{font-family:var(--font-display);font-size:34px;font-weight:500;letter-spacing:-0.02em;line-height:1.1;margin-bottom:14px}
+.home-nav-card p{font-size:14px;color:var(--ink-2);line-height:1.6;margin-bottom:auto}
+.home-nav-card .arrow{align-self:flex-end;font-family:var(--font-mono);font-size:22px;color:var(--accent);margin-top:24px;transition:transform 0.22s ease}
+.home-nav-card:hover .arrow{transform:translateX(6px)}
+
+/* ============ SECTIONS ============ */
+section.content{padding:80px 0;position:relative}
+.section-head{display:grid;grid-template-columns:200px 1fr;gap:48px;margin-bottom:60px;align-items:baseline}
+.section-num{font-family:var(--font-mono);font-size:12px;letter-spacing:0.18em;color:var(--accent);font-weight:500}
+.section-num::before{content:'§ ';color:var(--ink-3)}
+.section-title{font-family:var(--font-display);font-size:clamp(36px,5vw,56px);font-weight:400;line-height:1.05;letter-spacing:-0.025em;font-variation-settings:"opsz" 144}
+.section-title em{font-style:italic;color:var(--accent);font-weight:400}
+.section-desc{font-family:var(--font-display);font-size:19px;font-style:italic;color:var(--ink-2);max-width:560px;margin-top:16px;grid-column:2;line-height:1.45}
+
+/* ============ LODGING ============ */
+.lodging-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.lodge{background:var(--canvas-2);border-radius:4px;padding:48px;position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.lodge:hover{transform:translateY(-4px);box-shadow:0 24px 48px -16px rgba(15,20,16,0.15)}
+.lodge::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:var(--forest)}
+.lodge.two::before{background:var(--accent)}
+.lodge-stamp{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;color:var(--forest);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:24px;font-weight:500}
+.lodge.two .lodge-stamp{color:var(--accent)}
+.lodge-stamp-dot{width:8px;height:8px;background:currentColor;border-radius:50%}
+.lodge-nights{font-family:var(--font-mono);font-size:13px;color:var(--ink-3);margin-bottom:12px;letter-spacing:0.05em}
+.lodge-name{font-family:var(--font-display);font-size:36px;font-weight:500;line-height:1.1;letter-spacing:-0.02em;margin-bottom:24px}
+.lodge-desc{font-size:15px;color:var(--ink-2);line-height:1.65;margin-bottom:28px}
+.lodge-targets{padding-top:24px;border-top:1px solid var(--rule)}
+.lodge-targets-label{font-family:var(--font-mono);font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:12px}
+.lodge-targets-list{font-size:14px;color:var(--ink-2);line-height:1.6}
+
+/* ============ SHORTLIST ============ */
+.shortlist-header{margin-top:64px;padding-bottom:18px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.shortlist-title{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1.1}
+.shortlist-title em{font-style:italic;color:var(--accent);font-weight:400}
+.shortlist-sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase}
+.shortlist-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
+.shortlist-grid.three{grid-template-columns:1fr 1fr 1fr}
+@media (max-width:1100px){.shortlist-grid.three{grid-template-columns:1fr 1fr}}
+.shortlist-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.shortlist-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -16px rgba(15,20,16,0.18)}
+.shortlist-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest)}
+.shortlist-card.two::before{background:var(--gold)}
+.shortlist-eyebrow{font-family:var(--font-mono);font-size:10px;color:var(--forest);letter-spacing:0.2em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:10px}
+.shortlist-card.two .shortlist-eyebrow{color:#A88128}
+.shortlist-eyebrow-dot{width:8px;height:8px;background:currentColor;border-radius:50%}
+.shortlist-name{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1.05}
+.shortlist-tag{font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--ink-2);line-height:1.45}
+.shortlist-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 0;border-top:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft)}
+.shortlist-stat-label{font-family:var(--font-mono);font-size:9px;color:var(--ink-3);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:4px;display:block}
+.shortlist-stat-value{font-family:var(--font-display);font-size:18px;font-weight:500;letter-spacing:-0.01em}
+.shortlist-pros{display:flex;flex-direction:column;gap:8px}
+.shortlist-pro{display:grid;grid-template-columns:14px 1fr;gap:10px;font-size:13px;color:var(--ink-2);line-height:1.55}
+.shortlist-pro::before{content:'+';color:var(--forest);font-family:var(--font-mono);font-weight:700;padding-top:1px}
+.shortlist-watch{display:grid;grid-template-columns:14px 1fr;gap:10px;font-size:13px;color:var(--ink-2);line-height:1.55}
+.shortlist-watch::before{content:'!';color:var(--accent);font-family:var(--font-mono);font-weight:700;padding-top:1px}
+.shortlist-price{font-family:var(--font-mono);font-size:12px;color:var(--ink-3);background:var(--canvas-2);padding:12px 14px;border-radius:4px;letter-spacing:0.04em;line-height:1.5}
+.shortlist-price strong{color:var(--ink);font-size:14px;font-weight:600;font-family:var(--font-display);letter-spacing:0}
+.shortlist-ctas{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+.shortlist-cta{flex:1;min-width:120px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;border-radius:4px;text-decoration:none;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;font-weight:600;transition:all 0.2s ease}
+.shortlist-cta.primary{background:var(--ink);color:var(--canvas)}
+.shortlist-cta.primary:hover{background:var(--accent)}
+.shortlist-cta.secondary{background:var(--canvas-2);color:var(--ink);border:1px solid var(--rule)}
+.shortlist-cta.secondary:hover{background:var(--canvas-3)}
+.shortlist-cta::after{content:'→';font-size:13px}
+
+/* ============ BOOKING GUIDE (now subsection of Lodging) ============ */
+.booking-guide-header{margin-top:80px;padding-bottom:18px;border-bottom:1px solid var(--rule)}
+.booking-guide-header h3{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1.1}
+.booking-guide-header h3 em{font-style:italic;color:var(--accent);font-weight:400}
+.booking-guide-header .sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase;margin-top:8px}
+.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:32px}
+.booking-col{display:flex;flex-direction:column;gap:32px}
+.booking-area-header{font-family:var(--font-display);font-size:28px;font-weight:500;letter-spacing:-0.02em;line-height:1.1;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.booking-area-header em{font-style:italic;color:var(--accent);font-weight:400}
+.booking-tier{margin-bottom:8px}
+.booking-tier-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.booking-tier-label::before{content:'';width:24px;height:1px;background:var(--accent)}
+.booking-tier-desc{font-family:var(--font-display);font-style:italic;font-size:14px;color:var(--ink-3);margin-bottom:14px;line-height:1.5}
+.booking-link-list{display:flex;flex-direction:column;gap:2px}
+.booking-link{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:12px 14px;border-radius:4px;text-decoration:none;color:var(--ink);transition:background 0.15s ease}
+.booking-link:hover{background:var(--canvas-2)}
+.booking-link-name{font-family:var(--font-display);font-size:17px;font-weight:500;letter-spacing:-0.01em}
+.booking-link-url{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.02em}
+.booking-link::after{content:'→';font-family:var(--font-mono);color:var(--accent);font-size:14px;margin-left:8px}
+.booking-note{font-family:var(--font-display);font-size:14px;font-style:italic;color:var(--ink-2);background:var(--canvas-2);padding:16px 20px;border-radius:4px;border-left:3px solid var(--accent);margin-top:24px;line-height:1.55}
+
+/* ============ FLIGHTS ============ */
+.flights-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+.flight-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;padding:32px 28px;display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.flight-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -16px rgba(15,20,16,0.18)}
+.flight-card.outbound::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest)}
+.flight-card.return-dtw::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gold)}
+.flight-card.return-ca::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);opacity:0.6}
+.flight-card.tbd{background:repeating-linear-gradient(135deg,var(--canvas),var(--canvas) 10px,var(--canvas-2) 10px,var(--canvas-2) 20px)}
+.flight-stamp{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600}
+.flight-card.outbound .flight-stamp{color:var(--forest)}
+.flight-card.return-dtw .flight-stamp{color:#A88128}
+.flight-card.return-ca .flight-stamp{color:var(--accent)}
+.flight-stamp-dot{width:8px;height:8px;background:currentColor;border-radius:50%}
+.flight-date{font-family:var(--font-display);font-size:26px;font-weight:500;letter-spacing:-0.015em;line-height:1.1}
+.flight-pax{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.08em;text-transform:uppercase}
+.flight-legs{display:flex;flex-direction:column;gap:14px;margin-top:4px}
+.flight-leg{background:var(--canvas-2);border-radius:4px;padding:14px 16px;font-family:var(--font-mono);font-size:12px;display:flex;flex-direction:column;gap:6px}
+.flight-leg-no{color:var(--accent);font-weight:600;letter-spacing:0.08em;font-size:11px}
+.flight-leg-route{display:flex;align-items:baseline;justify-content:space-between;gap:8px;color:var(--ink);font-weight:600;font-size:15px;letter-spacing:0.04em}
+.flight-leg-arrow{color:var(--ink-3);font-size:12px}
+.flight-leg-times{display:flex;align-items:baseline;justify-content:space-between;gap:8px;color:var(--ink-2);font-size:12px}
+.flight-leg-meta{color:var(--ink-3);font-size:10px;letter-spacing:0.05em}
+.flight-layover{text-align:center;font-family:var(--font-mono);font-size:10px;color:var(--ink-3);letter-spacing:0.15em;text-transform:uppercase;padding:4px 0}
+.flight-note{margin-top:auto;padding-top:14px;border-top:1px solid var(--rule-soft);font-family:var(--font-display);font-style:italic;font-size:13px;color:var(--ink-2);line-height:1.5}
+.flight-tbd{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;padding:24px 0;color:var(--ink-2);font-family:var(--font-display);font-style:italic}
+.flight-tbd-tag{font-family:var(--font-mono);font-style:normal;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);background:rgba(196,74,30,0.08);padding:5px 10px;border-radius:99px;font-weight:600}
+
+/* ============ MAP ============ */
+.map-section-wrap{background:var(--canvas-2);border-radius:6px;overflow:hidden;box-shadow:0 32px 80px -20px rgba(15,20,16,0.18)}
+.map-header{background:var(--dark);color:var(--canvas);padding:24px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-bottom:1px solid rgba(217,164,65,0.15)}
+.map-header-title{font-family:var(--font-mono);font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold)}
+.map-header-hint{font-family:var(--font-display);font-size:14px;font-style:italic;color:rgba(250,247,240,0.6)}
+.map-canvas{position:relative;background:var(--canvas);overflow:hidden}
+#mainMap{width:100%;height:580px;background:#E8E0CB;font-family:var(--font-body)}
+@media (max-width:900px){#mainMap{height:480px}}
+@media (max-width:480px){#mainMap{height:420px}}
+.leaflet-container{font-family:var(--font-body);font-size:14px}
+.leaflet-control-attribution{font-family:var(--font-mono);font-size:10px;background:rgba(250,247,240,0.85)!important}
+.leaflet-control-zoom a{background:var(--canvas)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;font-family:var(--font-body);font-weight:500}
+.leaflet-control-zoom a:hover{background:var(--canvas-2)!important}
+.leaflet-control-layers{background:var(--canvas)!important;border:1px solid var(--rule)!important;border-radius:4px!important;box-shadow:0 4px 12px rgba(15,20,16,0.12)!important;font-family:var(--font-mono)!important;font-size:11px!important;letter-spacing:0.05em}
+.leaflet-control-layers-expanded{padding:12px 14px!important}
+.leaflet-control-layers-base label{font-family:var(--font-mono);font-size:11px;color:var(--ink);letter-spacing:0.05em;line-height:1.9;cursor:pointer}
+.marker-bubble{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:3px solid #FAF7F0;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;font-weight:600;box-shadow:0 4px 10px rgba(15,20,16,0.35);transition:transform 0.18s ease,box-shadow 0.18s ease;cursor:pointer}
+.marker-bubble:hover,.marker-bubble.focused{transform:scale(1.12);box-shadow:0 6px 16px rgba(15,20,16,0.5)}
+.marker-bubble.dimmed{opacity:0.25;transform:scale(0.72)}
+.leaflet-marker-icon{background:transparent!important;border:none!important}
+.leaflet-popup-content-wrapper{background:var(--canvas)!important;color:var(--ink)!important;border:1px solid var(--rule)!important;border-radius:6px!important;box-shadow:0 24px 48px -8px rgba(15,20,16,0.35)!important;padding:4px}
+.leaflet-popup-tip{background:var(--canvas)!important;border:1px solid var(--rule)!important}
+.leaflet-popup-content{margin:18px 22px 16px!important;font-family:var(--font-body)!important;min-width:240px;max-width:300px}
+.lp-eyebrow{font-family:var(--font-mono);font-size:10px;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:8px;font-weight:500}
+.lp-title{font-family:var(--font-display);font-size:20px;font-weight:500;margin-bottom:10px;letter-spacing:-0.01em;line-height:1.2}
+.lp-notes{font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:14px}
+.lp-link{display:inline-flex;align-items:center;justify-content:space-between;width:100%;font-family:var(--font-mono);font-size:11px;color:var(--accent);text-decoration:none;letter-spacing:0.05em;border-top:1px solid var(--rule);padding-top:12px;font-weight:500;cursor:pointer}
+.lp-link:hover{color:var(--accent-deep)}
+.lp-link::after{content:'→';margin-left:8px}
+.leaflet-popup-close-button{color:var(--ink-3)!important;font-size:20px!important;padding:8px 10px 0 0!important}
+.leaflet-popup-close-button:hover{color:var(--ink)!important;background:transparent!important}
+.map-controls{padding:18px 24px;background:var(--dark);border-top:1px solid rgba(217,164,65,0.15);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.map-controls-label{font-family:var(--font-mono);font-size:10px;color:rgba(250,247,240,0.5);letter-spacing:0.22em;text-transform:uppercase;margin-right:14px}
+.map-day-btn{font-family:var(--font-mono);font-size:11px;background:transparent;color:rgba(250,247,240,0.7);border:1px solid rgba(250,247,240,0.2);padding:8px 14px;border-radius:999px;cursor:pointer;transition:all 0.2s ease;letter-spacing:0.05em;font-weight:500}
+.map-day-btn:hover{background:rgba(250,247,240,0.08);color:var(--canvas);border-color:rgba(250,247,240,0.4)}
+.map-day-btn.active{background:var(--gold);color:var(--dark);border-color:var(--gold)}
+.map-legend{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;font-size:12px;color:var(--ink-2);font-family:var(--font-mono)}
+.legend-item{display:flex;align-items:center;gap:10px}
+.legend-dot{width:16px;height:16px;border-radius:50%;background:var(--forest);border:2px solid var(--canvas);box-shadow:0 0 0 1px var(--rule)}
+.legend-dot.airport{background:var(--gold)}
+.legend-dot.transit{background:var(--accent)}
+.legend-line{width:24px;height:0;border-top:2px solid var(--accent);opacity:0.85}
+.legend-line.dashed{border-top:2px dashed var(--accent)}
+
+/* ============ ITINERARY (on Trip page) ============ */
+.trip-itinerary-header{margin-top:60px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.trip-itinerary-header h3{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.02em;line-height:1.1}
+.trip-itinerary-header h3 em{font-style:italic;color:var(--accent);font-weight:400}
+.trip-itinerary-header .sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase}
+.timeline{position:relative}
+.day-photo{height:220px;background-size:cover;background-position:center;position:relative}
+.day-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,20,16,0.0) 0%,rgba(15,20,16,0.0) 60%,rgba(15,20,16,0.35) 100%)}
+@media (max-width:600px){.day-photo{height:170px}}
+.day-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;margin-bottom:24px;overflow:hidden;transition:border-color 0.3s ease,box-shadow 0.3s ease;scroll-margin-top:80px;cursor:pointer}
+.day-card:hover{border-color:var(--ink-3);box-shadow:0 24px 48px -20px rgba(15,20,16,0.12)}
+.day-card.highlighted{border-color:var(--accent);box-shadow:0 0 0 3px rgba(196,74,30,0.15)}
+.day-header{padding:32px 40px;border-bottom:1px solid var(--rule);background:var(--canvas-2);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.day-header.airport-day{background:linear-gradient(135deg,var(--canvas-2) 0%,rgba(217,164,65,0.15) 100%)}
+.day-header.transit-day{background:linear-gradient(135deg,var(--canvas-2) 0%,rgba(196,74,30,0.1) 100%)}
+.day-marker-big{font-family:var(--font-mono);font-size:13px;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;font-weight:500;margin-bottom:12px;display:flex;align-items:center;gap:12px}
+.day-marker-num{font-family:var(--font-mono);background:var(--ink);color:var(--canvas);width:32px;height:32px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.day-title{font-family:var(--font-display);font-size:clamp(28px,3.6vw,44px);font-weight:400;line-height:1;letter-spacing:-0.03em;font-variation-settings:"opsz" 144}
+.day-date-block{text-align:right}
+.day-date{font-family:var(--font-display);font-size:clamp(24px,2.6vw,32px);font-weight:500;line-height:1;letter-spacing:-0.02em}
+.day-meta{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);margin-top:8px;letter-spacing:0.1em;text-transform:uppercase}
+.day-body{padding:32px 40px 40px}
+.day-narrative{font-family:var(--font-display);font-size:18px;font-style:italic;line-height:1.55;color:var(--ink-2);max-width:720px;margin-bottom:32px;padding-left:24px;border-left:2px solid var(--accent)}
+.stops{display:flex;flex-direction:column;margin-bottom:24px}
+.stop{display:grid;grid-template-columns:110px 1fr;gap:32px;padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+.stop:last-child{border-bottom:none}
+.stop-time-block{display:flex;flex-direction:column;gap:4px}
+.stop-time{font-family:var(--font-mono);font-size:12px;color:var(--forest);letter-spacing:0.08em;text-transform:uppercase;font-weight:500}
+.stop-duration{font-family:var(--font-mono);font-size:10px;color:var(--ink-3);letter-spacing:0.05em}
+.stop-name{font-family:var(--font-display);font-size:22px;font-weight:500;margin-bottom:8px;letter-spacing:-0.015em;line-height:1.2}
+.stop-notes{color:var(--ink-2);font-size:14px;line-height:1.65}
+.vehicle-play{background:var(--dark);color:var(--canvas);padding:32px 36px;border-radius:4px;margin-top:8px;position:relative;overflow:hidden}
+.vehicle-play::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 400px 200px at 80% 100%,rgba(196,74,30,0.15) 0%,transparent 60%);pointer-events:none}
+.vehicle-play-header{font-family:var(--font-mono);font-size:10px;color:var(--gold);letter-spacing:0.22em;text-transform:uppercase;margin-bottom:20px;font-weight:500;position:relative;z-index:2}
+.vehicle-row{display:grid;grid-template-columns:100px 1fr;gap:24px;padding:12px 0;border-bottom:1px solid rgba(250,247,240,0.1);position:relative;z-index:2}
+.vehicle-row:last-child{border-bottom:none}
+.vehicle-tag{font-family:var(--font-mono);font-size:11px;color:var(--gold);letter-spacing:0.1em;font-weight:600;padding-top:2px}
+.vehicle-detail{font-size:14px;line-height:1.6;color:rgba(250,247,240,0.88)}
+
+/* ============ LOGISTICS / BOOKINGS ============ */
+.logistics-grid{display:grid;grid-template-columns:1fr;gap:32px}
+.logistics-card{background:var(--canvas);border:1px solid var(--rule);border-radius:4px;padding:44px 40px}
+.logistics-card-title{font-family:var(--font-display);font-size:28px;font-weight:500;margin-bottom:28px;letter-spacing:-0.015em;padding-bottom:20px;border-bottom:1px solid var(--rule)}
+.logistics-list{list-style:none;padding:0}
+.logistics-list li{display:grid;grid-template-columns:36px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--rule-soft);font-size:14px;color:var(--ink-2);line-height:1.6}
+.logistics-list li:last-child{border-bottom:none;padding-bottom:0}
+.logistics-list li:first-child{padding-top:0}
+.logistics-list li strong{color:var(--ink);font-weight:600;display:block;margin-bottom:2px;font-size:14px}
+.logistics-card.bookings .logistics-list{counter-reset:book}
+.logistics-card.bookings li{counter-increment:book}
+.logistics-card.bookings li::before{content:counter(book,decimal-leading-zero);font-family:var(--font-mono);font-size:12px;color:var(--accent);font-weight:600;padding-top:2px}
+.logistics-card.vehicles li::before{content:'↳';font-family:var(--font-mono);font-size:14px;color:var(--forest);font-weight:600;padding-top:1px}
+
+/* ============ DINING ============ */
+.dining-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+.dining-card{background:var(--canvas);border:1px solid var(--rule);border-radius:6px;padding:36px 32px;position:relative;overflow:hidden}
+.dining-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest)}
+.dining-card.evenings::before{background:var(--accent)}
+.dining-card.in-park::before{background:var(--gold)}
+.dining-card.grocery::before{background:var(--forest-2)}
+.dining-card-eyebrow{font-family:var(--font-mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--forest);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.dining-card.evenings .dining-card-eyebrow{color:var(--accent)}
+.dining-card.in-park .dining-card-eyebrow{color:#A88128}
+.dining-card.grocery .dining-card-eyebrow{color:var(--forest-2)}
+.dining-card-eyebrow-dot{width:8px;height:8px;background:currentColor;border-radius:50%}
+.dining-card h3{font-family:var(--font-display);font-size:26px;font-weight:500;letter-spacing:-0.015em;line-height:1.15;margin-bottom:14px}
+.dining-card p.lede{font-family:var(--font-display);font-style:italic;font-size:15px;color:var(--ink-2);line-height:1.5;margin-bottom:22px;padding-left:14px;border-left:2px solid var(--rule)}
+.dining-list{list-style:none;padding:0;margin:0}
+.dining-list li{display:grid;grid-template-columns:14px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--rule-soft);font-size:14px;color:var(--ink-2);line-height:1.55}
+.dining-list li:last-child{border-bottom:none}
+.dining-list li::before{content:'·';color:var(--accent);font-family:var(--font-mono);font-weight:700;font-size:18px;line-height:1}
+.dining-list li strong{color:var(--ink);font-weight:600;font-family:var(--font-display);font-size:15px;display:inline}
+.dining-note{font-family:var(--font-display);font-size:14px;font-style:italic;color:var(--ink-2);background:var(--canvas-2);padding:16px 20px;border-radius:4px;border-left:3px solid var(--accent);margin-top:32px;line-height:1.55}
+@media (max-width:900px){.dining-grid{grid-template-columns:1fr;gap:24px}.dining-card{padding:28px 24px}}
+
+/* ============ NPS MAP OVERLAY ============ */
+.nps-section-head{margin-top:32px;padding-bottom:14px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:24px}
+.nps-section-head h3{font-family:var(--font-display);font-size:28px;font-weight:500;letter-spacing:-0.02em}
+.nps-section-head h3 em{font-style:italic;color:var(--accent);font-weight:400}
+.nps-section-head .sub{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.18em;text-transform:uppercase}
+.nps-map-wrap{position:relative;background:#F2EDDF;border-radius:6px;overflow:hidden;box-shadow:0 24px 56px -16px rgba(15,20,16,0.22);margin-bottom:48px}
+.nps-map-img{width:100%;display:block}
+.nps-map-marker{position:absolute;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid #FAF7F0;font-family:var(--font-mono);font-size:13px;font-weight:700;background:#2A4A2C;color:#FAF7F0;box-shadow:0 4px 12px rgba(15,20,16,0.4);transform:translate(-50%,-50%);cursor:default;transition:transform 0.18s ease,box-shadow 0.18s ease;z-index:2}
+.nps-map-marker.airport{background:#D9A441;color:#0F1410}
+.nps-map-marker.transit{background:#C44A1E}
+.nps-map-marker:hover{transform:translate(-50%,-50%) scale(1.18);box-shadow:0 6px 18px rgba(15,20,16,0.5);z-index:3}
+.nps-map-marker .tooltip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--canvas);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 10px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity 0.18s ease;font-weight:500}
+.nps-map-marker:hover .tooltip{opacity:1}
+.nps-note{font-family:var(--font-display);font-style:italic;font-size:13px;color:var(--ink-2);background:var(--canvas-2);padding:14px 18px;border-radius:4px;border-left:3px solid var(--gold);margin-bottom:32px;line-height:1.55}
+.nps-credit{font-family:var(--font-mono);font-size:10px;color:var(--ink-3);letter-spacing:0.1em;margin-top:8px;text-align:right}
+
+/* ============ IMAGE CREDITS ============ */
+.credits{padding:48px 0 24px;background:var(--dark);color:rgba(250,247,240,0.55);font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;line-height:1.8}
+.credits .wrap{text-align:center}
+.credits a{color:rgba(250,247,240,0.75);text-decoration:none;border-bottom:1px dotted rgba(250,247,240,0.3)}
+.credits a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+.credits strong{color:rgba(250,247,240,0.75);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;display:block;margin-bottom:10px}
+
+/* ============ PULL QUOTE & FOOTER ============ */
+.pull-quote{background:var(--ink);color:var(--canvas);padding:72px 64px;margin:0;position:relative;overflow:hidden}
+.pull-quote::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 600px 400px at 20% 50%,rgba(74,101,65,0.3) 0%,transparent 60%);pointer-events:none}
+.pull-quote-inner{max-width:900px;margin:0 auto;position:relative;z-index:2}
+.pull-quote-mark{font-family:var(--font-display);font-size:64px;font-style:italic;line-height:1;color:var(--gold);font-weight:300;margin-bottom:14px}
+.pull-quote-text{font-family:var(--font-display);font-size:clamp(22px,2.8vw,32px);font-style:italic;font-weight:300;line-height:1.4;letter-spacing:-0.015em}
+footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;text-align:center}
+.footer-mark{width:40px;height:40px;border:1.5px solid var(--gold);border-radius:50%;margin:0 auto 20px;position:relative}
+.footer-mark::after{content:'';position:absolute;inset:6px;border:1px solid var(--gold);border-radius:50%}
+.footer-title{font-family:var(--font-display);font-size:22px;font-style:italic;font-weight:300;color:var(--canvas);margin-bottom:10px;letter-spacing:-0.01em}
+.footer-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase}
+.footer-divider{color:rgba(250,247,240,0.3);margin:0 12px}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:900px){
+  .wrap{padding:0 24px}
+  .hero{padding:60px 0 60px}
+  .hero-stats{grid-template-columns:repeat(2,1fr);gap:24px;margin-top:40px}
+  section.content{padding:64px 0}
+  .section-head{grid-template-columns:1fr;gap:16px;margin-bottom:40px}
+  .section-desc{grid-column:1;margin-top:8px}
+  .lodging-grid,.logistics-grid,.booking-grid,.flights-grid,.shortlist-grid{grid-template-columns:1fr;gap:24px}
+  .shortlist-stats{grid-template-columns:repeat(2,1fr)}
+  .lodge,.logistics-card{padding:32px 28px}
+  .day-header{padding:24px 28px;grid-template-columns:1fr;gap:14px}
+  .day-date-block{text-align:left}
+  .day-body{padding:28px}
+  .day-narrative{font-size:16px;padding-left:16px;margin-bottom:24px}
+  .stop{grid-template-columns:1fr;gap:6px;padding:16px 0}
+  .stop-time-block{flex-direction:row;gap:10px;align-items:baseline}
+  .vehicle-play{padding:22px}
+  .vehicle-row{grid-template-columns:1fr;gap:4px;padding:10px 0}
+  .pull-quote{padding:48px 28px}
+  .map-header{padding:14px 18px}
+  .map-header-hint{display:none}
+  .map-controls{padding:14px;gap:6px}
+  .map-controls-label{display:none}
+  .home-nav{padding:56px 0 80px}
+}
+@media (max-width:480px){
+  h1{font-size:clamp(44px,15vw,72px)}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .stat-value{font-size:40px}
+  .home-nav-card{padding:28px 24px;min-height:200px}
+  .home-nav-card h2{font-size:28px}
+}
+@media print{
+  body{background:white;padding-top:0}
+  .top-nav,.hamburger,.mobile-menu,.mobile-menu-backdrop{display:none}
+  .page{display:block!important}
+  .hero,.pull-quote,.vehicle-play,footer{background:white!important;color:var(--ink)!important}
+  .day-card{page-break-inside:avoid;border:1px solid #999}
+  #mainMap{display:none}
+  .leaflet-container{display:none}
+}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP NAV ============ -->
+<nav class="top-nav" id="topNav">
+<div class="top-nav-inner">
+<a class="top-nav-brand" href="#home"><span class="mark"></span><span>Makharia Reunion · Aug 2026</span></a>
+<div class="top-nav-links" id="topNavLinks">
+<a href="#lodging" data-page="lodging">Lodging</a>
+<a href="#flights" data-page="flights">Flights</a>
+<a href="#trip" data-page="trip">Trip</a>
+<a href="#nps" data-page="nps">NPS Map</a>
+<a href="#dining" data-page="dining">Dining</a>
+<a href="#bookings" data-page="bookings">Bookings</a>
+<a href="#logistics" data-page="logistics">Logistics</a>
+</div>
+<button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+<a href="#home" data-page="home"><span class="num">00</span>Home</a>
+<a href="#lodging" data-page="lodging"><span class="num">01</span>Lodging</a>
+<a href="#flights" data-page="flights"><span class="num">02</span>Flights</a>
+<a href="#trip" data-page="trip"><span class="num">03</span>Trip · Map &amp; Itinerary</a>
+<a href="#nps" data-page="nps"><span class="num">04</span>NPS Park Maps</a>
+<a href="#dining" data-page="dining"><span class="num">05</span>Dining</a>
+<a href="#bookings" data-page="bookings"><span class="num">06</span>Bookings</a>
+<a href="#logistics" data-page="logistics"><span class="num">07</span>Logistics</a>
+<div class="mobile-menu-foot">Aug 22 – 29 · 12 travelers</div>
+</aside>
+
+<!-- ============ HOME PAGE ============ -->
+<div class="page active" id="page-home">
+<header class="hero">
+<div class="wrap hero-content">
+<div class="hero-eyebrow">August 22 – 29, 2026 · Twelve Travelers</div>
+<h1>2026 Makharia<br><span class="italic">Family Reunion</span></h1>
+<p class="hero-lede">Seven nights along a one-way arc from Jackson Hole to Bozeman — granite peaks, geyser basins, and the slow drive between.</p>
+</div>
+<div class="wrap hero-stats">
+<div><span class="stat-label">Nights</span><span class="stat-value">7</span><span class="stat-detail">Aug 22 → 28</span></div>
+<div><span class="stat-label">Travelers</span><span class="stat-value">12</span><span class="stat-detail">8 adults · 4 kids</span></div>
+<div><span class="stat-label">Bases</span><span class="stat-value">2</span><span class="stat-detail">Jackson · W. Yellowstone</span></div>
+<div><span class="stat-label">Vehicles</span><span class="stat-value">2</span><span class="stat-detail">JAC → BZN one-way</span></div>
+</div>
+</header>
+
+<section class="home-overview">
+<div class="wrap">
+<div class="home-overview-head">
+<div class="home-overview-eyebrow">The trip · at a glance</div>
+<h2 class="home-overview-title">Eight days, two parks, <em>one arc</em>.</h2>
+</div>
+<div class="overview-list">
+<div class="overview-row"><span class="num airport">D01</span><span class="date">Sat · Aug 22</span><span class="what"><strong>Arrive Jackson Hole.</strong> Fly in via JAC, settle into the rental, group dinner at home.</span></div>
+<div class="overview-row"><span class="num">D02</span><span class="date">Sun · Aug 23</span><span class="what"><strong>Tetons easy day.</strong> Jenny Lake shuttle boat, Hidden Falls walk, lakeside picnic.</span></div>
+<div class="overview-row"><span class="num">D03</span><span class="date">Mon · Aug 24</span><span class="what"><strong>Tetons signature day.</strong> Snake River float, Oxbow Bend, Signal Mountain summit.</span></div>
+<div class="overview-row"><span class="num">D04</span><span class="date">Tue · Aug 25</span><span class="what"><strong>Tetons flex day.</strong> Aerial Tram &amp; Corbet's Cabin; whitewater raft or hot tub.</span></div>
+<div class="overview-row"><span class="num transit">D05</span><span class="date">Wed · Aug 26</span><span class="what"><strong>Transit to West Yellowstone.</strong> Through GTNP, West Thumb Geyser Basin, settle in.</span></div>
+<div class="overview-row"><span class="num">D06</span><span class="date">Thu · Aug 27</span><span class="what"><strong>Geyser basin day.</strong> Old Faithful, Grand Prismatic, Fountain Paint Pots.</span></div>
+<div class="overview-row"><span class="num">D07</span><span class="date">Fri · Aug 28</span><span class="what"><strong>Canyon &amp; Hayden Valley.</strong> Norris, Artist Point at Lower Falls, wildlife drive.</span></div>
+<div class="overview-row"><span class="num airport">D08</span><span class="date">Sat · Aug 29</span><span class="what"><strong>Drive to Bozeman, fly out.</strong> Gallatin Canyon, drop SUVs at BZN.</span></div>
+</div>
+</div>
+</section>
+
+<section class="home-nav">
+<div class="wrap">
+<div class="home-nav-head">
+<div class="home-nav-eyebrow">Navigation</div>
+<h2 class="home-nav-title">Where do you want to <em>start</em>?</h2>
+</div>
+<div class="home-nav-grid">
+<a class="home-nav-card" href="#lodging" data-page="lodging">
+<div class="card-num">01 · Lodging</div>
+<h2>Where you'll sleep</h2>
+<p>Stay One in Jackson, Stay Two in West Yellowstone. Shortlisted properties for both, plus full booking guide.</p>
+<div class="arrow">→</div>
+</a>
+<a class="home-nav-card" href="#flights" data-page="flights">
+<div class="card-num">02 · Flights</div>
+<h2>Air travel</h2>
+<p>Detroit → Jackson Hole outbound. Bozeman returns split between Detroit and California.</p>
+<div class="arrow">→</div>
+</a>
+<a class="home-nav-card" href="#trip" data-page="trip">
+<div class="card-num">03 · Trip</div>
+<h2>Map &amp; itinerary</h2>
+<p>Interactive map of every stop. Day-by-day plan. Click a day to see only that route on the map.</p>
+<div class="arrow">→</div>
+</a>
+<a class="home-nav-card" href="#nps" data-page="nps">
+<div class="card-num">04 · NPS Park Maps</div>
+<h2>Official park maps</h2>
+<p>Itinerary overlaid on the official NPS Grand Teton and Yellowstone brochure maps. A different way to see the route.</p>
+<div class="arrow">→</div>
+</a>
+<a class="home-nav-card" href="#dining" data-page="dining">
+<div class="card-num">05 · Dining</div>
+<h2>Food &amp; restaurants</h2>
+<p>Where to eat — Jackson dinner reservations, in-park lunches, picnic strategy, grocery stops, at-rental cooking.</p>
+<div class="arrow">→</div>
+</a>
+<a class="home-nav-card" href="#bookings" data-page="bookings">
+<div class="card-num">06 · Bookings</div>
+<h2>What to book now</h2>
+<p>Priority checklist of activities, vehicles, dinners. Ordered by urgency.</p>
+<div class="arrow">→</div>
+</a>
+<a class="home-nav-card" href="#logistics" data-page="logistics">
+<div class="card-num">07 · Logistics</div>
+<h2>Two-vehicle ops</h2>
+<p>Drivers, bear spray, parking pinch points, cooler car, comms between vehicles.</p>
+<div class="arrow">→</div>
+</a>
+</div>
+</div>
+</section>
+
+<div class="pull-quote">
+<div class="wrap pull-quote-inner">
+<div class="pull-quote-mark">"</div>
+<p class="pull-quote-text">Mornings active, afternoons free. Pack lunches from the rental kitchens. Subgroups split by vehicle on flex days and dawn runs. No twelve-hour days.</p>
+</div>
+</div>
+</div>
+
+<!-- ============ LODGING PAGE ============ -->
+<div class="page" id="page-lodging">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">01 · Lodging</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">01</span><div><h2 class="section-title">Where you'll <em>sleep</em></h2><p class="section-desc">Two large vacation rentals, three lodging changes avoided, all luggage moves on one day.</p></div></div>
+<div class="lodging-grid">
+<div class="lodge">
+<div class="lodge-stamp"><span class="lodge-stamp-dot"></span>Stay One</div>
+<div class="lodge-nights">Aug 22 – 25  /  4 nights</div>
+<h3 class="lodge-name">Jackson Hole<br>&amp; Teton Village</h3>
+<p class="lodge-desc">A 7+ bedroom luxury rental with kitchen, hot tub, and enough common space that the adults and four kids can move at different speeds. Both bases need to be locked in this week — late-August inventory is going fast.</p>
+<div class="lodge-targets"><div class="lodge-targets-label">Search on / target neighborhoods</div><div class="lodge-targets-list">AMA Selections · Key.co · Outpost · Plum Guide<br>Teton Village (Shooting Star, Granite Ridge) · Wilson · Snake River Sporting Club · 3 Creek Ranch</div></div>
+</div>
+<div class="lodge two">
+<div class="lodge-stamp"><span class="lodge-stamp-dot"></span>Stay Two</div>
+<div class="lodge-nights">Aug 26 – 28  /  3 nights</div>
+<h3 class="lodge-name">West Yellowstone<br>&amp; Hebgen Lake</h3>
+<p class="lodge-desc">Closest gateway to the geyser country. Inventory is thinner than Jackson but real options exist — Bar N Ranch is the standout (a working ranch with cabins on shared grounds, six miles from the West Entrance).</p>
+<div class="lodge-targets"><div class="lodge-targets-label">Search on / target areas</div><div class="lodge-targets-list">Bar N Ranch compound · VRBO 7+ BR filter · Marriott Homes &amp; Villas<br>Hebgen Lake luxury homes · West Yellowstone town (walkable to dining)</div></div>
+</div>
+</div>
+
+<div class="shortlist-header" id="jackson-shortlist">
+<h3 class="shortlist-title">Jackson Hole <em>shortlist</em></h3>
+<div class="shortlist-sub">Two top candidates · Aug 22 – 26 · Teton Village</div>
+</div>
+<div class="shortlist-grid">
+
+<div class="shortlist-card">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option A · Right-Sized</div>
+<h3 class="shortlist-name">Moose Hideaway</h3>
+<p class="shortlist-tag">A 4,145 sq ft modern-western retreat tucked into the trees of Teton Village. Sized exactly to a group of 12.</p>
+<div class="shortlist-stats">
+<div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
+<div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5.5 BA</span></div>
+<div><span class="shortlist-stat-label">Size</span><span class="shortlist-stat-value">4,145 sf</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">12</span></div>
+</div>
+<div class="shortlist-pros">
+<div class="shortlist-pro">4.92★ across 52 reviews — multiple multi-generational family reviews confirm fit</div>
+<div class="shortlist-pro">Walking distance to Teton Village base, gondola, dining</div>
+<div class="shortlist-pro">Private indoor hot tub, gourmet kitchen with Sub-Zero + induction range, double-sided fireplace</div>
+<div class="shortlist-pro">Parking for 4 vehicles + 2-car heated garage</div>
+<div class="shortlist-pro">3 Kings + 2 captain's bunks (twin over queen) + 2 twins</div>
+</div>
+<div class="shortlist-watch">Multiple 2024–2025 reviews flag construction noise from a neighboring property. Confirm current status with JHRL before booking.</div>
+<div class="shortlist-price"><strong>Pricing not shown publicly</strong><br>Request a quote — JHRL: 800.443.8613</div>
+<div class="shortlist-ctas">
+<a class="shortlist-cta primary" href="https://www.jhrl.com/vacation-rentals/5bd55ba-moose-hideaway" target="_blank" rel="noopener">View Listing</a>
+<a class="shortlist-cta secondary" href="https://my.matterport.com/show/?m=QJCdwYoao26" target="_blank" rel="noopener">3D Tour</a>
+</div>
+</div>
+
+<div class="shortlist-card two">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option B · Estate-Scale</div>
+<h3 class="shortlist-name">Hal'e Teton</h3>
+<p class="shortlist-tag">A 6,600 sq ft fully remodeled estate in Teton Village — 60% larger than Option A. All-new finishes, sleeps up to 22.</p>
+<div class="shortlist-stats">
+<div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
+<div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5.5 BA</span></div>
+<div><span class="shortlist-stat-label">Size</span><span class="shortlist-stat-value">6,600 sf</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">22</span></div>
+</div>
+<div class="shortlist-pros">
+<div class="shortlist-pro">Recently completed full remodel — newest finishes among credible Teton Village options</div>
+<div class="shortlist-pro">Outdoor private hot tub + indoor dry sauna (rare combo)</div>
+<div class="shortlist-pro">Gourmet kitchen: dual Wolf gas ranges, two dishwashers, oversized Sub-Zero, walk-in pantry, private wine room</div>
+<div class="shortlist-pro">Dedicated media room with blackout shades + 3 fireplaces (one wood-burning)</div>
+<div class="shortlist-pro">3 Kings + 1 with 2 Queens + bunk room with 3 full-size bunks</div>
+</div>
+<div class="shortlist-watch">Only 3 parking spots. No A/C — bedroom fans only; mountain nights cool naturally in August.</div>
+<div class="shortlist-price"><strong>$2,299/night × 4 nights ≈ $9,196 base</strong><br>Aug 22–26 confirmed available on the listing</div>
+<div class="shortlist-ctas">
+<a class="shortlist-cta primary" href="https://www.rmrentals.com/jackson-hole-rentals/hale-teton" target="_blank" rel="noopener">View Listing</a>
+<a class="shortlist-cta secondary" href="https://my.matterport.com/show/?m=JDFawYuhRCq" target="_blank" rel="noopener">3D Tour</a>
+</div>
+</div>
+
+</div>
+
+<div class="shortlist-header" id="wy-shortlist">
+<h3 class="shortlist-title">West Yellowstone <em>shortlist</em></h3>
+<div class="shortlist-sub">Three top candidates · Aug 26 – 29 · 6–10 min to West Entrance</div>
+</div>
+<div class="shortlist-grid three">
+
+<div class="shortlist-card">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option A · Single House</div>
+<h3 class="shortlist-name">Yellowstone Luxury Cabin Retreat</h3>
+<p class="shortlist-tag">A 5,000 sq ft modern lodge in the Hebgen Lake area, 8 minutes from West Yellowstone town. Closest spec match to Moose Hideaway.</p>
+<div class="shortlist-stats">
+<div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
+<div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5 BA</span></div>
+<div><span class="shortlist-stat-label">Size</span><span class="shortlist-stat-value">5,000 sf</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">14</span></div>
+</div>
+<div class="shortlist-pros">
+<div class="shortlist-pro">10/10 "Exceptional" rating across 68 VRBO reviews — strongest review profile of any 5BR in the area</div>
+<div class="shortlist-pro">10 min to Yellowstone West Entrance · 8 min to West Yellowstone town · 11 min to WYS airport</div>
+<div class="shortlist-pro">Large hot tub + 12-foot live-edge custom dining table seating all 14</div>
+<div class="shortlist-pro">5 private bathrooms — one per bedroom — eliminates morning queue</div>
+<div class="shortlist-pro">Modern mountain lodge aesthetic matching the Jackson finalists</div>
+</div>
+<div class="shortlist-watch">Single-property inventory is thin in this area. Verify Aug 26–29 availability before locking the Jackson side.</div>
+<div class="shortlist-price"><strong>Pricing not shown publicly</strong><br>Quote via VRBO · ~$700–$1,200/nt typical for this tier in August</div>
+<div class="shortlist-ctas">
+<a class="shortlist-cta primary" href="https://www.vrbo.com/9746176ha" target="_blank" rel="noopener">View Listing</a>
+<a class="shortlist-cta secondary" href="https://www.vrbo.com/search?adults=8&amp;children=4&amp;regionId=3846&amp;destination=West+Yellowstone%2C+Montana%2C+United+States+of+America&amp;selected=88410799" target="_blank" rel="noopener">Check Dates</a>
+</div>
+</div>
+
+<div class="shortlist-card two">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option B · Ranch Compound</div>
+<h3 class="shortlist-name">Bar N Ranch</h3>
+<p class="shortlist-tag">A 200-acre working ranch 6 miles from the West Entrance with on-site dining and fly fishing. Multiple cabins, not a single house.</p>
+<div class="shortlist-stats">
+<div><span class="shortlist-stat-label">Config</span><span class="shortlist-stat-value">4BR + 2BR</span></div>
+<div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">~3.5 BA</span></div>
+<div><span class="shortlist-stat-label">To Entry</span><span class="shortlist-stat-value">6 mi</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">~14</span></div>
+</div>
+<div class="shortlist-pros">
+<div class="shortlist-pro">Closest credible hotel-style luxury to the West Entrance — 6 miles via Highway 20 (~15 min)</div>
+<div class="shortlist-pro">Recommended: 4-Bedroom Cabin (1K + 2Q + 4 twin bunks + Q sofa-sleeper) + adjacent Two-Queens cabin</div>
+<div class="shortlist-pro">On-site Embers restaurant + South Fork of the Madison River for fly fishing</div>
+<div class="shortlist-pro">Wood-burning fireplaces, private patios with BBQs, outdoor fire pit area for s'mores</div>
+<div class="shortlist-pro">2026 season runs May 7 – Oct 5 (in season for Aug 26–29)</div>
+</div>
+<div class="shortlist-watch">Multi-building, not a single house. Bath count per cabin below Jackson 5.5 BA spec. Group splits across cabins.</div>
+<div class="shortlist-price"><strong>Quote via Synxis booking engine</strong><br>Call 406-646-0300 for group rates</div>
+<div class="shortlist-ctas">
+<a class="shortlist-cta primary" href="https://be.synxis.com/?&amp;chain=27758&amp;hotel=32677" target="_blank" rel="noopener">Book Now</a>
+<a class="shortlist-cta secondary" href="https://bar-n-ranch.com/cabins/" target="_blank" rel="noopener">View Cabins</a>
+</div>
+</div>
+
+<div class="shortlist-card">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option C · Glamping Resort</div>
+<h3 class="shortlist-name">Under Canvas West Yellowstone</h3>
+<p class="shortlist-tag">Upscale glamping on the Bar N Ranch property — the same 200 acres. Top 5 Resort in Montana per Travel + Leisure 2025.</p>
+<div class="shortlist-stats">
+<div><span class="shortlist-stat-label">Config</span><span class="shortlist-stat-value">2–3 tents</span></div>
+<div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">Ensuite</span></div>
+<div><span class="shortlist-stat-label">To Entry</span><span class="shortlist-stat-value">10 min</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">~13</span></div>
+</div>
+<div class="shortlist-pros">
+<div class="shortlist-pro">Located ON Bar N Ranch land — same archway off Hwy 20, follow signs past lodge to camp</div>
+<div class="shortlist-pro">Recommended: 2× Madison River Suite (sleeps 7 each, king + Q sofa + 3 twins, ensuite bath)</div>
+<div class="shortlist-pro">Or: 1 Madison River Suite + 1 Suite-with-Kids tent (king + Q sofa + 2 twins) = sleeps 13</div>
+<div class="shortlist-pro">Wood-burning stoves, West Elm furnishings, on-site restaurant, complimentary s'mores nightly</div>
+<div class="shortlist-pro">Adventure Concierge handles fly fishing, horseback, guided hikes</div>
+</div>
+<div class="shortlist-watch">Still canvas tents. August nights 40–50°F handled by wood stove and luxe linens — fine for most, but weigh comfort tradeoff if grandparents prefer permanent walls.</div>
+<div class="shortlist-price"><strong>~$700–1,100/nt per tent + 10.04% resort fee</strong><br>3 nights × 2–3 tents ≈ $7K–$10K range</div>
+<div class="shortlist-ctas">
+<a class="shortlist-cta primary" href="https://www.undercanvas.com/camps/west-yellowstone/" target="_blank" rel="noopener">Book Now</a>
+<a class="shortlist-cta secondary" href="https://www.undercanvas.com/camps/west-yellowstone/" target="_blank" rel="noopener">View Tents</a>
+</div>
+</div>
+
+</div>
+
+<div class="booking-guide-header">
+<h3>Vacation rental <em>booking guide</em></h3>
+<div class="sub">Where to look for 7+ bedroom properties · Curated → mid-market</div>
+</div>
+<div class="booking-grid">
+
+<div class="booking-col">
+<h3 class="booking-area-header">Jackson Hole <em>&amp; Tetons</em></h3>
+<div class="booking-tier">
+<div class="booking-tier-label">Ultra Lux — curated &amp; concierge</div>
+<p class="booking-tier-desc">Hand-picked portfolios, in-house concierge, chefs and guides on call.</p>
+<div class="booking-link-list">
+<a href="https://abodejacksonhole.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Abode Luxury Rentals</span><span class="booking-link-url">abodejacksonhole.com</span></a>
+<a href="https://theclearcreekgroup.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">The Clear Creek Group</span><span class="booking-link-url">theclearcreekgroup.com</span></a>
+<a href="https://www.fourseasons.com/jacksonhole/villa-residence-rentals/" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Four Seasons Private Residences</span><span class="booking-link-url">fourseasons.com/jacksonhole</span></a>
+<a href="https://luxurypropertiesjh.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Luxury Properties Jackson Hole</span><span class="booking-link-url">luxurypropertiesjh.com</span></a>
+<a href="https://lvhglobal.com/jacksonhole" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">LVH Global</span><span class="booking-link-url">lvhglobal.com/jacksonhole</span></a>
+</div>
+</div>
+<div class="booking-tier">
+<div class="booking-tier-label">Lux — vetted platforms</div>
+<p class="booking-tier-desc">Strong curation, less personal than ultra-lux but reliable.</p>
+<div class="booking-link-list">
+<a href="https://www.key.co" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Key.co</span><span class="booking-link-url">key.co</span></a>
+<a href="https://www.tetonprivateresidences.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Teton Private Residences</span><span class="booking-link-url">tetonprivateresidences.com</span></a>
+<a href="https://www.onefinestay.com/destination/the-rockies/jackson-hole" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">onefinestay</span><span class="booking-link-url">onefinestay.com</span></a>
+<a href="https://www.ama-selections.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">AMA Selections</span><span class="booking-link-url">ama-selections.com</span></a>
+<a href="https://www.plumguide.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Plum Guide</span><span class="booking-link-url">plumguide.com</span></a>
+</div>
+</div>
+<div class="booking-tier">
+<div class="booking-tier-label">Mid Market — broad inventory</div>
+<p class="booking-tier-desc">Self-service marketplaces and local operators.</p>
+<div class="booking-link-list">
+<a href="https://www.jhrl.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Jackson Hole Resort Lodging</span><span class="booking-link-url">jhrl.com</span></a>
+<a href="https://www.vrbo.com/vacation-rentals/usa/wyoming/jackson-hole" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">VRBO Jackson Hole</span><span class="booking-link-url">vrbo.com</span></a>
+<a href="https://homes-and-villas.marriott.com/en/vacation-rentals/united-states/wyoming/jackson-hole" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Marriott Homes &amp; Villas</span><span class="booking-link-url">homes-and-villas.marriott.com</span></a>
+<a href="https://www.airbnb.com/jackson-hole-wy/stays" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Airbnb Jackson Hole</span><span class="booking-link-url">airbnb.com</span></a>
+</div>
+</div>
+</div>
+
+<div class="booking-col">
+<h3 class="booking-area-header">West Yellowstone <em>&amp; Hebgen</em></h3>
+<div class="booking-tier">
+<div class="booking-tier-label">Ultra Lux — limited inventory</div>
+<p class="booking-tier-desc">West Yellowstone proper has thin ultra-lux. Bar N Ranch is the in-area standout.</p>
+<div class="booking-link-list">
+<a href="https://bar-n-ranch.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Bar N Ranch</span><span class="booking-link-url">bar-n-ranch.com</span></a>
+<a href="https://www.montage.com/bigsky" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Montage Big Sky (50 mi N)</span><span class="booking-link-url">montage.com/bigsky</span></a>
+<a href="https://www.mountain-home.com/montana-vacation-rentals/big-sky-west-yellowstone" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Mountain Home Montana</span><span class="booking-link-url">mountain-home.com</span></a>
+</div>
+</div>
+<div class="booking-tier">
+<div class="booking-tier-label">Lux — large-group homes</div>
+<p class="booking-tier-desc">Curated luxury rentals on Hebgen Lake or Island Park, sized for 10–15.</p>
+<div class="booking-link-list">
+<a href="https://yellowstoneescapes.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Yellowstone Escapes</span><span class="booking-link-url">yellowstoneescapes.com</span></a>
+<a href="https://www.vrbo.com/vacation-rentals/usa/montana/yellowstone/west-yellowstone" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">VRBO — Hebgen luxury filter</span><span class="booking-link-url">vrbo.com</span></a>
+<a href="https://homes-and-villas.marriott.com/en/vacation-rentals/united-states/montana/west-yellowstone" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Marriott Homes &amp; Villas</span><span class="booking-link-url">homes-and-villas.marriott.com</span></a>
+</div>
+</div>
+<div class="booking-tier">
+<div class="booking-tier-label">Mid Market — local operators</div>
+<p class="booking-tier-desc">Family-owned options walkable to town.</p>
+<div class="booking-link-list">
+<a href="https://cabinswestyellowstone.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Cabins West Lodging</span><span class="booking-link-url">cabinswestyellowstone.com</span></a>
+<a href="https://allwestyellowstonelodging.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">LL Western Adventures</span><span class="booking-link-url">allwestyellowstonelodging.com</span></a>
+<a href="https://www.vrbo.com/vacation-rentals/usa/montana/yellowstone/west-yellowstone" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">VRBO West Yellowstone</span><span class="booking-link-url">vrbo.com</span></a>
+<a href="https://www.airbnb.com/west-yellowstone-mt/stays" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Airbnb West Yellowstone</span><span class="booking-link-url">airbnb.com</span></a>
+</div>
+</div>
+</div>
+
+</div>
+<div class="booking-note">For 12 people you need 7+ bedrooms. That narrows every provider's inventory significantly. Late August is peak. Call the boutique operators directly — Abode and Clear Creek for Jackson, Bar N Ranch for West Yellowstone — rather than expecting self-service availability to surface what they have.</div>
+</div>
+</section>
+</div>
+
+<!-- ============ FLIGHTS PAGE ============ -->
+<div class="page" id="page-flights">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">02 · Flights</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">02</span><div><h2 class="section-title">The <em>flights</em></h2><p class="section-desc">Nine fly DTW → JAC together on Aug 22. Three join from California (arriving similar times). Aug 29 splits four to Detroit, eight to California.</p></div></div>
+<div class="flights-grid">
+
+<div class="flight-card outbound">
+<div class="flight-stamp"><span class="flight-stamp-dot"></span>Outbound · Confirmed</div>
+<div class="flight-date">Sat · Aug 22</div>
+<div class="flight-pax">9 from Detroit · Delta · 1 stop</div>
+<div class="flight-legs">
+<div class="flight-leg">
+<div class="flight-leg-no">DL 0935 · Boeing 737-900</div>
+<div class="flight-leg-route"><span>DTW</span><span class="flight-leg-arrow">→</span><span>SLC</span></div>
+<div class="flight-leg-times"><span>12:15 PM</span><span class="flight-leg-arrow">3h 51m</span><span>2:06 PM</span></div>
+<div class="flight-leg-meta">Detroit · McNamara Terminal</div>
+</div>
+<div class="flight-layover">Layover · 1h 46m at SLC</div>
+<div class="flight-leg">
+<div class="flight-leg-no">DL 0417 · Airbus A319</div>
+<div class="flight-leg-route"><span>SLC</span><span class="flight-leg-arrow">→</span><span>JAC</span></div>
+<div class="flight-leg-times"><span>3:52 PM</span><span class="flight-leg-arrow">1h 5m</span><span>4:57 PM</span></div>
+<div class="flight-leg-meta">Total travel · 6h 42m</div>
+</div>
+</div>
+<div class="flight-note">Plan landing buffer: bags, two SUV pickups, 30-min drive to rental. Arrive at the house ~7 PM. Skip bear spray + grocery run that night — push to Sunday morning.</div>
+</div>
+
+<div class="flight-card return-dtw">
+<div class="flight-stamp"><span class="flight-stamp-dot"></span>Return to Detroit · Confirmed</div>
+<div class="flight-date">Sat · Aug 29</div>
+<div class="flight-pax">4 of 9 · Delta · Nonstop</div>
+<div class="flight-legs">
+<div class="flight-leg">
+<div class="flight-leg-no">DL 0364 · Airbus A319</div>
+<div class="flight-leg-route"><span>BZN</span><span class="flight-leg-arrow">→</span><span>DTW</span></div>
+<div class="flight-leg-times"><span>3:38 PM</span><span class="flight-leg-arrow">3h 16m</span><span>8:54 PM</span></div>
+<div class="flight-leg-meta">Bozeman · Detroit · McNamara Terminal</div>
+</div>
+</div>
+<div class="flight-note">Leave West Yellowstone by 11 AM. Gallatin Canyon drive is ~2.5 hrs. Targets a comfortable 1:30 PM BZN arrival with airport buffer.</div>
+</div>
+
+<div class="flight-card return-ca tbd">
+<div class="flight-stamp"><span class="flight-stamp-dot"></span>Return to California · Tickets Pending</div>
+<div class="flight-date">Sat · Aug 29</div>
+<div class="flight-pax">5 of 9 + 3 from CA = 8 total</div>
+<div class="flight-tbd">
+<div class="flight-tbd-tag">TBD</div>
+<div>Flight numbers and times not yet booked. Expected similar afternoon departure window as the Detroit return — same BZN airport drop.</div>
+</div>
+<div class="flight-note">When the CA itinerary lands, this card updates. Both vehicles drop at BZN; one handles DTW group, one handles CA group.</div>
+</div>
+
+</div>
+</div>
+</section>
+</div>
+
+<!-- ============ TRIP PAGE (Map + Itinerary) ============ -->
+<div class="page" id="page-trip">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">03 · Trip · Map &amp; Itinerary</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">03</span><div><h2 class="section-title">Map &amp; <em>itinerary</em></h2><p class="section-desc">Click any day below the map (or any day filter pill) to see only that day's route. Click "All Days" to see the full arc from JAC to BZN.</p></div></div>
+<div class="map-section-wrap">
+<div class="map-header"><span class="map-header-title">⊕ JAC to BZN · 8 days · 14 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
+<div class="map-canvas" id="mapCanvas">
+<div id="mainMap" role="application" aria-label="Interactive map of the trip route"></div>
+</div>
+<div class="map-controls"><span class="map-controls-label">Filter by day</span><div id="mapDayBtns" style="display:flex;flex-wrap:wrap;gap:6px"></div></div>
+</div>
+<div class="map-legend">
+<div class="legend-item"><span class="legend-dot airport"></span> Airports</div>
+<div class="legend-item"><span class="legend-dot"></span> Park stops</div>
+<div class="legend-item"><span class="legend-dot transit"></span> Transit-day stops</div>
+<div class="legend-item"><span class="legend-line dashed"></span> Full route (All Days)</div>
+<div class="legend-item"><span class="legend-line"></span> Single-day route</div>
+</div>
+
+<div class="trip-itinerary-header">
+<h3>Day by <em>day</em></h3>
+<div class="sub">Click a day card to focus the map on it</div>
+</div>
+<div class="timeline" id="timeline"></div>
+</div>
+</section>
+</div>
+
+<!-- ============ NPS MAP OVERLAY PAGE ============ -->
+<div class="page" id="page-nps">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">04 · NPS Park Maps</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">04</span><div><h2 class="section-title">Park <em>brochure maps</em></h2><p class="section-desc">Itinerary stops overlaid on the official NPS brochure maps. A different way to see the route than the live Leaflet map. Hover any marker for details.</p></div></div>
+
+<div class="nps-note">Marker positions are calculated from real lat/lng but mapped to the published park brochures, so placement is approximate — within a few miles. The Leaflet map on the Trip page remains the source of truth for precise location.</div>
+
+<div class="nps-section-head"><h3>Grand Teton <em>National Park</em></h3><div class="sub">Days 01 – 04 · Aug 22 – 25</div></div>
+<div class="nps-map-wrap" id="npsTetonWrap">
+<img class="nps-map-img" id="npsTetonImg" src="img/nps-grand-teton.jpg" alt="Grand Teton National Park official NPS brochure map"/>
+<div id="npsTetonMarkers"></div>
+</div>
+<div class="nps-credit">Map © U.S. National Park Service · hosted by NPMaps.com</div>
+
+<div class="nps-section-head" style="margin-top:48px"><h3>Yellowstone <em>National Park</em></h3><div class="sub">Days 05 – 07 · Aug 26 – 28</div></div>
+<div class="nps-map-wrap" id="npsYellowWrap">
+<img class="nps-map-img" id="npsYellowImg" src="img/nps-yellowstone.jpg" alt="Yellowstone National Park official NPS brochure map"/>
+<div id="npsYellowMarkers"></div>
+</div>
+<div class="nps-credit">Map © U.S. National Park Service · hosted by NPMaps.com</div>
+
+</div>
+</section>
+</div>
+
+<!-- ============ DINING PAGE ============ -->
+<div class="page" id="page-dining">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">05 · Dining</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">05</span><div><h2 class="section-title">Food &amp; <em>restaurants</em></h2><p class="section-desc">Where 12 people eat across eight days. Strategy: pack lunches from the rental kitchens, sit-down dinners in town, group cooking at the rental on the heavy nights.</p></div></div>
+
+<div class="dining-grid">
+
+<div class="dining-card">
+<div class="dining-card-eyebrow"><span class="dining-card-eyebrow-dot"></span>Daily · Lunches</div>
+<h3>Pack from the rental kitchen</h3>
+<p class="lede">Sit-down restaurants inside the parks have 60–90 minute waits and mediocre food. The rentals have full kitchens — use them.</p>
+<ul class="dining-list">
+<li><div><strong>Pack the night before.</strong> Sandwiches, fruit, snacks, water. One vehicle is the daily "cooler car."</div></li>
+<li><div><strong>Picnic at every scenic pullout.</strong> Jenny Lake, West Thumb, Old Faithful, Canyon Village all have designated picnic areas.</div></li>
+<li><div><strong>Backup cafeterias if needed.</strong> Old Faithful Lodge Cafeteria, Canyon Lodge Cafeteria — walk-in, no reservations, casual.</div></li>
+</ul>
+</div>
+
+<div class="dining-card evenings">
+<div class="dining-card-eyebrow"><span class="dining-card-eyebrow-dot"></span>Evenings · Jackson</div>
+<h3>Town dinners in Jackson</h3>
+<p class="lede">Aug 25 is the planned group dinner night out. Late-August reservations for 12 are tight — book now.</p>
+<ul class="dining-list">
+<li><div><strong>Snake River Grill</strong>Upscale, classic Jackson institution. American/wood-fired. Reserve a private table.</div></li>
+<li><div><strong>Glorietta</strong>Modern Italian, wood-fired. Strong wine list, good for a 12-top.</div></li>
+<li><div><strong>Persephone Bakery</strong>Casual upscale, French-leaning. Better for an earlier dinner or breakfast.</div></li>
+<li><div><strong>Hand Fire Pizza</strong>Pizza + salads, easy for a group with kids. No-fuss.</div></li>
+<li><div><strong>Bin 22 / Cafe Genevieve</strong>Wine bar tapas and a historic-log-cabin dinner spot. Solid alternates.</div></li>
+</ul>
+</div>
+
+<div class="dining-card in-park">
+<div class="dining-card-eyebrow"><span class="dining-card-eyebrow-dot"></span>In-park · Special meals</div>
+<h3>Inside Yellowstone &amp; the Tetons</h3>
+<p class="lede">A couple of in-park meals worth planning around — for the lobby experience, not just the food.</p>
+<ul class="dining-list">
+<li><div><strong>Old Faithful Inn Dining Room</strong>Aug 27 lunch — the 1904 log-cathedral lobby is the destination. <em>Call when you book lodging; for 12 you'll need staggered reservations.</em></div></li>
+<li><div><strong>Jackson Lake Lodge</strong>Aug 24 lunch — the picture window in the lobby alone is worth it. Mural Room or Pioneer Grill.</div></li>
+<li><div><strong>Corbet's Cabin (top of Tram)</strong>Aug 25 lunch — famous waffles at 10,450 ft. Quick service, no reservations.</div></li>
+<li><div><strong>Canyon Lodge dining room</strong>Aug 28 lunch — walk-in cafeteria style, easy with a group.</div></li>
+</ul>
+</div>
+
+<div class="dining-card grocery">
+<div class="dining-card-eyebrow"><span class="dining-card-eyebrow-dot"></span>Stocking · Groceries</div>
+<h3>Where to grocery shop</h3>
+<p class="lede">Two stops total: one on Aug 22 night in Jackson, one on Aug 26 afternoon when you arrive in West Yellowstone.</p>
+<ul class="dining-list">
+<li><div><strong>Jackson · Albertsons</strong>24 hours. Most selection. South of Town Square.</div></li>
+<li><div><strong>Jackson · Jackson Whole Grocer</strong>Upscale, smaller crowds, better produce and prepared food. Closes 9 PM.</div></li>
+<li><div><strong>West Yellowstone · Market Place Foods</strong>Local supermarket, full grocery range.</div></li>
+<li><div><strong>West Yellowstone · Food Roundup</strong>Smaller backup option in town.</div></li>
+</ul>
+</div>
+
+</div>
+
+<div class="dining-note"><strong>Dining logistics — to be built next.</strong> Coming: specific group menus for the at-rental dinners (Aug 22 + Aug 23 + Aug 28 nights), kids-vs-adults considerations, dietary restrictions log, division of cooking duties across the four families, wine &amp; beer stocking, dishware audit. Tell me what to prioritize and I'll fill this section in.</div>
+
+</div>
+</section>
+</div>
+
+<!-- ============ BOOKINGS PAGE ============ -->
+<div class="page" id="page-bookings">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">06 · Bookings</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">06</span><div><h2 class="section-title">What to <em>book now</em></h2><p class="section-desc">Priority checklist ordered by urgency. Late-August inventory is the constraint on every line.</p></div></div>
+<div class="logistics-grid">
+<div class="logistics-card bookings"><h3 class="logistics-card-title">Booking priority</h3>
+<ul class="logistics-list">
+<li><div><strong>Both rentals</strong>7+ BR properties for these dates. Limited inventory — this is line one.</div></li>
+<li><div><strong>Snake River private float, Aug 24 AM</strong>Solitude Float Trips · Barker-Ewing · Triangle X. Private 16-passenger boat for 12.</div></li>
+<li><div><strong>Two SUVs, one-way JAC → BZN</strong>Hertz, National, Enterprise, or Avis. Drop fees $300–500/vehicle.</div></li>
+<li><div><strong>Whitewater raft, Aug 25 PM</strong>Vehicle A subgroup. Two rafts (6 per boat). Mad River, Dave Hansen, Barker-Ewing.</div></li>
+<li><div><strong>Jackson dinner reservation for 12, Aug 25</strong>Snake River Grill · Glorietta · Persephone · Hand Fire Pizza.</div></li>
+<li><div><strong>Afternoon flight from BZN, Aug 29</strong>Minimum departure 12:30 PM. Morning flights are dangerously tight.</div></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ============ LOGISTICS PAGE ============ -->
+<div class="page" id="page-logistics">
+<div class="page-header">
+<div class="page-header-inner">
+<a class="back-link" href="#home">← Home</a>
+<span class="page-label">07 · Logistics</span>
+</div>
+</div>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><span class="section-num">07</span><div><h2 class="section-title">Two-vehicle <em>ops</em></h2><p class="section-desc">Drivers, bear spray, parking, cooler car, and how the two SUVs split passengers and gear.</p></div></div>
+<div class="logistics-grid">
+<div class="logistics-card vehicles"><h3 class="logistics-card-title">On-the-ground logistics</h3>
+<ul class="logistics-list">
+<li><div><strong>Suburban or Tahoe</strong>7 seats + luggage + AWD. Two of these handle 12 + bags.</div></li>
+<li><div><strong>Driver rotation</strong>No one drives both Aug 26 transit AND Aug 28 Canyon.</div></li>
+<li><div><strong>Comms between cars</strong>Cell service is spotty in YNP. Set rendezvous landmarks each morning.</div></li>
+<li><div><strong>Bear spray</strong>4 cans total, 2 per vehicle. Buy in Jackson on Aug 22.</div></li>
+<li><div><strong>Parking pinch points</strong>Grand Prismatic / Fairy Falls fills by 9 AM. First vehicle parks; second drops then circles.</div></li>
+<li><div><strong>Cooler car</strong>One vehicle is the daily cooler car. Stocked from rental kitchen the night before.</div></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<div class="credits">
+<div class="wrap">
+<strong>Photography &amp; Map Credits</strong>
+Tetons hero · <a href="https://unsplash.com/@ndam" target="_blank" rel="noopener">Nandita Damaraju</a> &nbsp;·&nbsp;
+Hidden Falls (Day 3) · <a href="https://unsplash.com/@ojrupp" target="_blank" rel="noopener">Owen Rupp</a> &nbsp;·&nbsp;
+Old Faithful (Day 6) · <a href="https://unsplash.com/@windagh" target="_blank" rel="noopener">Dennis Zhang</a> &nbsp;·&nbsp;
+Lower Falls (Day 7) · <a href="https://unsplash.com/@btwilkins" target="_blank" rel="noopener">Ben Wilkins</a>
+<br>All photos via the <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a> &nbsp;·&nbsp; Park brochure maps © <a href="https://www.nps.gov" target="_blank" rel="noopener">U.S. National Park Service</a>, hosted by <a href="https://npmaps.com" target="_blank" rel="noopener">NPMaps</a>
+</div>
+</div>
+
+<footer>
+<div class="wrap">
+<div class="footer-mark"></div>
+<div class="footer-title">Have a beautiful trip.</div>
+<div class="footer-meta">Drafted for August 2026<span class="footer-divider">·</span>Map needs internet for tiles<span class="footer-divider">·</span>Print to PDF for offline reference</div>
+</div>
+</footer>
+
+<script>
+'use strict';
+
+const DAYS=[
+{day:1,date:"Aug 22",year:"2026",title:"Arrive Jackson",narrative:"Land at JAC, drive thirty minutes to the rental, grocery run, bear spray pickup. First night together — group dinner at the house, early to bed.",driving:"30 min from JAC",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Jackson Hole Airport (JAC)",lat:43.608809,lng:-110.7375814,notes:"The only commercial airport inside a US national park. Pick up two SUVs here.",type:"airport"}]},
+{day:2,date:"Aug 23",year:"2026",title:"Tetons easy day",narrative:"Jenny Lake shuttle boat across to the trailhead. Hidden Falls for everyone, Inspiration Point for kids and able adults. Lakeside picnic, free afternoon at the rental.",driving:"~1 hr local",stops:[{time:"9:00 AM",duration:"~4 hrs",name:"Jenny Lake Visitor Center",lat:43.7514813,lng:-110.7223421,notes:"Shuttle boat across the lake. Hidden Falls is a half-mile flat walk. Kids and able adults push another 0.5 mi up to Inspiration Point."}]},
+{day:3,date:"Aug 24",year:"2026",title:"Tetons signature day",narrative:"Private Snake River scenic float in the morning — three hours, calm water, the wildlife corridor reveals itself. A loop through Oxbow Bend and up Signal Mountain in the afternoon. Sunset at Schwabacher if you're up for it.",driving:"~2 hrs local",stops:[
+{time:"8:30 AM",duration:"~4 hrs",name:"Triangle X Ranch area",lat:43.7645231,lng:-110.5677611,notes:"Snake River scenic float meet point. 3-hour calm-water private float — moose, bald eagles, occasional bear."},
+{time:"1:30 PM",duration:"~20 min",name:"Oxbow Bend",lat:43.8661723,lng:-110.5474015,notes:"Premier 10-minute pull-off. Mount Moran's reflection on still water; classic moose habitat."},
+{time:"2:30 PM",duration:"~1 hr",name:"Signal Mountain Summit",lat:43.8489165,lng:-110.5672136,notes:"Drive-up summit road. Panoramic Teton overview entirely from the car."},
+{time:"7:30 PM",duration:"~1 hr",name:"Schwabacher Landing",lat:43.7115652,lng:-110.6703898,notes:"Optional sunset stop. 5-min walk from parking. The iconic Teton reflection shot."}
+]},
+{day:4,date:"Aug 25",year:"2026",title:"Tetons flex day",narrative:"First real subgroup split. Both groups reconvene at the top of the tram for waffles at Corbet's Cabin. Town dinner in Jackson that evening.",driving:"<1 hr local",vehiclePlay:true,vehicleA:"Whitewater raft Snake River Canyon (half-day, Class II–III). Two rafts for 6 adults + 2 teens. Late-afternoon tram up.",vehicleB:"Sleep in. Late-morning tram together. Lunch at Corbet's Cabin, then back to rental for hot tub. Grandparents + younger kids.",stops:[{time:"11:30 AM",duration:"~3 hrs",name:"Jackson Hole Aerial Tram",lat:43.587535,lng:-110.8276971,notes:"12-min ride to 10,450 ft. Corbet's Cabin waffles at the top. All 12 converge here for lunch midday."}]},
+{day:5,date:"Aug 26",year:"2026",title:"Transit to West Yellowstone",narrative:"The only real driving day — about four hours with stops. Staggered start keeps check-in painless.",driving:"~4 hrs transit",type:"transit",vehiclePlay:true,vehicleA:"Leaves Jackson 9:30 AM. Longer at West Thumb. Arrives ~4 PM.",vehicleB:"Leaves Jackson 8 AM. Quick stops. Arrives ~2 PM, starts unpacking.",stops:[
+{time:"10:30 AM",duration:"~15 min",name:"Lewis Falls",lat:44.2673757,lng:-110.6369631,notes:"5-min roadside photo stop just past Yellowstone's South Entrance.",type:"transit"},
+{time:"11:30 AM",duration:"~1.5 hrs",name:"West Thumb Geyser Basin",lat:44.4155079,lng:-110.5730438,notes:"Perfect first-geyser introduction. Boardwalk loop over Yellowstone Lake. Picnic lunch.",type:"transit"},
+{time:"2:00 PM",duration:"",name:"West Yellowstone, MT",lat:44.6621493,lng:-111.1041092,notes:"Stay 2 base. Settle in. Market Place Foods for groceries.",type:"transit"}
+]},
+{day:6,date:"Aug 27",year:"2026",title:"Geyser basin day",narrative:"Closest YNP activities to the new base. Early start to beat the 9 AM parking swarm at Grand Prismatic. Picnic lunches from the rental.",driving:"~1.5 hrs total",stops:[
+{time:"8:30 AM",duration:"~4 hrs",name:"Old Faithful",lat:44.4586009,lng:-110.8292436,notes:"Catch an eruption (~94 min interval). Walk the Upper Geyser Basin paved loop."},
+{time:"1:30 PM",duration:"~2.5 hrs",name:"Grand Prismatic Spring",lat:44.5250346,lng:-110.8381793,notes:"Do the Fairy Falls Overlook trail first (1.6 mi RT) for the iconic elevated shot. Boardwalk after."},
+{time:"4:00 PM",duration:"~30 min",name:"Fountain Paint Pots",lat:44.5506123,lng:-110.8062333,notes:"Bubbling mudpots, fumaroles. Short flat boardwalk. Kids' favorite."}
+]},
+{day:7,date:"Aug 28",year:"2026",title:"Canyon & Hayden Valley",narrative:"The biggest activity day, structured around two vehicles to give early risers an empty Norris at sunrise. Reconvene at Canyon Village for lunch.",driving:"~3 hrs across segments",vehiclePlay:true,vehicleA:"Leaves W. Yellowstone 6:30 AM. Norris nearly empty at sunrise.",vehicleB:"Leaves 9 AM relaxed. Both meet at Canyon Village at noon for lunch.",stops:[
+{time:"7:30 AM",duration:"~2 hrs",name:"Norris Geyser Basin",lat:44.7262352,lng:-110.7042812,notes:"Most active basin in the park. Porcelain Basin loop (1 mi flat). Steamboat Geyser."},
+{time:"12:00 PM",duration:"~1 hr",name:"Canyon Village",lat:44.7347022,lng:-110.4918434,notes:"Both vehicles reconvene. Picnic at Canyon Village picnic area."},
+{time:"1:30 PM",duration:"~1 hr",name:"Artist Point",lat:44.7210494,lng:-110.4793696,notes:"The iconic Lower Falls view. 5-min walk from parking."},
+{time:"3:00 PM",duration:"~2 hrs",name:"Hayden Valley",lat:44.6438286,lng:-110.4554805,notes:"Wildlife drive south from Canyon. Pull off at every wildlife jam. Bison guaranteed."}
+]},
+{day:8,date:"Aug 29",year:"2026",title:"Drive Bozeman, fly out",narrative:"West Yellowstone to Bozeman through Gallatin Canyon — 2.5 hours, one of the most scenic stretches in the West.",driving:"2.5 hrs to BZN",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Bozeman Yellowstone International Airport (BZN)",lat:45.7784043,lng:-111.1612273,notes:"Drop both SUVs. Flight must depart after ~12:30 PM minimum.",type:"airport"}]}
+];
+
+// ============ PAGE ROUTER ============
+const PAGES=['home','lodging','flights','trip','nps','dining','bookings','logistics'];
+const DAY_PHOTOS={
+  1:'img/day1-arrival.jpg',
+  2:'img/day2-jenny-lake.jpg',
+  3:'img/day3-hidden-falls.jpg',
+  4:'img/day4-tetons-flex.jpg',
+  5:'img/day5-west-thumb.jpg',
+  6:'img/day6-old-faithful.jpg',
+  7:'img/day7-lower-falls.jpg',
+  8:'img/day8-bison.jpg'
+};
+function getCurrentPage(){
+  const h=window.location.hash.replace(/^#/,'').split('/')[0];
+  return PAGES.includes(h)?h:'home';
+}
+function showPage(name){
+  PAGES.forEach(p=>{
+    const el=document.getElementById('page-'+p);
+    if(el)el.classList.toggle('active',p===name);
+  });
+  document.querySelectorAll('[data-page]').forEach(a=>{
+    a.classList.toggle('active',a.dataset.page===name);
+  });
+  window.scrollTo({top:0,left:0,behavior:'instant'});
+  closeMobileMenu();
+  if(name==='trip'&&window._map){setTimeout(()=>window._map.invalidateSize(),120);}
+}
+function handleHash(){showPage(getCurrentPage());}
+window.addEventListener('hashchange',handleHash);
+
+// ============ HAMBURGER / MOBILE MENU ============
+const hamburgerBtn=document.getElementById('hamburgerBtn');
+const mobileMenu=document.getElementById('mobileMenu');
+const mobileBackdrop=document.getElementById('mobileBackdrop');
+function openMobileMenu(){
+  mobileMenu.classList.add('open');
+  mobileBackdrop.classList.add('open');
+  hamburgerBtn.classList.add('open');
+  hamburgerBtn.setAttribute('aria-expanded','true');
+  mobileMenu.setAttribute('aria-hidden','false');
+}
+function closeMobileMenu(){
+  mobileMenu.classList.remove('open');
+  mobileBackdrop.classList.remove('open');
+  hamburgerBtn.classList.remove('open');
+  hamburgerBtn.setAttribute('aria-expanded','false');
+  mobileMenu.setAttribute('aria-hidden','true');
+}
+hamburgerBtn.addEventListener('click',()=>{
+  if(mobileMenu.classList.contains('open'))closeMobileMenu();
+  else openMobileMenu();
+});
+mobileBackdrop.addEventListener('click',closeMobileMenu);
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMobileMenu));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&mobileMenu.classList.contains('open'))closeMobileMenu();});
+
+// ============ RENDER DAY CARDS ============
+const timeline=document.getElementById('timeline');
+DAYS.forEach(d=>{
+  const stopsHtml=d.stops.map(s=>`<div class="stop"><div class="stop-time-block"><span class="stop-time">${s.time}</span>${s.duration?`<span class="stop-duration">${s.duration}</span>`:''}</div><div><div class="stop-name">${s.name}</div><div class="stop-notes">${s.notes}</div></div></div>`).join('');
+  const vpHtml=d.vehiclePlay?`<div class="vehicle-play"><div class="vehicle-play-header">⊕ Two-Vehicle Play</div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE A</div><div class="vehicle-detail">${d.vehicleA}</div></div><div class="vehicle-row"><div class="vehicle-tag">VEHICLE B</div><div class="vehicle-detail">${d.vehicleB}</div></div></div>`:'';
+  const headerClass=d.type==='airport'?'airport-day':d.type==='transit'?'transit-day':'';
+  const photoHtml=DAY_PHOTOS[d.day]?`<div class="day-photo" style="background-image:url('${DAY_PHOTOS[d.day]}')"></div>`:'';
+  timeline.insertAdjacentHTML('beforeend',`<article class="day-card" id="day-${d.day}" data-day="${d.day}">${photoHtml}<div class="day-header ${headerClass}"><div><div class="day-marker-big"><span class="day-marker-num">${String(d.day).padStart(2,'0')}</span>Day ${String(d.day).padStart(2,'0')} of 08</div><h3 class="day-title">${d.title}</h3></div><div class="day-date-block"><div class="day-date">${d.date}</div><div class="day-meta">${d.year} · ${d.driving}</div></div></div><div class="day-body"><p class="day-narrative">${d.narrative}</p><div class="stops">${stopsHtml}</div>${vpHtml}</div></article>`);
+});
+
+// ============ MAP DAY FILTER BUTTONS ============
+const mapDayBtns=document.getElementById('mapDayBtns');
+mapDayBtns.insertAdjacentHTML('beforeend',`<button class="map-day-btn active" data-day="all">All Days</button>`);
+DAYS.forEach(d=>{mapDayBtns.insertAdjacentHTML('beforeend',`<button class="map-day-btn" data-day="${d.day}">D${String(d.day).padStart(2,'0')} · ${d.date}</button>`)});
+
+// ============ LEAFLET MAP ============
+const allStops=[];
+DAYS.forEach(d=>{d.stops.forEach((s,idx)=>{allStops.push({...s,day:d.day,dayDate:d.date,stopIdx:idx})})});
+
+const map=L.map('mainMap',{
+  center:[44.5,-110.7],
+  zoom:8,
+  scrollWheelZoom:true,
+  zoomControl:true,
+  attributionControl:true,
+  zoomSnap:0.25
+});
+window._map=map;
+
+const topo=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',{attribution:'Tiles &copy; Esri',maxZoom:17});
+const satellite=L.layerGroup([
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{attribution:'Imagery &copy; Esri',maxZoom:19}),
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,opacity:0.9})
+]);
+const streets=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'&copy; OpenStreetMap contributors',maxZoom:19});
+topo.addTo(map);
+L.control.layers({'Topographic':topo,'Satellite':satellite,'Streets':streets},null,{position:'topright',collapsed:false}).addTo(map);
+
+// Full route polyline (used in "All Days" mode)
+const fullRouteLatLngs=allStops.map(s=>[s.lat,s.lng]);
+const fullRoutePolyline=L.polyline(fullRouteLatLngs,{
+  color:'#C44A1E',
+  weight:3,
+  dashArray:'10 8',
+  opacity:0.75,
+  lineJoin:'round',
+  lineCap:'round'
+}).addTo(map);
+
+// Per-day polylines (drawn only when a specific day is selected)
+const dayPolylines={};
+DAYS.forEach(d=>{
+  if(d.stops.length<2)return;
+  const latlngs=d.stops.map(s=>[s.lat,s.lng]);
+  const p=L.polyline(latlngs,{
+    color:'#C44A1E',
+    weight:5,
+    opacity:0.95,
+    lineJoin:'round',
+    lineCap:'round'
+  });
+  dayPolylines[d.day]=p;
+});
+
+// Markers
+const allMarkers=[];
+allStops.forEach(stop=>{
+  const fill=stop.type==='airport'?'#D9A441':stop.type==='transit'?'#C44A1E':'#2A4A2C';
+  const textColor=stop.type==='airport'?'#0F1410':'#FAF7F0';
+  const icon=L.divIcon({
+    className:'',
+    html:`<div class="marker-bubble" style="background:${fill};color:${textColor}">${stop.day}</div>`,
+    iconSize:[40,40],
+    iconAnchor:[20,20],
+    popupAnchor:[0,-22]
+  });
+  const marker=L.marker([stop.lat,stop.lng],{icon,title:stop.name,riseOnHover:true}).addTo(map);
+  marker.dayNum=stop.day;
+  marker.stopData=stop;
+  marker.bindPopup(
+    `<div class="lp-eyebrow">Day ${String(stop.day).padStart(2,'0')} &middot; ${stop.dayDate}</div>`+
+    `<div class="lp-title">${stop.name}</div>`+
+    `<div class="lp-notes">${stop.notes}</div>`+
+    `<a class="lp-link" href="#day-${stop.day}" data-target-day="${stop.day}">See Day ${stop.day} in itinerary</a>`,
+    {maxWidth:320,minWidth:240,autoPan:true,autoPanPadding:[20,20]}
+  );
+  allMarkers.push(marker);
+});
+
+const routeBounds=L.latLngBounds(fullRouteLatLngs).pad(0.04);
+map.fitBounds(routeBounds,{animate:false});
+setTimeout(()=>{map.invalidateSize();map.fitBounds(routeBounds,{animate:false});},300);
+
+// Popup click → scroll to day card
+map.on('popupopen',e=>{
+  const popupEl=e.popup.getElement();
+  if(!popupEl)return;
+  const linkEl=popupEl.querySelector('.lp-link');
+  if(!linkEl)return;
+  linkEl.addEventListener('click',evt=>{
+    evt.preventDefault();
+    const targetDay=linkEl.dataset.targetDay;
+    selectDay(parseInt(targetDay,10),{scrollToCard:true});
+    map.closePopup();
+  });
+});
+
+// ============ DAY SELECTION (filters map + highlights card) ============
+let currentDay='all';
+function selectDay(day,opts){
+  opts=opts||{};
+  currentDay=day;
+  // Update button states
+  document.querySelectorAll('.map-day-btn').forEach(b=>{
+    b.classList.toggle('active',(day==='all'?b.dataset.day==='all':parseInt(b.dataset.day,10)===day));
+  });
+  // Highlight day card
+  document.querySelectorAll('.day-card').forEach(c=>{
+    c.classList.toggle('highlighted',(day!=='all'&&parseInt(c.dataset.day,10)===day));
+  });
+  map.closePopup();
+  if(day==='all'){
+    // Show full route, hide per-day lines, reset markers
+    if(!map.hasLayer(fullRoutePolyline))fullRoutePolyline.addTo(map);
+    Object.values(dayPolylines).forEach(p=>{if(map.hasLayer(p))map.removeLayer(p);});
+    allMarkers.forEach(m=>{
+      const el=m.getElement();
+      if(el){const bubble=el.querySelector('.marker-bubble');if(bubble)bubble.classList.remove('dimmed');}
+    });
+    map.fitBounds(routeBounds);
+  }else{
+    // Hide full route, show only this day's polyline, dim other markers
+    if(map.hasLayer(fullRoutePolyline))map.removeLayer(fullRoutePolyline);
+    Object.entries(dayPolylines).forEach(([d,p])=>{
+      const isThisDay=parseInt(d,10)===day;
+      if(isThisDay&&!map.hasLayer(p))p.addTo(map);
+      else if(!isThisDay&&map.hasLayer(p))map.removeLayer(p);
+    });
+    const focusLatLngs=[];
+    allMarkers.forEach(m=>{
+      const el=m.getElement();
+      if(el){const bubble=el.querySelector('.marker-bubble');if(bubble)bubble.classList.toggle('dimmed',m.dayNum!==day);}
+      if(m.dayNum===day)focusLatLngs.push([m.stopData.lat,m.stopData.lng]);
+    });
+    if(focusLatLngs.length===1)map.setView(focusLatLngs[0],11);
+    else if(focusLatLngs.length>1)map.fitBounds(L.latLngBounds(focusLatLngs).pad(0.35));
+    if(opts.scrollToCard){
+      const dayEl=document.getElementById(`day-${day}`);
+      if(dayEl)setTimeout(()=>dayEl.scrollIntoView({behavior:'smooth',block:'start'}),200);
+    }
+  }
+}
+
+// Wire day filter buttons
+document.querySelectorAll('.map-day-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const d=btn.dataset.day;
+    selectDay(d==='all'?'all':parseInt(d,10));
+  });
+});
+
+// Wire day cards (click filters map)
+document.querySelectorAll('.day-card').forEach(card=>{
+  card.addEventListener('click',e=>{
+    // Don't trigger if user clicked a link inside the card
+    if(e.target.closest('a'))return;
+    const d=parseInt(card.dataset.day,10);
+    selectDay(d);
+    document.getElementById('mainMap').scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+window.addEventListener('resize',()=>map.invalidateSize());
+
+// ============ NPS MAP OVERLAY MARKERS ============
+// Approximate geographic bounds of the published NPS brochure map images
+const NPS_BOUNDS={
+  teton:{north:44.13,south:43.42,west:-110.96,east:-110.40},
+  yellow:{north:45.12,south:44.10,west:-111.20,east:-109.90}
+};
+function placeNpsMarkers(){
+  const tetonStops=allStops.filter(s=>s.day<=4);
+  const yellowStops=allStops.filter(s=>s.day>=5&&s.day<=7);
+  function place(stops,bounds,container){
+    container.innerHTML='';
+    stops.forEach(s=>{
+      const x=((s.lng-bounds.west)/(bounds.east-bounds.west))*100;
+      const y=((bounds.north-s.lat)/(bounds.north-bounds.south))*100;
+      if(x<0||x>100||y<0||y>100)return;
+      const fill=s.type==='airport'?'airport':s.type==='transit'?'transit':'';
+      const div=document.createElement('div');
+      div.className='nps-map-marker '+fill;
+      div.style.left=x.toFixed(2)+'%';
+      div.style.top=y.toFixed(2)+'%';
+      div.innerHTML=`${s.day}<span class="tooltip">Day ${String(s.day).padStart(2,'0')} · ${s.name}</span>`;
+      container.appendChild(div);
+    });
+  }
+  const tetonContainer=document.getElementById('npsTetonMarkers');
+  const yellowContainer=document.getElementById('npsYellowMarkers');
+  if(tetonContainer)place(tetonStops,NPS_BOUNDS.teton,tetonContainer);
+  if(yellowContainer)place(yellowStops,NPS_BOUNDS.yellow,yellowContainer);
+}
+// Wait for the map images to load (they affect container sizing)
+const tetonImg=document.getElementById('npsTetonImg');
+const yellowImg=document.getElementById('npsYellowImg');
+if(tetonImg){
+  if(tetonImg.complete)placeNpsMarkers();
+  else tetonImg.addEventListener('load',placeNpsMarkers);
+}
+if(yellowImg){
+  if(!yellowImg.complete)yellowImg.addEventListener('load',placeNpsMarkers);
+}
+window.addEventListener('resize',placeNpsMarkers);
+
+// ============ NAV LINKS (close menu, smooth scroll for in-page hash) ============
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');
+    const hash=href.replace(/^#/,'');
+    if(PAGES.includes(hash)){
+      // Page navigation - let hashchange handler take it
+      return;
+    }
+  });
+});
+
+// ============ REVEAL ON SCROLL ============
+const revealEls=document.querySelectorAll('.lodge, .day-card, .logistics-card, .flight-card, .shortlist-card, .home-nav-card');
+revealEls.forEach(el=>el.classList.add('reveal'));
+const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -10% 0px'});
+revealEls.forEach(el=>revealObs.observe(el));
+
+// ============ INIT ============
+handleHash();
+</script>
+</body>
+</html>
