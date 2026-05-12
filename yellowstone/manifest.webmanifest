@@ -1,0 +1,31 @@
+{
+  "name": "2026 Makharia Family Reunion · Yellowstone & The Tetons",
+  "short_name": "Makharia Reunion",
+  "description": "Family trip itinerary, dining, lodging, maps, prep — Aug 22–29, 2026.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#0E1A14",
+  "background_color": "#0E1A14",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
