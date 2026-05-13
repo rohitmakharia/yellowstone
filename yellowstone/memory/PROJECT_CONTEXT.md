@@ -100,14 +100,22 @@ Two large vacation rentals, no in-park stays, no hotels. Both bases need to fit 
 
 ### Key bookings (Aug 23 anchors)
 
-- **Glorietta · Aug 23 · 5:30 PM · 307-733-3888.** Private dining room for Dadu's 75th. Table of 12. **The single most important reservation in the trip — book first.**
-- **Snake River scenic float · Aug 24 AM · Barker-Ewing · 307-733-1800.** Private 16-passenger boat for 12.
+- **Glorietta · Aug 23 · 5:30 PM · 307-733-3888.** Private dining room for Dadu's 75th. Table of 12. **The single most important reservation in the trip — book first.** *Note (2026-05-13):* Rohit considering switching to Snake River Grill — sees Glorietta's private room as not upscale enough for the milestone. Awaiting SRG private-dining info. Decision pending. See CHANGELOG.md.
+
+**Dietary split across the party of 12** (canonical, applies to every group meal):
+- ~6 vegetarian: no meat, no poultry, no fish. Cheese is fine. Eggs are OK only as ingredients in noodles or desserts — not as a standalone egg dish.
+- ~6 omnivores: eat everything.
+- Implication for venue choice: chophouses and steakhouses are out. Look for kitchens that build vegetarian entrées at celebration tier (not afterthought salads). Italian, French farm-to-table, and modern American with serious seasonal cooking all qualify.
+- **Snake River scenic float · Aug 24 · 12:00 PM · Barker-Ewing · 307-733-1800.** Booked 2026-05-13. Private raft for 12, $1,200 paid. Conf #8L5Q8N9T7K3V2H7F. Pickup at Float Trip Parking lot, Moose Village (1 Teton Park Rd).
+- **Day 3 (Aug 24) stop sequence — Option A (decided 2026-05-13):** Easy morning at rental. 12:00 PM Barker-Ewing float (ends ~3 PM at Moose). 3:30 PM Oxbow Bend. 4:00 PM Signal Mountain Summit (call carry-out order in from here — reliable cell signal). 6:00 PM Schwabacher Landing for golden hour (~7:30 PM) / sunset (~8:15 PM); leave by 7:45 PM. Pickup 7:45–8:15 PM. Eat at rental. Both carry-out options close 9 PM Monday.
 - **Whitewater raft · Aug 25 PM · Dave Hansen · 307-201-4639.** Optional, active subgroup.
 - **Two SUVs · one-way JAC → BZN.** Hertz/National/Enterprise/Avis. Drop fees $300–500/vehicle.
 
 ### Other dining (one sit-down dinner per night)
 
-Aug 22 Hand Fire Pizza · Aug 23 **Glorietta** · Aug 24 Bin 22 · Aug 25 Snake River Grill · Aug 26 Madison Crossing Lounge · Aug 27 Bar N Ranch / Embers (406-646-0300) · Aug 28 Rakhi at rental (or Wild West Pizzeria pickup).
+Aug 22 Hand Fire Pizza (arrival night) · Aug 23 **Glorietta** · Aug 24 **Carry-out at the rental** (Pinky G's 307-734-7465 or Teton Tiger 307-733-4111 — pizza vs. Pan-Asian incl. Indian curries; both close 9 PM Mon; order ahead from rental morning or Signal Mountain summit ~5 PM where signal is reliable; pickup 7:45–8:15 PM on the drive back from Schwabacher) · Aug 25 Snake River Grill · Aug 26 Madison Crossing Lounge · Aug 27 Bar N Ranch / Embers (406-646-0300) · Aug 28 Rakhi at rental (or Wild West Pizzeria pickup).
+
+**General Jackson carry-out fallbacks (not tied to a specific night):** Teton Tiger (165 Center St · 307-733-4111 · Pan-Asian, strong veg) and Merry Piglets (160 N Cache St · 307-733-2966 · Tex-Mex, veg-friendly, 5% to-go fee). Listed on the dining page as backup options for anyone who wants different food during the trip.
 
 ### Lunch pickup
 
@@ -151,12 +159,12 @@ Six booleans in a `STATUS` object (lines 2128–2135). When `true`, the matching
 |---|---|
 | `rentalsBooked` | Both Jackson + W. Yellowstone rentals confirmed |
 | `gloriettaConfirmed` | Aug 23 private room locked |
-| `floatBooked` | Snake River float (Aug 24 AM, Barker-Ewing) |
+| `floatBooked` | Snake River float (Aug 24 · 12:00 PM, Barker-Ewing) |
 | `raftBooked` | Whitewater raft (Aug 25 PM, Dave Hansen) |
 | `flightsCaInbound` | CA → JAC tickets purchased |
 | `flightsCaReturn` | BZN → CA tickets purchased |
 
-**Current state: 1 of 6 flipped (`gloriettaConfirmed`); 5 remain `false`.** Flip them as bookings happen.
+**Current state: 2 of 6 flipped (`gloriettaConfirmed`, `floatBooked`); 4 remain `false`.** Flip them as bookings happen.
 
 ### Other notable pieces
 
@@ -172,8 +180,8 @@ Six booleans in a `STATUS` object (lines 2128–2135). When `true`, the matching
 
 - **Countdown:** ~102 days to Jackson (today is May 12, trip starts Aug 22).
 - **Phase:** `pre` · `preBucket = "planning"` (>60d out, so the "plenty of runway" card is showing).
-- **STATUS flags: 1 of 6 flipped.** `gloriettaConfirmed` is now `true` (Aug 23 · 5:30 PM · party of 12 · 10-day cancellation · temp menu selected, finalize ~2 weeks out). The other five (`rentalsBooked`, `floatBooked`, `raftBooked`, `flightsCaInbound`, `flightsCaReturn`) remain `false`.
-- **Deployment: unconfirmed.** No `vercel.json`, no `netlify.toml`, no `_redirects`, no `.github/workflows/` in the folder. The PWA manifest uses relative paths (`./`) which works anywhere. **Assumption — flag if wrong:** the file is currently being shared as a local file or via direct upload/share, not deployed to a hosting platform yet. If Rohit has deployed it somewhere (Vercel, Netlify, GitHub Pages, a personal domain), that's a gap in this doc — ask him.
+- **STATUS flags: 2 of 6 flipped.** `gloriettaConfirmed` is `true` (Aug 23 · 5:30 PM · party of 12 · 10-day cancellation · temp menu selected, finalize ~2 weeks out). `floatBooked` is `true` (Aug 24 · 12:00 PM · Barker-Ewing private raft for 12 · $1,200 paid · full refund if cancelled ≥72 hr before trip, $1,200 forfeit inside 72-hr window · conf #8L5Q8N9T7K3V2H7F). The other four (`rentalsBooked`, `raftBooked`, `flightsCaInbound`, `flightsCaReturn`) remain `false`.
+- **Deployment: GitHub → Vercel (confirmed live as of 2026-05-13).** Rohit pushes commits to a GitHub repo manually; Vercel auto-redeploys on push. Vercel project's "Root Directory" is set to `yellowstone` (the folder name inside the repo) — this matters because the repo structure had nested-folder issues early on. No `vercel.json` is needed since the default static-site config works. The PWA manifest uses relative paths (`./`) which resolves correctly against the Vercel domain. Updated 2026-05-13 — was previously flagged as "unconfirmed" because the parallel session that wrote this doc didn't have deployment context.
 
 ---
 
@@ -183,7 +191,7 @@ This is the actionable list. Flip the flag in `index.html` once each is confirme
 
 - [ ] **`rentalsBooked`** — both vacation rentals. The two houses that hold the whole family. Lock first.
 - [x] **`gloriettaConfirmed`** — **Booked 2026-05-12.** Aug 23 · 5:30 PM · private dining room · party of 12. 10-day cancellation policy. Temporary menu selected; finalize ~2 weeks out. 307-733-3888.
-- [ ] **`floatBooked`** — Aug 24 AM Snake River scenic float. Barker-Ewing. 307-733-1800.
+- [x] **`floatBooked`** — **Booked 2026-05-13.** Aug 24 · 12:00 PM check-in · Barker-Ewing 10-Mile Scenic Float · 1 private raft (PDF says "up to 10" capacity; Lisa at Barker-Ewing confirmed by phone that the raft accommodates 12 because 2 of the 12 are children) · $1,200 paid · Cancellation: full $1,200 refund if cancelled ≥72 hours before trip; $1,200 forfeit inside 72-hour window. Confirmed by phone with Lisa at Barker-Ewing. · pickup at Float Trip Parking lot, Moose Village, 1 Teton Park Rd · conf #8L5Q8N9T7K3V2H7F · 307-733-1800.
 - [ ] **`raftBooked`** — Aug 25 PM whitewater. Dave Hansen. 307-201-4639.
 - [ ] **`flightsCaInbound`** — California → JAC tickets (3 pax, Aug 22).
 - [ ] **`flightsCaReturn`** — BZN → California tickets (8 pax, Aug 29, afternoon, post-12:30 PM).
