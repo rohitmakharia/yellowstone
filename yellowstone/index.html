@@ -98,6 +98,9 @@ h1 .italic{font-style:italic;color:var(--gold);font-weight:300}
 .ctx-list li.done{opacity:0.5;color:var(--ink-3)}
 .ctx-list li.done::before{content:'✓';color:var(--forest)}
 .ctx-list li.done .ctx-item-text{text-decoration:line-through}
+.logistics-list li.done{opacity:0.5;color:var(--ink-3)}
+.logistics-card .logistics-list li.done::before{content:'✓';color:var(--forest)}
+.logistics-list li.done > div{text-decoration:line-through}
 .ctx-cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);text-decoration:none;font-weight:600;padding:10px 18px;border:1.5px solid var(--accent);border-radius:6px;background:transparent;transition:all 0.2s;min-height:44px}
 .ctx-cta:hover,.ctx-cta:active{background:var(--accent);color:var(--canvas)}
 .ctx-cta+.ctx-cta{margin-left:10px}
@@ -764,7 +767,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h2 class="ctx-title">This time next week, we're in Jackson.</h2>
 <p class="ctx-narrative">Final-week checks. Weather forecasts are usable now. Confirm everything that has a phone number.</p>
 <ul class="ctx-list">
-<li>Re-confirm Glorietta reservation (Aug 23, table of 12).</li>
+<li>Finalize Glorietta menu (~2 weeks out).</li>
 <li>Re-confirm Barker-Ewing float (Aug 24 AM).</li>
 <li>Re-confirm the rental check-in details + key/code instructions.</li>
 <li>Install the NPS app + AllTrails on phones.</li>
@@ -1209,7 +1212,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <p class="lede">One restaurant per night across both stays. Aug 23 at Glorietta is the celebration anchor — private room for Dadu's 75th. Late August fills up fast for tables of 12, so the sooner the better on reservations.</p>
 <ul class="dining-list">
 <li data-loc="jh"><div><strong>Fri Aug 22 · Hand Fire Pizza (Jackson)</strong>Arrival night. Casual, wood-fired, group-friendly. Walk-in or call.</div></li>
-<li data-loc="jh"><div><strong>Sat Aug 23 · <em>Glorietta · Dadu's 75th</em></strong>Modern Italian, private dining room. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener">gloriettajackson.com</a> · 307-733-3888. Mention the 75th when booking.</div></li>
+<li data-loc="jh"><div><strong>Sat Aug 23 · <em>Glorietta · Dadu's 75th</em></strong>Modern Italian, private dining room. Reserved 5:30 PM, party of 12. Temporary menu selected — finalize ~2 weeks out. 10-day cancellation policy. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener">gloriettajackson.com</a> · 307-733-3888.</div></li>
 <li data-loc="jh"><div><strong>Sun Aug 24 · Bin 22 (Jackson)</strong>Wine bar + small plates, low-key after the Snake River float day.</div></li>
 <li data-loc="jh"><div><strong>Mon Aug 25 · Snake River Grill (Jackson)</strong>Classic upscale American. Private dining available. <a href="https://www.snakerivergrill.com" target="_blank" rel="noopener">snakerivergrill.com</a> · 307-733-0557.</div></li>
 <li data-loc="wy"><div><strong>Wed Aug 26 · Madison Crossing Lounge (W. Yellowstone)</strong>Arrival night in W. Yellowstone. Group-friendly American + bar.</div></li>
@@ -1275,7 +1278,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="logistics-card bookings"><h3 class="logistics-card-title">Booking priority — urgency order</h3>
 <ul class="logistics-list">
 <li><div><strong>Both rentals</strong>The two houses that hold the whole family. Shortlists on the <a href="#lodging" style="color:var(--accent);text-decoration:underline">Lodging page</a>. Lock these in first — the rest of the trip shapes around them.</div></li>
-<li><div><strong>Glorietta private dining room · Aug 23</strong>Dadu's 75th. Table of 12. Mention the milestone when booking. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener" style="color:var(--accent)">gloriettajackson.com</a> · 307-733-3888</div></li>
+<li data-status-key="gloriettaConfirmed"><div><strong>Glorietta private dining room · Aug 23</strong>Dadu's 75th. Table of 12. Mention the milestone when booking. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener" style="color:var(--accent)">gloriettajackson.com</a> · 307-733-3888</div></li>
 <li><div><strong>Snake River scenic float · Aug 24 AM</strong>Private 16-passenger boat for 12. Barker-Ewing is the strongest pick. ~$95–110/adult. <a href="https://barkerewing.com" target="_blank" rel="noopener" style="color:var(--accent)">barkerewing.com</a> · 307-733-1800</div></li>
 <li><div><strong>Two SUVs · one-way JAC → BZN</strong>Hertz, National, Enterprise, or Avis. Drop fees $300–500/vehicle. Reserve via your usual loyalty platform.</div></li>
 <li><div><strong>Whitewater raft · Aug 25 PM</strong>Active subgroup, two rafts (6 per boat). Dave Hansen is the strongest pick. ~$95–115/adult. <a href="https://www.davehansenwhitewater.com" target="_blank" rel="noopener" style="color:var(--accent)">davehansenwhitewater.com</a> · 307-201-4639</div></li>
@@ -1571,7 +1574,7 @@ const DAYS=[
 {day:1,date:"Aug 22",year:"2026",title:"Arrive Jackson",narrative:"Land at JAC, drive thirty minutes to the rental, grocery run, bear spray pickup. First night together — group dinner at the house, early to bed.",driving:"30 min from JAC",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Jackson Hole Airport (JAC)",lat:43.608809,lng:-110.7375814,notes:"The only commercial airport inside a US national park. Pick up two SUVs here.",type:"airport"}]},
 {day:2,date:"Aug 23",year:"2026",title:"Jenny Lake + Dadu's 75th",narrative:"Late-morning Jenny Lake — shuttle boat across to Hidden Falls for everyone, Inspiration Point for kids and able adults. Lakeside picnic. Afternoon free at the rental — rest and gifts before the celebration dinner. Evening: private-room dinner at Glorietta in Jackson for Dadu's milestone birthday.",driving:"~1 hr local",stops:[
 {time:"10:00 AM",duration:"~4 hrs",name:"Jenny Lake Visitor Center",lat:43.7514813,lng:-110.7223421,notes:"Park at the South Jenny Lake overflow lot and take the shuttle bus — main lot fills by 9 AM in August, but the shuttle gets you in clean with a 10 AM arrival. Boat across the lake, Hidden Falls walk, optional Inspiration Point for the energetic."},
-{time:"7:00 PM",duration:"Evening",name:"Glorietta — Dadu's 75th Dinner",lat:43.483,lng:-110.763,notes:"Modern Italian, private dining room reserved. The celebration dinner. Vegetarian and meat-eater options across the menu. 15-min drive from Teton Village. Reserve this week and mention the 75th birthday."}
+{time:"5:30 PM",duration:"Evening",name:"Glorietta — Dadu's 75th Dinner",lat:43.483,lng:-110.763,notes:"Modern Italian, private dining room reserved. The celebration dinner. Vegetarian and meat-eater options across the menu. 15-min drive from Teton Village. Reserve this week and mention the 75th birthday."}
 ]},
 {day:3,date:"Aug 24",year:"2026",title:"Tetons signature day",narrative:"Private Snake River scenic float in the morning — three hours, calm water, the wildlife corridor reveals itself. A loop through Oxbow Bend and up Signal Mountain in the afternoon. Sunset at Schwabacher if you're up for it.",driving:"~2 hrs local",stops:[
 {time:"8:30 AM",duration:"~4 hrs",name:"Triangle X Ranch area",lat:43.7645231,lng:-110.5677611,notes:"Snake River scenic float meet point. 3-hour calm-water private float — moose, bald eagles, occasional bear."},
@@ -2127,7 +2130,7 @@ document.querySelectorAll('.dining-tab').forEach(btn=>{
 // Flip STATUS flags as bookings/preps complete — pre-trip checklists strike them through.
 const STATUS={
   rentalsBooked:false,
-  gloriettaConfirmed:false,
+  gloriettaConfirmed:true,
   floatBooked:false,
   raftBooked:false,
   flightsCaInbound:false,
@@ -2176,7 +2179,7 @@ const DAY_TITLES={
 // Per-day dinner data drives the time-of-day evening pivot
 const DAY_DINNER={
   1:{name:'Hand Fire Pizza',loc:'Jackson',time:'evening (flex)',phone:null,note:'Arrival night — walk-in or call ahead from JAC.'},
-  2:{name:"Glorietta · Dadu's 75th",loc:'Jackson',time:'7:00 PM',phone:'307-733-3888',note:'Private dining room. The celebration.'},
+  2:{name:"Glorietta · Dadu's 75th",loc:'Jackson',time:'5:30 PM',phone:'307-733-3888',note:'Private dining room. The celebration.'},
   3:{name:'Bin 22',loc:'Jackson',time:'evening',phone:null,note:'Wine bar + small plates. Low-key after the float.'},
   4:{name:'Snake River Grill',loc:'Jackson',time:'evening',phone:'307-733-0557',note:'Classic upscale American.'},
   5:{name:'Madison Crossing Lounge',loc:'W. Yellowstone',time:'evening',phone:null,note:'Arrival night in town.'},
