@@ -94,7 +94,7 @@ Two large vacation rentals, no in-park stays, no hotels. Both bases need to fit 
 ### Flights
 
 - **Inbound Aug 22 from Detroit (confirmed):** DL 0935 (DTW→SLC, 12:15 PM → 2:06 PM) + DL 0417 (SLC→JAC, 3:52 PM → 4:57 PM). 9 pax.
-- **Inbound Aug 22 from California (TBD):** 3 pax. Target similar afternoon JAC arrival window so the airport pickup runs once.
+- **Inbound Aug 22 from California (confirmed 2026-05-19):** UA 2472 · SFO → JAC · 1:26 PM → 4:39 PM · 2h 13m · Airbus A320 · United Economy (W) · seats 34D / 34E / 34F. 3 pax. Arrives 18 min before the Detroit party — one airport pickup sweep handles both.
 - **Return Aug 29 to Detroit (confirmed):** DL 0364 (BZN→DTW, 3:38 PM → 8:54 PM). 4 of 9.
 - **Onward Aug 29 to California (TBD):** 5 of 9 (Detroit party) + 3 (California party) = 8 pax. BZN departure, afternoon window. **Must depart after 12:30 PM** to leave room for the 2.5-hr Gallatin Canyon drive from West Yellowstone.
 
@@ -164,7 +164,7 @@ Six booleans in a `STATUS` object (lines 2128–2135). When `true`, the matching
 | `flightsCaInbound` | CA → JAC tickets purchased |
 | `flightsCaReturn` | BZN → CA tickets purchased |
 
-**Current state: 2 of 6 flipped (`gloriettaConfirmed`, `floatBooked`); 4 remain `false`.** Flip them as bookings happen.
+**Current state: 3 of 6 flipped (`gloriettaConfirmed`, `floatBooked`, `flightsCaInbound`); 3 remain `false`.** Flip them as bookings happen.
 
 ### Other notable pieces
 
@@ -180,7 +180,7 @@ Six booleans in a `STATUS` object (lines 2128–2135). When `true`, the matching
 
 - **Countdown:** ~102 days to Jackson (today is May 12, trip starts Aug 22).
 - **Phase:** `pre` · `preBucket = "planning"` (>60d out, so the "plenty of runway" card is showing).
-- **STATUS flags: 2 of 6 flipped.** `gloriettaConfirmed` is `true` (Aug 23 · 5:30 PM · party of 12 · 10-day cancellation · temp menu selected, finalize ~2 weeks out). `floatBooked` is `true` (Aug 24 · 12:00 PM · Barker-Ewing private raft for 12 · $1,200 paid · full refund if cancelled ≥72 hr before trip, $1,200 forfeit inside 72-hr window · conf #8L5Q8N9T7K3V2H7F). The other four (`rentalsBooked`, `raftBooked`, `flightsCaInbound`, `flightsCaReturn`) remain `false`.
+- **STATUS flags: 3 of 6 flipped.** `gloriettaConfirmed` is `true` (Aug 23 · 5:30 PM · party of 12 · 10-day cancellation · temp menu selected, finalize ~2 weeks out). `floatBooked` is `true` (Aug 24 · 12:00 PM · Barker-Ewing private raft for 12 · $1,200 paid · full refund if cancelled ≥72 hr before trip, $1,200 forfeit inside 72-hr window · conf #8L5Q8N9T7K3V2H7F). `flightsCaInbound` is `true` (UA 2472 · SFO → JAC · 1:26 PM → 4:39 PM · Aug 22 · 3 pax · seats 34D/E/F, booked 2026-05-19). The other three (`rentalsBooked`, `raftBooked`, `flightsCaReturn`) remain `false`.
 - **Deployment: GitHub → Vercel (confirmed live as of 2026-05-13).** Rohit pushes commits to a GitHub repo manually; Vercel auto-redeploys on push. Vercel project's "Root Directory" is set to `yellowstone` (the folder name inside the repo) — this matters because the repo structure had nested-folder issues early on. No `vercel.json` is needed since the default static-site config works. The PWA manifest uses relative paths (`./`) which resolves correctly against the Vercel domain. Updated 2026-05-13 — was previously flagged as "unconfirmed" because the parallel session that wrote this doc didn't have deployment context.
 
 ---
@@ -193,7 +193,7 @@ This is the actionable list. Flip the flag in `index.html` once each is confirme
 - [x] **`gloriettaConfirmed`** — **Booked 2026-05-12.** Aug 23 · 5:30 PM · private dining room · party of 12. 10-day cancellation policy. Temporary menu selected; finalize ~2 weeks out. 307-733-3888.
 - [x] **`floatBooked`** — **Booked 2026-05-13.** Aug 24 · 12:00 PM check-in · Barker-Ewing 10-Mile Scenic Float · 1 private raft (PDF says "up to 10" capacity; Lisa at Barker-Ewing confirmed by phone that the raft accommodates 12 because 2 of the 12 are children) · $1,200 paid · Cancellation: full $1,200 refund if cancelled ≥72 hours before trip; $1,200 forfeit inside 72-hour window. Confirmed by phone with Lisa at Barker-Ewing. · pickup at Float Trip Parking lot, Moose Village, 1 Teton Park Rd · conf #8L5Q8N9T7K3V2H7F · 307-733-1800.
 - [ ] **`raftBooked`** — Aug 25 PM whitewater. Dave Hansen. 307-201-4639.
-- [ ] **`flightsCaInbound`** — California → JAC tickets (3 pax, Aug 22).
+- [x] **`flightsCaInbound`** — **Booked 2026-05-19.** UA 2472 · SFO → JAC · 1:26 PM → 4:39 PM · Sat Aug 22, 2026 · Airbus A320 · 2h 13m · United Economy (W) · 3 pax · seats 34D / 34E / 34F.
 - [ ] **`flightsCaReturn`** — BZN → California tickets (8 pax, Aug 29, afternoon, post-12:30 PM).
 
 **Other to-dos that don't have flags yet (could be added later if Rohit wants):**

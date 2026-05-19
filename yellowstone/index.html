@@ -715,7 +715,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <li data-status-key="rentalsBooked"><span class="ctx-item-text">Both rentals (Jackson + W. Yellowstone). Shortlists on Lodging.</span></li>
 <li data-status-key="gloriettaConfirmed"><span class="ctx-item-text">Glorietta private room · Aug 23 · Dadu's 75th. 307-733-3888.</span></li>
 <li data-status-key="floatBooked"><span class="ctx-item-text">Snake River scenic float · Aug 24 · 12:00 PM · Barker-Ewing. Private raft, confirmed for 12. 307-733-1800.</span></li>
-<li data-status-key="flightsCaInbound"><span class="ctx-item-text">California → Jackson Hole tickets (3 inbound Aug 22).</span></li>
+<li data-status-key="flightsCaInbound"><span class="ctx-item-text">California → JAC tickets booked · UA 2472 · SFO 1:26 PM → JAC 4:39 PM.</span></li>
 </ul>
 <a class="ctx-cta" href="#bookings">Open Bookings →</a>
 </article>
@@ -729,7 +729,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <li data-status-key="gloriettaConfirmed"><span class="ctx-item-text">Glorietta private room for Dadu's 75th.</span></li>
 <li data-status-key="floatBooked"><span class="ctx-item-text">Snake River float booked · Aug 24 · 12:00 PM · 12 guests.</span></li>
 <li data-status-key="raftBooked"><span class="ctx-item-text">Whitewater raft, Aug 25 PM, Dave Hansen.</span></li>
-<li data-status-key="flightsCaInbound"><span class="ctx-item-text">California → JAC tickets booked.</span></li>
+<li data-status-key="flightsCaInbound"><span class="ctx-item-text">California → JAC tickets booked · UA 2472 · 3 pax · seats 34D/E/F.</span></li>
 <li data-status-key="flightsCaReturn"><span class="ctx-item-text">BZN → California return tickets booked.</span></li>
 </ul>
 <a class="ctx-cta" href="#bookings">Open Bookings →</a>
@@ -1089,15 +1089,19 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="flight-note">Plan landing buffer: bags, two SUV pickups, 30-min drive to rental. Arrive at the house ~7 PM. Skip bear spray + grocery run that night — push to Sunday morning.</div>
 </div>
 
-<div class="flight-card return-ca tbd">
-<div class="flight-stamp"><span class="flight-stamp-dot"></span>Inbound from California · Tickets Pending</div>
+<div class="flight-card outbound">
+<div class="flight-stamp"><span class="flight-stamp-dot"></span>Inbound from California · Confirmed</div>
 <div class="flight-date">Sat · Aug 22</div>
-<div class="flight-pax">3 from California · TBD carrier</div>
-<div class="flight-tbd">
-<div class="flight-tbd-tag">TBD</div>
-<div>Flight numbers and times not yet booked. Expected to land at JAC in a similar afternoon window as the Detroit party so the group can settle in together.</div>
+<div class="flight-pax">3 from California · United · Nonstop</div>
+<div class="flight-legs">
+<div class="flight-leg">
+<div class="flight-leg-no">UA 2472 · Airbus A320</div>
+<div class="flight-leg-route"><span>SFO</span><span class="flight-leg-arrow">→</span><span>JAC</span></div>
+<div class="flight-leg-times"><span>1:26 PM</span><span class="flight-leg-arrow">2h 13m</span><span>4:39 PM</span></div>
+<div class="flight-leg-meta">San Francisco · United Economy (W) · Seats 34D / 34E / 34F</div>
 </div>
-<div class="flight-note">Coordinate landing time with the Detroit arrival (4:57 PM) so the SUV pickups can sweep both parties on one airport run if timing aligns.</div>
+</div>
+<div class="flight-note">Arrives 18 minutes before the Detroit party (4:39 PM vs 4:57 PM). Both pickups can run on one airport sweep — CA group waits at baggage claim, Detroit group joins ~20 min later.</div>
 </div>
 
 <div class="flight-card return-dtw">
@@ -1479,9 +1483,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <table class="print-table">
 <thead><tr><th>Direction</th><th>Date</th><th>Flight</th><th>Route &amp; times</th><th>Pax</th></tr></thead>
 <tbody>
-<tr><td><strong>Outbound</strong></td><td>Sat Aug 22</td><td>DL 0935 + DL 0417</td><td>DTW → SLC → JAC · 12:15 PM → 4:57 PM</td><td>9 from DTW</td></tr>
+<tr><td><strong>Inbound DTW</strong></td><td>Sat Aug 22</td><td>DL 0935 + DL 0417</td><td>DTW → SLC → JAC · 12:15 PM → 4:57 PM</td><td>9 from DTW</td></tr>
+<tr><td><strong>Inbound CA</strong></td><td>Sat Aug 22</td><td>UA 2472</td><td>SFO → JAC · 1:26 PM → 4:39 PM · seats 34D/E/F</td><td>3 from CA</td></tr>
 <tr><td><strong>Return DTW</strong></td><td>Sat Aug 29</td><td>DL 0364</td><td>BZN → DTW · 3:38 PM → 8:54 PM</td><td>4 of 9</td></tr>
-<tr><td><strong>Return CA</strong></td><td>Sat Aug 29</td><td>TBD</td><td>BZN → CA · similar afternoon window</td><td>5 of 9 + 3 from CA = 8</td></tr>
+<tr><td><strong>Return CA</strong></td><td>Sat Aug 29</td><td>TBD</td><td>BZN → CA · post-12:30 PM required</td><td>5 of 9 + 3 from CA = 8</td></tr>
 </tbody>
 </table>
 </div>
@@ -2135,7 +2140,7 @@ const STATUS={
   gloriettaConfirmed:true,
   floatBooked:true,
   raftBooked:false,
-  flightsCaInbound:false,
+  flightsCaInbound:true,
   flightsCaReturn:false
 };
 

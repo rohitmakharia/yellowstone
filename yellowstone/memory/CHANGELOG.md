@@ -4,6 +4,19 @@ Session-by-session log of what shipped. Newest at top. Keep entries terse — on
 
 ---
 
+## 2026-05-19 · California inbound flight booked (UA 2472)
+
+- Rohit booked United for the 3-person California party. Confirmed details from booking screenshot: **UA 2472 · SFO 1:26 PM → JAC 4:39 PM · Sat Aug 22, 2026 · Airbus A320 · 2h 13m · United Economy (W) · Seats 34D / 34E / 34F.**
+- `flightsCaInbound` flipped `false → true` in `index.html` STATUS object.
+- Flight card on `#flights` page replaced TBD placeholder with full confirmed details. Card class flipped from `return-ca tbd` → `outbound` (same visual style as the confirmed Detroit inbound).
+- Both pre-trip checklist `<li>` items (in `planning` and `t60` ctx-cards) updated to reflect the booking and now auto-strike with the flag flip.
+- **Print page flight table:** added a new "Inbound CA" row (was missing entirely — the parallel session that added the CA card on May 13 didn't add it to the print table). Also updated "Return CA" row to note "post-12:30 PM required" instead of the old "similar afternoon window" placeholder.
+- **Airport pickup logic refined in the flight-note:** CA arrives 4:39 PM, DTW arrives 4:57 PM — only 18 minutes apart. Note now reads: "Arrives 18 minutes before the Detroit party. Both pickups can run on one airport sweep — CA group waits at baggage claim, Detroit group joins ~20 min later."
+- Three flags remain open: `rentalsBooked`, `raftBooked`, `flightsCaReturn`.
+- File grew: 2,353 → 2,358 lines, 168,828 → 169,296 bytes.
+
+---
+
 ## 2026-05-13 · Aug 24 dinner swap + dining-list expansion
 
 - Mon Aug 24 carry-out options: Hand Fire replaced with Teton Tiger (165 Center St · 307-733-4111). Pinky G's stays as option 1. Hand Fire is the Aug 22 arrival-night plan, not Aug 24.
