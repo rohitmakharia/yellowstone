@@ -4,6 +4,33 @@ Session-by-session log of what shipped. Newest at top. Keep entries terse — on
 
 ---
 
+## 2026-05-19 · Confirmation numbers wired in (Ritesh forwarded them)
+
+- Ritesh sent three confirmation numbers for the CA-direction tickets. Wired into every relevant surface in the site.
+- **HTXHKY** — UA 2472 inbound (SFO → JAC, 3 pax, seats 34D/E/F).
+- **HVFBCM** — UA 1702 return, 5 non-refundable seats (34A/B/C, 35B/C).
+- **HVZD9X** — UA 1702 return, 3 refundable seats (35D/E/F). Booked under "Agarwal family" — that's the CA-party surname, confirms that the 3 inbound CA travelers and the 3 refundable return tickets belong to the same family.
+- Updated 5 surfaces: inbound CA card seat meta-line, return CA card seat meta-line (now lists both PNRs by name and bolds them), pre-trip checklist `<li>` for inbound (planning + t60), pre-trip checklist `<li>` for return, print page Inbound CA row, print page Return CA row. The return card seat-meta line now reads: "Booked as two PNRs: **HVFBCM** — 5 seats non-refundable (34A / 34B / 34C / 35B / 35C); **HVZD9X** — 3 seats refundable, Agarwal family (35D / 35E / 35F)".
+- File: 2,362 lines / 170,022 bytes.
+
+---
+
+## 2026-05-19 · California return flight booked (UA 1702 · two PNRs)
+
+- Rohit booked the same flight UA 1702 across two separate PNRs covering all 8 onward-to-CA pax. **UA 1702 · BZN 4:25 PM → SFO 6:01 PM · Sat Aug 29, 2026 · Boeing 737 MAX 8 · 2h 36m · United Economy (W).**
+  - **PNR 1 — non-refundable, 5 seats:** 34A, 34B, 34C, 35B, 35C.
+  - **PNR 2 — refundable, 3 seats:** 35D, 35E, 35F.
+- `flightsCaReturn` flipped `false → true` in STATUS object. **Only 2 STATUS flags remain open now: `rentalsBooked` and `raftBooked`.**
+- Onward-to-California card on `#flights` page flipped from `return-ca tbd` → `return-ca` (loses the striped TBD background). One consolidated card for both PNRs per Rohit's direction ("just have one card from Bozeman to SFO, since it's just the same flight").
+- **Seat meta-line on the card** notes both PNRs: "Booked as two PNRs: 5 seats non-refundable (34A / 34B / 34C / 35B / 35C) + 3 seats refundable (35D / 35E / 35F)".
+- **Confirmation numbers** were not in the screenshots provided. Card does not currently list conf numbers — Rohit said "just reference the confirmation numbers that are refundable or unrefundable," which (after parsing) reads as "note the refundable/non-refundable distinction" rather than literal conf numbers. If actual conf numbers come later, they go in the seat meta-line.
+- **Flight-note rewritten:** removed the "When the CA itinerary lands, this card updates" placeholder. New note: "4:25 PM departure clears the 12:30 PM floor comfortably. Leave West Yellowstone by ~11 AM, ~2.5-hr Gallatin Canyon drive to BZN — same drive window as the Detroit group. Both vehicles drop at BZN together; one handles each party's bags through check-in."
+- **Print page Return CA row** updated with actual flight + both seat blocks (was still "TBD · post-12:30 PM required").
+- Both pre-trip checklist `<li>` items reflect the booking and auto-strike with the flag.
+- File: 2,362 lines / 169,839 bytes.
+
+---
+
 ## 2026-05-19 · California inbound flight booked (UA 2472)
 
 - Rohit booked United for the 3-person California party. Confirmed details from booking screenshot: **UA 2472 · SFO 1:26 PM → JAC 4:39 PM · Sat Aug 22, 2026 · Airbus A320 · 2h 13m · United Economy (W) · Seats 34D / 34E / 34F.**
