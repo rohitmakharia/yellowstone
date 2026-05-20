@@ -45,25 +45,40 @@ A single-file Progressive Web App (`index.html`) that serves as the family's sha
 
 ```
 yellowstone/
-├── index.html                              # The site. 2,348 lines, single file.
-├── manifest.webmanifest                    # PWA manifest (installable to home screen)
-├── favicon.svg                             # App icon / brand mark
-├── download-images.sh                      # Re-downloads all Unsplash + NPS images to img/
-├── img/                                    # Hero + 8 day photos + 2 NPS brochure maps
+├── index.html                                            # The site. 2,447 lines / 177,118 bytes (2026-05-20 EOD).
+├── manifest.webmanifest                                  # PWA manifest (installable to home screen)
+├── favicon.svg                                           # App icon / brand mark
+├── download-images.sh                                    # Re-downloads all Unsplash + NPS images to img/
+├── yellowstone-deadlines.ics                             # 8-event iCalendar with 7-day-prior reminders (2026-05-20)
+├── yellowstone-expenses.xlsx                             # 3-sheet expense tracker with SUMIF settlement (2026-05-20)
+├── yellowstone-tetons-chat-transcript.pdf                # Prior planning chat (May 9–11, 2026)
+├── Source Data/                                          # Raw uploads, preserved (folder added 2026-05-20)
+│   ├── PHOTO-2026-05-11-18-18-40.jpg                       # DL 0935 DTW→SLC ticket
+│   ├── PHOTO-2026-05-11-18-18-40 2.jpg                     # DL 0417 SLC→JAC ticket
+│   ├── PHOTO-2026-05-11-18-18-40 3.jpg                     # DL 0364 BZN→DTW return ticket
+│   ├── PHOTO-2026-05-19-11-25-48.jpg                       # UA 1702 HVFBCM (5 seats, non-refundable)
+│   ├── PHOTO-2026-05-19-11-37-51.jpg                       # UA 1702 HVZD9X (3 seats, Agarwal refundable)
+│   ├── PHOTO-2026-05-19-11-38-53.jpg                       # UA 2472 HTXHKY (Agarwal inbound)
+│   ├── PHOTO-2026-05-20-09-51-32.jpg                       # Van 1 Costco C491501172 (Ritesh)
+│   ├── PHOTO-2026-05-20-09-53-14.jpg                       # Van 2 Costco C491501176 (Parul)
+│   ├── Confirmation.pdf                                    # Vrbo Yellowstone Luxury (ORB17812924)
+│   ├── Order Confirmation #112575 | Rendezvous Mountain Rentals.pdf  # Hal'e Teton
+│   └── 0B9B77CB-..., A223BED6-..., A5667687-...jpeg        # Legacy May-11 originals
+├── img/                                                  # Hero + 8 day photos + 2 NPS brochure maps
 │   ├── hero-tetons.jpg
 │   ├── day1-arrival.jpg ... day8-bison.jpg
 │   ├── nps-grand-teton.jpg
 │   └── nps-yellowstone.jpg
-├── yellowstone-tetons-chat-transcript.pdf  # Prior planning chat (May 9–11, 2026)
-├── 0B9B77CB-...jpeg                        # Original source photos Rohit uploaded
-├── A223BED6-...jpeg                        # (kept at root, not used by the site)
-├── A5667687-...jpeg
-└── memory/                                 # ← this folder
-    ├── PROJECT_CONTEXT.md                  # ← you are here
-    └── CHANGELOG.md
+└── memory/
+    ├── PROJECT_CONTEXT.md                                # ← you are here
+    ├── CHANGELOG.md                                      # Session-by-session log of what shipped
+    ├── SOURCE_ARTIFACTS.md                               # Chain-of-custody manifest for Source Data/
+    └── 2026-08-24_barker-ewing-confirmation.pdf          # Float trip booking PDF
 ```
 
-**Assumption — flag if wrong:** the three `.jpeg` files at the root are original photos Rohit uploaded early in planning and are not referenced by `index.html` (verified via grep). They look like artifacts of the upload flow rather than active assets. If they're meant to be in the site, that's a gap.
+**`Source Data/` is the canonical home for every raw upload Rohit provides.** Rule effective 2026-05-20: any photo, screenshot, PDF, document, audio, or video gets saved here with filename `YYYY-MM-DD_short-slug.ext` before any data extraction. See `memory/SOURCE_ARTIFACTS.md` for the full chain-of-custody manifest.
+
+**Pending after 2026-05-20 backfill:** one screenshot awaiting manual save — Vrbo cancellation policy. Closed (not tracked): group-chat conf-numbers screenshot (data captured in `index.html`) and mobile thumb-nav bug screenshot (not load-bearing). See `SOURCE_ARTIFACTS.md` for detail.
 
 ---
 
@@ -86,10 +101,8 @@ yellowstone/
 
 Two large vacation rentals, no in-park stays, no hotels. Both bases need to fit 12 sleeping + common space for multi-gen pacing.
 
-- **Stay 1 — Jackson Hole / Teton Village, Aug 22–25 (4 nights).** Shortlist: **Moose Hideaway** (4,145 sf, 5BR, 4.92★, JHRL — pricing on request) and **Hal'e Teton** (6,600 sf, 5BR, sleeps 22, ~$2,299/nt × 4 ≈ $9,196 base — confirmed available Aug 22–26).
-- **Stay 2 — West Yellowstone / Hebgen Lake, Aug 26–28 (3 nights).** Shortlist: **Yellowstone Luxury Cabin Retreat** (5,000 sf VRBO, 10/10 across 68 reviews), **Bar N Ranch** (200-acre ranch compound, multi-cabin), or **Under Canvas West Yellowstone** (upscale glamping on same Bar N Ranch land).
-
-**Neither rental is booked yet.** Lodging is the #1 booking priority — the rest of the trip shapes around it.
+- **Stay 1 — Hal'e Teton, Teton Village (BOOKED 2026-05-20).** 6,600 sf · 5 BR / 5.5 BA · sleeps up to 22 · Aug 22 → Aug 26 (4 nights) · 10 adults + 2 children · **order #112575** · Rendezvous Mountain Rentals · 307-739-9050 · **$11,626.72 total** ($5,813.36 paid, balance due 2026-07-23) · trip insurance included · cancellation 30+ days out = 6% forfeit, inside 30 days = no refund. PDF at `Source Data/Order Confirmation #112575 | Rendezvous Mountain Rentals.pdf`.
+- **Stay 2 — Yellowstone Luxury Cabin Retreat, Hebgen Lake area (BOOKED 2026-05-20).** 5,000 sf · 5 BR / 5 BA · 10 adults + 2 children · Wed Aug 26 → Sat Aug 29 (3 nights) · check-in 4 PM / check-out 10 AM · **Vrbo reservation ORB17812924** · property `9746176ha` · **$6,030.90 charged in full** ($1,395/nt × 3 + host fees $609 + service fee $657 + tax $579.90) · **+ $1,500 refundable deposit at property** · 10/10 across 68 Vrbo reviews · 8 min to West Yellowstone town / 10 min to West Entrance. PDF at `Source Data/Confirmation.pdf`.
 
 ### Flights
 
@@ -109,7 +122,11 @@ Two large vacation rentals, no in-park stays, no hotels. Both bases need to fit 
 - **Snake River scenic float · Aug 24 · 12:00 PM · Barker-Ewing · 307-733-1800.** Booked 2026-05-13. Private raft for 12, $1,200 paid. Conf #8L5Q8N9T7K3V2H7F. Pickup at Float Trip Parking lot, Moose Village (1 Teton Park Rd).
 - **Day 3 (Aug 24) stop sequence — Option A (decided 2026-05-13):** Easy morning at rental. 12:00 PM Barker-Ewing float (ends ~3 PM at Moose). 3:30 PM Oxbow Bend. 4:00 PM Signal Mountain Summit (call carry-out order in from here — reliable cell signal). 6:00 PM Schwabacher Landing for golden hour (~7:30 PM) / sunset (~8:15 PM); leave by 7:45 PM. Pickup 7:45–8:15 PM. Eat at rental. Both carry-out options close 9 PM Monday.
 - **Whitewater raft · Aug 25 PM · Dave Hansen · 307-201-4639.** Optional, active subgroup.
-- **Two SUVs · one-way JAC → BZN.** Hertz/National/Enterprise/Avis. Drop fees $300–500/vehicle.
+- **Two Enterprise mini vans · JAC → BZN · Aug 22 → 29 (BOOKED 2026-05-20).** Both booked by Ritesh via Costco Travel; both paid by Ritesh. Together they seat the full party of 12. **Cancellation: refundable through Aug 20** (2 days before pickup).
+  - **Van 1:** Costco C491501172 · Enterprise 2112908075 · driver RITESH KUMAR MAKHARIA.
+  - **Van 2:** Costco C491501176 · Enterprise 2112908572 · driver PARUL RITESH KUMAR MAKHARIA.
+  - Pickup requirements: Costco card required at counter; one additional driver fee waived for Costco members; additional drivers must be present.
+  - Help: 1-866-328-1385 (before trip) · 1-866-317-4711 (during/after).
 
 ### Other dining (one sit-down dinner per night)
 
@@ -131,7 +148,7 @@ Two total. Jackson: Albertsons or Jackson Whole Grocer (Sat night or Sun morning
 
 ### Pages (hash router)
 
-`#home` · `#trip` (map + day-by-day timeline) · `#nps` (NPS brochure overlays) · `#dining` · `#lodging` · `#flights` · `#bookings` · `#prep` · `#print`
+`#home` · `#trip` (map + day-by-day timeline) · `#nps` (NPS brochure overlays) · `#dining` · `#lodging` · `#flights` · `#vehicles` (Rental Car, added 2026-05-20) · `#bookings` · `#prep` · `#print`
 
 ### The trip state machine — the load-bearing logic
 
@@ -157,39 +174,43 @@ Six booleans in a `STATUS` object (lines 2128–2135). When `true`, the matching
 
 | Flag | What it tracks |
 |---|---|
-| `rentalsBooked` | Both Jackson + W. Yellowstone rentals confirmed |
+| `rentalJacksonBooked` | Jackson rental (Hal'e Teton, Aug 22-26) — split from `rentalsBooked` on 2026-05-20 |
+| `rentalWyBooked` | W. Yellowstone rental (Aug 26-29) — split from `rentalsBooked` on 2026-05-20 |
 | `gloriettaConfirmed` | Aug 23 private room locked |
 | `floatBooked` | Snake River float (Aug 24 · 12:00 PM, Barker-Ewing) |
 | `raftBooked` | Whitewater raft (Aug 25 PM, Dave Hansen) |
 | `flightsCaInbound` | CA → JAC tickets purchased |
 | `flightsCaReturn` | BZN → CA tickets purchased |
 
-**Current state: 4 of 6 flipped (`gloriettaConfirmed`, `floatBooked`, `flightsCaInbound`, `flightsCaReturn`); 2 remain `false`.** Only rentals and the Aug 25 whitewater raft are left to book.
+**Current state (after 2026-05-20 PM updates): 6 of 7 flipped. Both rentals + Glorietta + float + both CA flights confirmed. Only `raftBooked` remains open.**
 
 ### Other notable pieces
 
-- **Leaflet map** with OpenStreetMap tiles (line 1720). Day filter pills. Lodging anchors at approximate centroids — update coords once actual rentals are booked.
+- **Leaflet map** with OpenStreetMap tiles. Day filter pills. Lodging anchors point at actual booked properties (Hal'e Teton, Yellowstone Luxury Cabin Retreat).
 - **NPS brochure overlays** (`#nps`) — itinerary stops on top of the official Grand Teton and Yellowstone brochure maps.
 - **Print one-pager** (`#print`) — single-sheet table layout for offline reference.
-- **Mobile thumb nav** (Home/Trip/Dining/Bookings) — appears <760px viewport.
+- **Mobile thumb nav** (Home/Trip/Dining/Bookings) — appears <760px viewport. Note: Vehicles/Rental Car page (added 2026-05-20) is NOT in thumb nav — reachable only via top nav + hamburger menu. Intentional: thumb nav holds the 4 highest-traffic pages.
 - **PWA manifest** — installable to home screen, standalone display, portrait-primary, dark theme color (`#0E1A14`).
 
 ---
 
-## 7. Current state (as of 2026-05-12)
+## 7. Current state (as of 2026-05-20 end-of-day)
 
-- **Countdown:** ~102 days to Jackson (today is May 12, trip starts Aug 22).
-- **Phase:** `pre` · `preBucket = "planning"` (>60d out, so the "plenty of runway" card is showing).
-- **STATUS flags: 4 of 6 flipped.** `gloriettaConfirmed` is `true` (Aug 23 · 5:30 PM · party of 12 · 10-day cancellation · temp menu, finalize ~2 weeks out). `floatBooked` is `true` (Aug 24 · 12:00 PM · Barker-Ewing private raft for 12 · $1,200 paid · full refund ≥72 hr / forfeit inside 72 hr · conf #8L5Q8N9T7K3V2H7F). `flightsCaInbound` is `true` (UA 2472 · SFO → JAC · 1:26 PM → 4:39 PM · Aug 22 · 3 pax · seats 34D/E/F, booked 2026-05-19). `flightsCaReturn` is `true` (UA 1702 · BZN → SFO · 4:25 PM → 6:01 PM · Aug 29 · 8 pax across two PNRs: 5 non-refundable + 3 refundable, booked 2026-05-19). Only `rentalsBooked` and `raftBooked` remain `false`.
-- **Deployment: GitHub → Vercel (confirmed live as of 2026-05-13).** Rohit pushes commits to a GitHub repo manually; Vercel auto-redeploys on push. Vercel project's "Root Directory" is set to `yellowstone` (the folder name inside the repo) — this matters because the repo structure had nested-folder issues early on. No `vercel.json` is needed since the default static-site config works. The PWA manifest uses relative paths (`./`) which resolves correctly against the Vercel domain. Updated 2026-05-13 — was previously flagged as "unconfirmed" because the parallel session that wrote this doc didn't have deployment context.
+- **Countdown:** ~94 days to Jackson (today is May 20, trip starts Aug 22).
+- **Phase:** `pre` · `preBucket = "planning"` (>60d out).
+- **STATUS flags: 6 of 7 flipped.** Both rentals (Hal'e Teton + Yellowstone Luxury Cabin Retreat), Glorietta, the Barker-Ewing float, and both CA flights (UA 2472 inbound + UA 1702 return) are all confirmed. **Only `raftBooked` remains `false`** — whitewater rafting Aug 25 PM via Dave Hansen (307-201-4639). The flag schema was split on 2026-05-20: the old `rentalsBooked` became `rentalJacksonBooked` + `rentalWyBooked` (so the schema went from 6 → 7 flags).
+- **Two new artifacts shipped 2026-05-20:** `yellowstone-deadlines.ics` (8 events, OS-level notifications via .ics import) and `yellowstone-expenses.xlsx` (3-sheet pre/during/settlement tracker, SUMIF cross-sheet formulas).
+- **New Rental Car page (#vehicles) added 2026-05-20 PM.** PAGES array grew to 10 entries. Both Enterprise mini vans (Ritesh + Parul drivers, both paid by Ritesh) fully wired.
+- **Deployment: GitHub → Vercel (confirmed live as of 2026-05-13).** Rohit pushes commits manually; Vercel auto-redeploys. Vercel "Root Directory" set to `yellowstone`. No `vercel.json` needed. PWA manifest uses relative paths.
 
 ---
 
-## 8. Open booking items (the six STATUS flags as a checklist)
+## 8. Open booking items (the seven STATUS flags as a checklist)
 
 This is the actionable list. Flip the flag in `index.html` once each is confirmed.
 
-- [ ] **`rentalsBooked`** — both vacation rentals. The two houses that hold the whole family. Lock first.
+- [x] **`rentalJacksonBooked`** — **Booked 2026-05-20.** Hal'e Teton · Teton Village · 5 BR / 5.5 BA · Aug 22 → 26 · order #112575 · Rendezvous Mountain Rentals · 307-739-9050 · $11,626.72 total ($5,813.36 paid, $5,813.36 due 2026-07-23) · trip insurance included.
+- [x] **`rentalWyBooked`** — **Booked 2026-05-20.** Yellowstone Luxury Cabin Retreat · Hebgen Lake area · 5 BR / 5 BA · 5,000 sf · Aug 26 → 29 · Vrbo reservation `ORB17812924` · property `9746176ha` · $6,030.90 charged + $1,500 refundable deposit at property · check-in 4 PM / check-out 10 AM.
 - [x] **`gloriettaConfirmed`** — **Booked 2026-05-12.** Aug 23 · 5:30 PM · private dining room · party of 12. 10-day cancellation policy. Temporary menu selected; finalize ~2 weeks out. 307-733-3888.
 - [x] **`floatBooked`** — **Booked 2026-05-13.** Aug 24 · 12:00 PM check-in · Barker-Ewing 10-Mile Scenic Float · 1 private raft (PDF says "up to 10" capacity; Lisa at Barker-Ewing confirmed by phone that the raft accommodates 12 because 2 of the 12 are children) · $1,200 paid · Cancellation: full $1,200 refund if cancelled ≥72 hours before trip; $1,200 forfeit inside 72-hour window. Confirmed by phone with Lisa at Barker-Ewing. · pickup at Float Trip Parking lot, Moose Village, 1 Teton Park Rd · conf #8L5Q8N9T7K3V2H7F · 307-733-1800.
 - [ ] **`raftBooked`** — Aug 25 PM whitewater. Dave Hansen. 307-201-4639.
@@ -198,9 +219,9 @@ This is the actionable list. Flip the flag in `index.html` once each is confirme
 
 **Other to-dos that don't have flags yet (could be added later if Rohit wants):**
 
-- Two SUVs reserved one-way JAC → BZN.
-- Other nightly dinners (Hand Fire, Bin 22, Snake River Grill, Madison Crossing, Bar N Ranch).
 - Buy bear spray on Aug 22 in Jackson (4 cans, 2 per vehicle — can't fly with it).
+- Confirm walk-in dinner plans for Hand Fire (Aug 22), Madison Crossing (Aug 26), Bar N Ranch / Embers (Aug 27).
+- Carry-out coordination Aug 24 (Pinky G's or Teton Tiger) — call order from rental morning or Signal Mountain summit.
 
 ---
 
@@ -219,12 +240,12 @@ These belong in `memory/CHANGELOG.md` only if they get reopened.
 ## 10. Operational footguns
 
 - **Timezone consistency.** The viewer-local anchoring is deliberate. Don't switch `TRIP_START_LOCAL` to a UTC or MT-pinned date without thinking through what happens when (e.g.) someone in CA opens the site at 11:30 PM PT on Aug 21 — they should not see "Day 1: Arrive Jackson" yet, because for them it's still "tomorrow."
-- **Lodging coords are placeholders.** `LODGING_JACKSON` and `LODGING_WY` (lines 1691–1692) use approximate centroids. Update to actual lat/lng once rentals are booked, or the map markers will be off.
+- **Lodging coords.** `LODGING_JACKSON` and `LODGING_WY` (re-grep `const LODGING_` for current line numbers — they shift). LODGING_JACKSON points at Teton Village base area (43.5870, -110.8290). LODGING_WY points at West Yellowstone town centroid (44.6618, -111.1041) since Vrbo doesn't reveal the exact Hebgen Lake address until host accepts — refine post-arrival if needed.
 - **All phone numbers verified May 2026** per the dining-card note. If a number gets revised, re-check before flipping STATUS flags.
 - **Bear spray cannot fly.** The trip plan depends on buying it in Jackson on Aug 22. Don't try to optimize this away.
 - **BZN departure floor: 12:30 PM.** Earlier flights are dangerously tight on the Gallatin Canyon drive (2.5 hrs from West Yellowstone). If a CA return ticket gets booked for, say, 11 AM, the whole departure morning breaks.
 - **Audience extremes.** Site is designed for 10-year-olds and 75-year-olds. Don't shrink mono labels below 12px on mobile (`@media (max-width:480px)` block enforces this — see lines 622–629). Don't shrink tap targets below 48px.
-- **2,348-line single file.** Edits are line-anchored. Any structural refactor needs to keep the JS state machine (lines 2125–2323), the `DAYS` array (lines 1570–1600), and the CSS visibility rules (lines 115–140) in sync.
+- **~2,447-line single file (as of 2026-05-20 EOD; was 2,474 before audit-fix CSS cleanup).** Edits are line-anchored. Any structural refactor needs to keep the JS state machine, the `DAYS` array, the `STATUS` flag object, the `DEADLINES` array, and the CSS visibility rules in sync. Line numbers shift session to session; re-grep before quoting line refs. After any size change, re-grep memory files for the old size string and update.
 
 ---
 
@@ -233,7 +254,9 @@ These belong in `memory/CHANGELOG.md` only if they get reopened.
 I'm assuming the following — flag any that are wrong:
 
 1. **The three top-level `.jpeg` files are inert** (original uploads, not referenced by the site). Verified via grep that they aren't linked from `index.html`.
-2. **No deployment exists yet.** No config files for Vercel/Netlify/GH Pages found in the folder.
-3. **"Hal'e Teton" and "Moose Hideaway" are still candidates, not yet booked.** Both are still listed as Option A/B on the Jackson shortlist with no "booked" indicator.
-4. **The post-trip card content** (`<article class="ctx-card ctx-post">`) is intentionally minimal — Rohit may want to flesh out a photo gallery later but hasn't committed.
-5. **"Audience: ages 10–75" is the design constraint** per the auto-memory note (`project_yellowstone_audience.md`). The CSS comments at line 564 confirm this is a real design driver.
+2. **Deployment is live on Vercel** (per CHANGELOG 2026-05-13). Updated from earlier "no deployment exists yet" assumption.
+3. **Both rentals are now booked.** Hal'e Teton (Jackson) and Yellowstone Luxury Cabin Retreat (West Yellowstone) are confirmed; the shortlist headers on the Lodging page were retitled "(reference)" 2026-05-20 PM.
+4. **The post-trip card content** is intentionally minimal — Rohit explicitly deferred any post-trip photo gallery; will handle photo sharing via other apps.
+5. **"Audience: ages 10–75"** per `project_yellowstone_audience.md` — real design driver, enforced by CSS font/tap-target floors.
+6. **Park Maps page stays.** Rohit explicit: "dont kill this. i like this page." Was on the Tier 1 kill list; now off.
+7. **Tier 1/2/3 cleanup is gated on pre-summary check-in.** No silent execution, even when content-stability trigger fires.

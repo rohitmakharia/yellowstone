@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>2026 Makharia Family Reunion · Yellowstone & The Tetons</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="manifest" href="manifest.webmanifest">
@@ -23,6 +23,25 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-top:64px}
 .wrap{width:100%;max-width:1320px;margin:0 auto;padding:0 48px}
 
+/* ============ DEADLINE BANNER (fires when within 7 days of a cancellation/payment deadline) ============ */
+.deadline-banner-host:empty{display:none}
+.deadline-banner-host{position:fixed;top:64px;left:0;right:0;z-index:55;background:var(--accent);color:var(--canvas);padding:0;box-shadow:0 4px 14px rgba(196,74,30,0.35)}
+.deadline-banner-link{display:flex;align-items:center;gap:14px;padding:10px 24px;color:var(--canvas);text-decoration:none;max-width:1320px;margin:0 auto;min-height:48px}
+.deadline-banner-pill{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;font-weight:700;background:var(--canvas);color:var(--accent);padding:5px 11px;border-radius:99px;flex-shrink:0;white-space:nowrap}
+.deadline-banner-body{flex:1;min-width:0}
+.deadline-banner-title{font-family:var(--font-display);font-size:15px;font-weight:600;line-height:1.25;letter-spacing:-0.005em}
+.deadline-banner-sub{font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:rgba(250,247,240,0.85);margin-top:2px;line-height:1.3}
+.deadline-banner-arrow{font-family:var(--font-mono);font-size:18px;font-weight:600;flex-shrink:0}
+body:has(#deadlineBanner:not(:empty)){padding-top:126px}
+@media (max-width:600px){
+  .deadline-banner-link{padding:8px 14px;gap:10px;min-height:44px}
+  .deadline-banner-title{font-size:13px}
+  .deadline-banner-sub{font-size:10px}
+  .deadline-banner-pill{font-size:10px;padding:4px 9px}
+  body:has(#deadlineBanner:not(:empty)){padding-top:132px}
+}
+@media print{.deadline-banner-host{display:none!important}}
+
 /* ============ TOP NAV ============ */
 .top-nav{position:fixed;top:0;left:0;right:0;height:64px;z-index:60;background:rgba(14,26,20,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(217,164,65,0.2)}
 .top-nav-inner{max-width:1320px;margin:0 auto;padding:0 32px;height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
@@ -31,6 +50,8 @@ body{background:var(--canvas);color:var(--ink);font-family:var(--font-body);font
 .top-nav-links{display:flex;gap:22px}
 .top-nav-links a{font-family:var(--font-mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,240,0.7);text-decoration:none;transition:color 0.2s ease;font-weight:500}
 .top-nav-links a:hover,.top-nav-links a.active{color:var(--gold)}
+.top-nav-links a.top-nav-print{color:var(--gold);border:1px solid rgba(217,164,65,0.45);border-radius:99px;padding:6px 14px;margin-left:8px}
+.top-nav-links a.top-nav-print:hover,.top-nav-links a.top-nav-print.active{background:var(--gold);color:var(--dark)}
 .hamburger{display:none;background:none;border:none;cursor:pointer;width:48px;height:48px;flex-direction:column;justify-content:center;gap:5px;padding:0;align-items:center;margin-right:-8px}
 .hamburger span{display:block;width:24px;height:2px;background:var(--gold);transition:transform 0.25s ease,opacity 0.25s ease;border-radius:1px}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -238,6 +259,11 @@ section.content{padding:80px 0;position:relative}
 .shortlist-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -16px rgba(15,20,16,0.18)}
 .shortlist-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest)}
 .shortlist-card.two::before{background:var(--gold)}
+.shortlist-card.booked{border-color:var(--forest)}
+.shortlist-card.booked::before{background:var(--forest);height:5px}
+.shortlist-card.booked .shortlist-eyebrow{color:var(--forest);font-weight:700}
+.shortlist-card.not-selected{opacity:0.55}
+.shortlist-card.not-selected .shortlist-eyebrow{color:var(--ink-3)}
 .shortlist-eyebrow{font-family:var(--font-mono);font-size:10px;color:var(--forest);letter-spacing:0.2em;text-transform:uppercase;font-weight:600;display:flex;align-items:center;gap:10px}
 .shortlist-card.two .shortlist-eyebrow{color:#A88128}
 .shortlist-eyebrow-dot{width:8px;height:8px;background:currentColor;border-radius:50%}
@@ -261,32 +287,6 @@ section.content{padding:80px 0;position:relative}
 .shortlist-cta.secondary:hover{background:var(--canvas-3)}
 .shortlist-cta::after{content:'→';font-size:13px}
 
-/* ============ BOOKING GUIDE (now subsection of Lodging) ============ */
-.marketplace-details{margin-top:48px;border:1px solid var(--rule);border-radius:8px;background:var(--canvas);overflow:hidden}
-.marketplace-summary{cursor:pointer;padding:22px 28px;display:flex;align-items:center;gap:18px;list-style:none;font-family:var(--font-display);transition:background 0.2s ease;min-height:60px}
-.marketplace-summary::-webkit-details-marker{display:none}
-.marketplace-summary:hover{background:var(--canvas-2)}
-.marketplace-summary-label{font-size:18px;font-weight:500;color:var(--ink);letter-spacing:-0.01em;flex-shrink:0}
-.marketplace-summary-hint{font-family:var(--font-mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);font-weight:600;flex:1}
-.marketplace-summary-icon{font-family:var(--font-mono);font-size:22px;color:var(--accent);font-weight:300;transition:transform 0.25s ease}
-.marketplace-details[open] .marketplace-summary-icon{transform:rotate(45deg)}
-.marketplace-details[open] .marketplace-summary{border-bottom:1px solid var(--rule);background:var(--canvas-2)}
-.booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:28px}
-@media (max-width:900px){.booking-grid{grid-template-columns:1fr;gap:32px;padding:24px}.marketplace-summary{padding:18px 22px;flex-wrap:wrap;gap:8px}.marketplace-summary-hint{font-size:10px;width:100%;order:3}.marketplace-summary-icon{order:2;margin-left:auto}}
-.booking-col{display:flex;flex-direction:column;gap:32px}
-.booking-area-header{font-family:var(--font-display);font-size:28px;font-weight:500;letter-spacing:-0.02em;line-height:1.1;padding-bottom:16px;border-bottom:1px solid var(--rule)}
-.booking-area-header em{font-style:italic;color:var(--accent);font-weight:400}
-.booking-tier{margin-bottom:8px}
-.booking-tier-label{font-family:var(--font-mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:10px}
-.booking-tier-label::before{content:'';width:24px;height:1px;background:var(--accent)}
-.booking-tier-desc{font-family:var(--font-display);font-style:italic;font-size:14px;color:var(--ink-3);margin-bottom:14px;line-height:1.5}
-.booking-link-list{display:flex;flex-direction:column;gap:2px}
-.booking-link{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:12px 14px;border-radius:4px;text-decoration:none;color:var(--ink);transition:background 0.15s ease}
-.booking-link:hover{background:var(--canvas-2)}
-.booking-link-name{font-family:var(--font-display);font-size:17px;font-weight:500;letter-spacing:-0.01em}
-.booking-link-url{font-family:var(--font-mono);font-size:11px;color:var(--ink-3);letter-spacing:0.02em}
-.booking-link::after{content:'→';font-family:var(--font-mono);color:var(--accent);font-size:14px;margin-left:8px}
-.booking-note{font-family:var(--font-display);font-size:14px;font-style:italic;color:var(--ink-2);background:var(--canvas-2);padding:16px 20px;border-radius:4px;border-left:3px solid var(--accent);margin-top:24px;line-height:1.55}
 
 /* ============ FLIGHTS ============ */
 .flights-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -437,11 +437,11 @@ section.content{padding:80px 0;position:relative}
 @media (max-width:600px){.tel-link{display:inline-block;padding:4px 0;font-size:14px}}
 
 /* ============ MOBILE STICKY BOTTOM NAV ============ */
-.thumb-nav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:200;background:rgba(14,26,20,0.96);backdrop-filter:saturate(140%) blur(8px);-webkit-backdrop-filter:saturate(140%) blur(8px);border-top:1px solid rgba(217,164,65,0.25);padding:8px 8px calc(8px + env(safe-area-inset-bottom));justify-content:space-around;gap:4px}
+.thumb-nav{display:none;position:fixed;left:0;right:0;bottom:0;z-index:200;background:rgba(14,26,20,0.96);backdrop-filter:saturate(140%) blur(8px);-webkit-backdrop-filter:saturate(140%) blur(8px);border-top:1px solid rgba(217,164,65,0.25);padding:8px 8px max(8px,env(safe-area-inset-bottom));padding-left:max(8px,env(safe-area-inset-left));padding-right:max(8px,env(safe-area-inset-right));justify-content:space-around;gap:4px;will-change:transform}
 .thumb-nav a{flex:1;display:flex;align-items:center;justify-content:center;text-decoration:none;color:rgba(250,247,240,0.65);font-family:var(--font-mono);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;font-weight:600;padding:14px 8px;min-height:48px;border-radius:6px;transition:color 0.15s,background 0.15s;position:relative}
 .thumb-nav a.active,.thumb-nav a:active{color:var(--gold);background:rgba(217,164,65,0.12)}
 .thumb-nav a.active::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:24px;height:2px;background:var(--gold);border-radius:1px}
-@media (max-width:760px){.thumb-nav{display:flex}body{padding-bottom:68px}}
+@media (max-width:760px){.thumb-nav{display:flex}body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}}
 .pack-group{border-bottom:1px solid var(--rule-soft)}
 .pack-group:last-child{border-bottom:none}
 .pack-group-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;background:transparent;border:none;padding:14px 0;cursor:pointer;font-family:var(--font-display);font-size:16px;font-weight:500;color:var(--ink);letter-spacing:-0.005em;text-align:left}
@@ -536,6 +536,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 .brand-mark{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:8px;flex-shrink:0;opacity:0.9}
 .footer-title{font-family:var(--font-display);font-size:22px;font-style:italic;font-weight:300;color:var(--canvas);margin-bottom:10px;letter-spacing:-0.01em}
 .footer-meta{font-family:var(--font-mono);font-size:11px;letter-spacing:0.15em;text-transform:uppercase}
+.footer-print-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:600;padding:12px 22px;border:1.5px solid var(--gold);border-radius:99px;background:transparent;margin:18px 0 22px;transition:all 0.2s;min-height:44px}
+.footer-print-btn:hover,.footer-print-btn:active{background:var(--gold);color:var(--dark)}
 .footer-divider{color:rgba(250,247,240,0.3);margin:0 12px}
 
 /* ============ RESPONSIVE ============ */
@@ -546,7 +548,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
   section.content{padding:64px 0}
   .section-head{margin-bottom:32px}
   .section-desc{grid-column:1;margin-top:8px}
-  .lodging-grid,.logistics-grid,.booking-grid,.flights-grid,.shortlist-grid{grid-template-columns:1fr;gap:24px}
+  .lodging-grid,.logistics-grid,.flights-grid,.shortlist-grid{grid-template-columns:1fr;gap:24px}
   .shortlist-stats{grid-template-columns:repeat(2,1fr)}
   .lodge,.logistics-card{padding:32px 28px}
   .day-header{padding:24px 28px;grid-template-columns:1fr;gap:14px}
@@ -625,8 +627,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
   .dining-card-eyebrow,.lodge-stamp,.shortlist-eyebrow,.shortlist-sub,
   .flight-stamp,.flight-pax,.map-header-title,.day-meta,
   .nps-section-head .sub,.vehicle-play-header,.vehicle-tag,
-  .map-controls-label,.booking-tier-label,.lp-eyebrow,
-  .trip-itinerary-header .sub,.booking-guide-header .sub{font-size:12px;letter-spacing:0.12em}
+  .map-controls-label,.lp-eyebrow,
+  .trip-itinerary-header .sub{font-size:12px;letter-spacing:0.12em}
   .top-nav-brand{font-size:12px}
   .flight-leg-meta,.flight-layover,.stop-duration,.pack-count{font-size:11px}
 }
@@ -655,6 +657,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <body>
 
 <!-- ============ TOP NAV ============ -->
+<div id="deadlineBanner" class="deadline-banner-host"></div>
 <nav class="top-nav" id="topNav">
 <div class="top-nav-inner">
 <a class="top-nav-brand" href="#home"><img class="mark" src="favicon.svg" alt="" width="36" height="36"><span>Makharia Reunion · Aug 2026</span></a>
@@ -664,8 +667,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <a href="#dining" data-page="dining">Food &amp; Dining</a>
 <a href="#lodging" data-page="lodging">Lodging</a>
 <a href="#flights" data-page="flights">Flights</a>
+<a href="#vehicles" data-page="vehicles">Rental Car</a>
 <a href="#bookings" data-page="bookings">Bookings</a>
 <a href="#prep" data-page="prep">Prep</a>
+<a href="#print" data-page="print" class="top-nav-print">⎙ Print</a>
 </div>
 <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
 <span></span><span></span><span></span>
@@ -682,8 +687,9 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <a href="#dining" data-page="dining"><span class="num">03</span>Food &amp; Dining</a>
 <a href="#lodging" data-page="lodging"><span class="num">04</span>Lodging</a>
 <a href="#flights" data-page="flights"><span class="num">05</span>Flights</a>
-<a href="#bookings" data-page="bookings"><span class="num">06</span>Bookings</a>
-<a href="#prep" data-page="prep"><span class="num">07</span>Prep</a>
+<a href="#vehicles" data-page="vehicles"><span class="num">06</span>Rental Car</a>
+<a href="#bookings" data-page="bookings"><span class="num">07</span>Bookings</a>
+<a href="#prep" data-page="prep"><span class="num">08</span>Prep</a>
 <a href="#print" data-page="print" style="border-top:1px solid rgba(217,164,65,0.2);margin-top:10px;padding-top:18px;color:var(--gold)"><span class="num">⎙</span>Print one-pager</a>
 <div class="mobile-menu-foot">Aug 22 – 29 · 12 travelers</div>
 </aside>
@@ -712,7 +718,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h2 class="ctx-title">A few things to lock in early.</h2>
 <p class="ctx-narrative">Late August in Jackson + Yellowstone fills up by July. Rentals, Glorietta's private room, and the Snake River float move fastest. Everything else can wait until summer.</p>
 <ul class="ctx-list">
-<li data-status-key="rentalsBooked"><span class="ctx-item-text">Both rentals (Jackson + W. Yellowstone). Shortlists on Lodging.</span></li>
+<li data-status-key="rentalJacksonBooked"><span class="ctx-item-text">Jackson rental — Hal'e Teton booked (Aug 22-26, order #112575).</span></li>
+<li data-status-key="rentalWyBooked"><span class="ctx-item-text">W. Yellowstone rental — Yellowstone Luxury Cabin Retreat booked (Aug 26-29, Vrbo ORB17812924).</span></li>
 <li data-status-key="gloriettaConfirmed"><span class="ctx-item-text">Glorietta private room · Aug 23 · Dadu's 75th. 307-733-3888.</span></li>
 <li data-status-key="floatBooked"><span class="ctx-item-text">Snake River scenic float · Aug 24 · 12:00 PM · Barker-Ewing. Private raft, confirmed for 12. 307-733-1800.</span></li>
 <li data-status-key="flightsCaInbound"><span class="ctx-item-text">California → JAC tickets booked · UA 2472 · SFO 1:26 PM → JAC 4:39 PM.</span></li>
@@ -725,7 +732,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <h2 class="ctx-title">Activities should be locking in.</h2>
 <p class="ctx-narrative">Most of the urgent stuff goes now. Late-August inventory tightens fast.</p>
 <ul class="ctx-list">
-<li data-status-key="rentalsBooked"><span class="ctx-item-text">Both rentals confirmed.</span></li>
+<li data-status-key="rentalJacksonBooked"><span class="ctx-item-text">Jackson rental confirmed (Hal'e Teton).</span></li>
+<li data-status-key="rentalWyBooked"><span class="ctx-item-text">W. Yellowstone rental confirmed.</span></li>
 <li data-status-key="gloriettaConfirmed"><span class="ctx-item-text">Glorietta private room for Dadu's 75th.</span></li>
 <li data-status-key="floatBooked"><span class="ctx-item-text">Snake River float booked · Aug 24 · 12:00 PM · 12 guests.</span></li>
 <li data-status-key="raftBooked"><span class="ctx-item-text">Whitewater raft, Aug 25 PM, Dave Hansen.</span></li>
@@ -752,7 +760,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <article class="ctx-card ctx-t14" data-show-when="pre-t14">
 <div class="ctx-eyebrow">Two weeks out</div>
 <h2 class="ctx-title">Pack list time.</h2>
-<p class="ctx-narrative">Specifics start to matter. Mornings can hit 40°F, midday tops 80°F. Bear spray is bought on the Aug 23 grocery run, not flown.</p>
+<p class="ctx-narrative">Specifics start to matter. Mornings can hit 40°F, midday tops 80°F. Bear spray is bought on the Aug 22 arrival-day grocery run, not flown.</p>
 <ul class="ctx-list">
 <li>Layers: light fleece, rain shell, comfortable hiking pants.</li>
 <li>Sun: hats, SPF 50, polarized sunglasses.</li>
@@ -871,10 +879,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <p>Stay One in Jackson, Stay Two in West Yellowstone.</p>
 <div class="arrow">→</div>
 </a>
-<a class="home-nav-card" href="#bookings" data-page="bookings">
-<div class="card-num">Bookings</div>
-<h2>What to book now</h2>
-<p>Priority checklist of activities, vehicles, dinners.</p>
+<a class="home-nav-card" href="#vehicles" data-page="vehicles">
+<div class="card-num">Rental Car</div>
+<h2>The two mini vans</h2>
+<p>Pickup at JAC, drop at BZN. Confirmations + Costco card reminder.</p>
 <div class="arrow">→</div>
 </a>
 <a class="home-nav-card" href="#prep" data-page="prep">
@@ -884,7 +892,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="arrow">→</div>
 </a>
 </div>
-<div class="home-nav-also">Also · <a href="#nps">Park Maps</a> · <a href="#flights">Flights</a> · <a href="#print">Print one-pager</a></div>
+<div class="home-nav-also">Also · <a href="#nps">Park Maps</a> · <a href="#flights">Flights</a> · <a href="#bookings">Bookings</a> · <a href="#print">Print one-pager</a></div>
 </div>
 </section>
 
@@ -895,32 +903,30 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <section class="subpage-banner" style="background-image:url('img/hero-tetons.jpg')"><div class="wrap"><div class="eyebrow">Lodging</div><h1>Where you'll sleep</h1></div></section>
 <section class="content">
 <div class="wrap">
-<div class="section-head"><div><h2 class="section-title">Where you'll sleep</h2><p class="section-desc">Two large vacation rentals, three lodging changes avoided, all luggage moves on one day.</p></div></div>
+<div class="section-head"><div><h2 class="section-title">Where you'll sleep</h2><p class="section-desc">Both rentals booked. One base in Jackson, one in West Yellowstone — all luggage moves on Aug 26.</p></div></div>
 <div class="lodging-grid">
 <div class="lodge">
-<div class="lodge-stamp"><span class="lodge-stamp-dot"></span>Stay One</div>
-<div class="lodge-nights">Aug 22 – 25  /  4 nights</div>
-<h3 class="lodge-name">Jackson Hole<br>&amp; Teton Village</h3>
-<p class="lodge-desc">A 7+ bedroom luxury rental with kitchen, hot tub, and enough common space that the adults and four kids can move at different speeds. Both bases need to be locked in this week — late-August inventory is going fast.</p>
-<div class="lodge-targets"><div class="lodge-targets-label">Search on / target neighborhoods</div><div class="lodge-targets-list">AMA Selections · Key.co · Outpost · Plum Guide<br>Teton Village (Shooting Star, Granite Ridge) · Wilson · Snake River Sporting Club · 3 Creek Ranch</div></div>
+<div class="lodge-stamp"><span class="lodge-stamp-dot"></span>Stay One · ✓ Booked</div>
+<div class="lodge-nights">Aug 22 – 26  /  4 nights</div>
+<h3 class="lodge-name">Hal'e Teton<br>Teton Village</h3>
+<p class="lodge-desc">A 6,600 sq ft fully remodeled estate in Teton Village — 5 BR / 5.5 BA, sleeps up to 22. Outdoor private hot tub, indoor dry sauna, gourmet kitchen with dual Wolf gas ranges + walk-in pantry, dedicated media room with blackout shades, 3 fireplaces (one wood-burning). Order #112575 · Rendezvous Mountain Rentals · 307-739-9050.</p>
 </div>
 <div class="lodge two">
-<div class="lodge-stamp"><span class="lodge-stamp-dot"></span>Stay Two</div>
-<div class="lodge-nights">Aug 26 – 28  /  3 nights</div>
-<h3 class="lodge-name">West Yellowstone<br>&amp; Hebgen Lake</h3>
-<p class="lodge-desc">Closest gateway to the geyser country. Inventory is thinner than Jackson but real options exist — Bar N Ranch is the standout (a working ranch with cabins on shared grounds, six miles from the West Entrance).</p>
-<div class="lodge-targets"><div class="lodge-targets-label">Search on / target areas</div><div class="lodge-targets-list">Bar N Ranch compound · VRBO 7+ BR filter · Marriott Homes &amp; Villas<br>Hebgen Lake luxury homes · West Yellowstone town (walkable to dining)</div></div>
+<div class="lodge-stamp"><span class="lodge-stamp-dot"></span>Stay Two · ✓ Booked</div>
+<div class="lodge-nights">Aug 26 – 29  /  3 nights</div>
+<h3 class="lodge-name">Yellowstone Luxury Cabin Retreat<br>Hebgen Lake area</h3>
+<p class="lodge-desc">A 5,000 sq ft modern lodge 8 minutes from West Yellowstone town, 10 minutes from the West Entrance. 5 BR / 5 BA — one private bath per bedroom, large hot tub, 12-foot live-edge dining table seating all of us. 10/10 "Exceptional" across 68 Vrbo reviews. Check-in 4 PM · Check-out 10 AM. Vrbo reservation ORB17812924 · $1,500 refundable deposit due at property.</p>
 </div>
 </div>
 
 <div class="shortlist-header" id="jackson-shortlist">
-<h3 class="shortlist-title">Jackson Hole <em>shortlist</em></h3>
-<div class="shortlist-sub">Two top candidates · Aug 22 – 26 · Teton Village</div>
+<h3 class="shortlist-title">Jackson Hole shortlist <em>(reference)</em></h3>
+<div class="shortlist-sub">Hal'e Teton was selected · the other was considered</div>
 </div>
 <div class="shortlist-grid">
 
-<div class="shortlist-card">
-<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option A · Right-Sized</div>
+<div class="shortlist-card not-selected">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Not selected · Hal'e Teton was booked instead</div>
 <h3 class="shortlist-name">Moose Hideaway</h3>
 <p class="shortlist-tag">A 4,145 sq ft modern-western retreat tucked into the trees of Teton Village. Sized exactly to a group of 12.</p>
 <div class="shortlist-stats">
@@ -944,10 +950,10 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 </div>
 
-<div class="shortlist-card two">
-<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option B · Estate-Scale</div>
+<div class="shortlist-card two booked">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>✓ Booked · Stay 1</div>
 <h3 class="shortlist-name">Hal'e Teton</h3>
-<p class="shortlist-tag">A 6,600 sq ft fully remodeled estate in Teton Village — 60% larger than Option A. All-new finishes, sleeps up to 22.</p>
+<p class="shortlist-tag">A 6,600 sq ft fully remodeled estate in Teton Village. Booked for 10 adults + 2 children, Sat Aug 22 → Wed Aug 26 (4 nights). Order #112575 · Rendezvous Mountain Rentals.</p>
 <div class="shortlist-stats">
 <div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
 <div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5.5 BA</span></div>
@@ -961,8 +967,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="shortlist-pro">Dedicated media room with blackout shades + 3 fireplaces (one wood-burning)</div>
 <div class="shortlist-pro">3 Kings + 1 with 2 Queens + bunk room with 3 full-size bunks</div>
 </div>
-<div class="shortlist-watch">Only 3 parking spots. No A/C — bedroom fans only; mountain nights cool naturally in August.</div>
-<div class="shortlist-price"><strong>$2,299/night × 4 nights ≈ $9,196 base</strong><br>Aug 22–26 confirmed available on the listing</div>
+<div class="shortlist-watch">Only 3 parking spots — coordinate the two mini van arrivals to share spots. No A/C — bedroom fans only; mountain nights cool naturally in August.</div>
+<div class="shortlist-price"><strong>$11,626.72 total</strong> (lodging $8,396 + cleaning + service/hot-tub/wellness fees + tax + trip insurance $901.07)<br><strong>Payment:</strong> $5,813.36 paid on booking; $5,813.36 due 2026-07-23.<br><strong>Cancellation:</strong> 6% forfeit of initial payment if ≥30 days out; no refund inside 30 days. Trip insurance purchased.<br><strong>Operator:</strong> Rendezvous Mountain Rentals · 307-739-9050 · <a href="https://www.rmrentals.com" target="_blank" rel="noopener" style="color:var(--accent)">rmrentals.com</a></div>
 <div class="shortlist-ctas">
 <a class="shortlist-cta primary" href="https://www.rmrentals.com/jackson-hole-rentals/hale-teton" target="_blank" rel="noopener">View Listing</a>
 <a class="shortlist-cta secondary" href="https://my.matterport.com/show/?m=JDFawYuhRCq" target="_blank" rel="noopener">3D Tour</a>
@@ -972,15 +978,15 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 
 <div class="shortlist-header" id="wy-shortlist">
-<h3 class="shortlist-title">West Yellowstone <em>shortlist</em></h3>
-<div class="shortlist-sub">Three top candidates · Aug 26 – 29 · 6–10 min to West Entrance</div>
+<h3 class="shortlist-title">West Yellowstone shortlist <em>(reference)</em></h3>
+<div class="shortlist-sub">Yellowstone Luxury Cabin Retreat was selected · the others were considered</div>
 </div>
 <div class="shortlist-grid three">
 
-<div class="shortlist-card">
-<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option A · Single House</div>
+<div class="shortlist-card booked">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>✓ Booked · Stay 2</div>
 <h3 class="shortlist-name">Yellowstone Luxury Cabin Retreat</h3>
-<p class="shortlist-tag">A 5,000 sq ft modern lodge in the Hebgen Lake area, 8 minutes from West Yellowstone town. Closest spec match to Moose Hideaway.</p>
+<p class="shortlist-tag">A 5,000 sq ft modern lodge in the Hebgen Lake area, 8 minutes from West Yellowstone town. Booked for 10 adults + 2 children, Wed Aug 26 → Sat Aug 29 (3 nights). Reservation ORB17812924 · Vrbo property 9746176ha.</p>
 <div class="shortlist-stats">
 <div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
 <div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5 BA</span></div>
@@ -990,20 +996,20 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="shortlist-pros">
 <div class="shortlist-pro">10/10 "Exceptional" rating across 68 VRBO reviews — strongest review profile of any 5BR in the area</div>
 <div class="shortlist-pro">10 min to Yellowstone West Entrance · 8 min to West Yellowstone town · 11 min to WYS airport</div>
-<div class="shortlist-pro">Large hot tub + 12-foot live-edge custom dining table seating all 14</div>
+<div class="shortlist-pro">Large hot tub + 12-foot live-edge custom dining table seating all 12 of us</div>
 <div class="shortlist-pro">5 private bathrooms — one per bedroom — eliminates morning queue</div>
 <div class="shortlist-pro">Modern mountain lodge aesthetic matching the Jackson finalists</div>
 </div>
-<div class="shortlist-watch">Single-property inventory is thin in this area. Verify Aug 26–29 availability before locking the Jackson side.</div>
-<div class="shortlist-price"><strong>Pricing not shown publicly</strong><br>Quote via VRBO · ~$700–$1,200/nt typical for this tier in August</div>
+<div class="shortlist-watch"><strong>Check-in 4:00 PM Wed Aug 26 · Check-out 10:00 AM Sat Aug 29.</strong> Property address + access details available in the Vrbo Trip Details inbox after host accepts. Bring cash or card for the $1,500 refundable property deposit, paid on arrival.</div>
+<div class="shortlist-price"><strong>$6,030.90 total</strong> ($1,395/nt × 3 + host fees $609 + service fee $657 + tax $579.90).<br><strong>Charged in full on May 20, 2026.</strong><br><strong>+ $1,500 refundable deposit</strong> paid at the property (returned post-stay).<br><strong>Booked via Vrbo · Reservation ORB17812924.</strong></div>
 <div class="shortlist-ctas">
 <a class="shortlist-cta primary" href="https://www.vrbo.com/9746176ha" target="_blank" rel="noopener">View Listing</a>
-<a class="shortlist-cta secondary" href="https://www.vrbo.com/search?adults=8&amp;children=4&amp;regionId=3846&amp;destination=West+Yellowstone%2C+Montana%2C+United+States+of+America&amp;selected=88410799" target="_blank" rel="noopener">Check Dates</a>
+<a class="shortlist-cta secondary" href="https://www.vrbo.com/traveler/th/trips" target="_blank" rel="noopener">Manage on Vrbo</a>
 </div>
 </div>
 
-<div class="shortlist-card two">
-<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option B · Ranch Compound</div>
+<div class="shortlist-card two not-selected">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Not selected · Yellowstone Luxury Cabin Retreat was booked instead</div>
 <h3 class="shortlist-name">Bar N Ranch</h3>
 <p class="shortlist-tag">A 200-acre working ranch 6 miles from the West Entrance with on-site dining and fly fishing. Multiple cabins, not a single house.</p>
 <div class="shortlist-stats">
@@ -1027,8 +1033,8 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 </div>
 
-<div class="shortlist-card">
-<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Option C · Glamping Resort</div>
+<div class="shortlist-card not-selected">
+<div class="shortlist-eyebrow"><span class="shortlist-eyebrow-dot"></span>Not selected · Yellowstone Luxury Cabin Retreat was booked instead</div>
 <h3 class="shortlist-name">Under Canvas West Yellowstone</h3>
 <p class="shortlist-tag">Upscale glamping on the Bar N Ranch property — the same 200 acres. Top 5 Resort in Montana per Travel + Leisure 2025.</p>
 <div class="shortlist-stats">
@@ -1054,7 +1060,6 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 </div>
 
-<div class="booking-note">If our shortlists don't pan out, the full rental marketplace browse — Abode, Clear Creek, Bar N Ranch, Vrbo, Marriott, and so on — has moved to the <a href="#bookings" style="color:var(--accent);font-weight:600;text-decoration:underline">Bookings page</a>.</div>
 </div>
 </section>
 </div>
@@ -1086,7 +1091,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="flight-leg-meta">Total travel · 6h 42m</div>
 </div>
 </div>
-<div class="flight-note">Plan landing buffer: bags, two SUV pickups, 30-min drive to rental. Arrive at the house ~7 PM. Skip bear spray + grocery run that night — push to Sunday morning.</div>
+<div class="flight-note">Plan landing buffer: bags, two mini van pickups at the Enterprise counter, 30-min drive to Hal'e Teton in Teton Village. Arrive at the house ~7 PM. Skip bear spray + grocery run that night — push to Sunday morning.</div>
 </div>
 
 <div class="flight-card outbound">
@@ -1146,7 +1151,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="wrap">
 <div class="section-head"><div><h2 class="section-title">Map &amp; itinerary</h2><p class="section-desc">Click any day below the map (or any day filter pill) to see only that day's route. Click "All Days" to see the full arc from JAC to BZN.</p></div></div>
 <div class="map-section-wrap">
-<div class="map-header"><span class="map-header-title"><img src="favicon.svg" class="brand-mark" alt="" aria-hidden="true">JAC to BZN · 8 days · 14 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
+<div class="map-header"><span class="map-header-title"><img src="favicon.svg" class="brand-mark" alt="" aria-hidden="true">JAC to BZN · 8 days · 19 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
 <div class="map-canvas" id="mapCanvas">
 <div id="mainMap" role="application" aria-label="Interactive map of the trip route"></div>
 </div>
@@ -1220,9 +1225,9 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <p class="lede">One restaurant per night across both stays. Aug 23 at Glorietta is the celebration anchor — private room for Dadu's 75th. Late August fills up fast for tables of 12, so the sooner the better on reservations.</p>
 <ul class="dining-list">
 <li data-loc="jh"><div><strong>Sat Aug 22 · Hand Fire Pizza (Jackson)</strong>Arrival night. Casual, wood-fired, group-friendly. Walk-in or call.</div></li>
-<li data-loc="jh"><div><strong>Sat Aug 23 · <em>Glorietta · Dadu's 75th</em></strong>Modern Italian, private dining room. Reserved 5:30 PM, party of 12. Temporary menu selected — finalize ~2 weeks out. 10-day cancellation policy. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener">gloriettajackson.com</a> · 307-733-3888.</div></li>
+<li data-loc="jh"><div><strong>Sun Aug 23 · <em>Glorietta · Dadu's 75th</em></strong>Modern Italian, private dining room. Reserved 5:30 PM, party of 12. Temporary menu selected — finalize ~2 weeks out. 10-day cancellation policy. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener">gloriettajackson.com</a> · 307-733-3888.</div></li>
 <li data-loc="jh"><div><strong>Mon Aug 24 · Carry-out at the rental</strong>Two solid options — order ahead. <strong>Pinky G's Pizzeria</strong> · 50 W Broadway Ave · 307-734-7465 · <a href="https://pinkygs.com" target="_blank" rel="noopener" style="color:var(--accent)">pinkygs.com</a>. <strong>Teton Tiger</strong> (Pan-Asian — Thai/Chinese/Korean/Japanese/Indian curries) · 165 Center St · 307-733-4111 · <a href="https://www.tetontiger.com" target="_blank" rel="noopener" style="color:var(--accent)">tetontiger.com</a>. Both close 9 PM Mon — order from rental in the morning, or call from Signal Mountain summit (~5 PM) where signal is reliable. Pickup 7:45–8:15 PM on the drive back from Schwabacher. Teton Tiger gives the vegetarian half of the party (6 of 12) real options beyond pizza — tofu protein on many dishes, Indian curries with naan.</div></li>
-<li data-loc="jh"><div><strong>Mon Aug 25 · Snake River Grill (Jackson)</strong>Classic upscale American. Private dining available. <a href="https://www.snakerivergrill.com" target="_blank" rel="noopener">snakerivergrill.com</a> · 307-733-0557.</div></li>
+<li data-loc="jh"><div><strong>Tue Aug 25 · Snake River Grill (Jackson)</strong>Classic upscale American. Private dining available. <a href="https://www.snakerivergrill.com" target="_blank" rel="noopener">snakerivergrill.com</a> · 307-733-0557.</div></li>
 <li data-loc="wy"><div><strong>Wed Aug 26 · Madison Crossing Lounge (W. Yellowstone)</strong>Arrival night in W. Yellowstone. Group-friendly American + bar.</div></li>
 <li data-loc="wy"><div><strong>Thu Aug 27 · Bar N Ranch — Embers (W. Yellowstone)</strong>On-property dining at Bar N Ranch (if staying there) or open to outside guests. <a href="https://bar-n-ranch.com" target="_blank" rel="noopener">bar-n-ranch.com</a> · 406-646-0300.</div></li>
 <li data-loc="wy"><div><strong>Fri Aug 28 · Rakhi night — your call</strong>Two options: sit-down at Madison Crossing or Bar N Ranch, OR pick up a feast from Wild West Pizzeria and bring it back to the rental to keep the celebration uninterrupted.</div></li>
@@ -1278,6 +1283,71 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 
 <!-- ============ BOOKINGS PAGE ============ -->
+<!-- ============ RENTAL CAR PAGE ============ -->
+<div class="page" id="page-vehicles">
+<section class="subpage-banner" style="background-image:url('img/day1-arrival.jpg')"><div class="wrap"><div class="eyebrow">Rental Car</div><h1>The two mini vans</h1></div></section>
+<section class="content">
+<div class="wrap">
+<div class="section-head"><div><h2 class="section-title">Two Enterprise mini vans</h2><p class="section-desc">Booked by Ritesh through Costco Travel. Pickup at Jackson Hole Airport (JAC) on Sat Aug 22; one-way drop at Bozeman Airport (BZN) on Sat Aug 29. Together they seat the full party of 12.</p></div></div>
+
+<div class="logistics-grid">
+
+<div class="logistics-card"><h3 class="logistics-card-title">Van 1 · Ritesh</h3>
+<ul class="logistics-list">
+<li><div><strong>Driver</strong>RITESH KUMAR MAKHARIA</div></li>
+<li><div><strong>Costco Travel confirmation</strong>C491501172</div></li>
+<li><div><strong>Enterprise confirmation</strong>2112908075</div></li>
+<li><div><strong>Booked under</strong>Ritesh's email · paid by Ritesh</div></li>
+</ul>
+</div>
+
+<div class="logistics-card"><h3 class="logistics-card-title">Van 2 · Parul</h3>
+<ul class="logistics-list">
+<li><div><strong>Driver</strong>PARUL RITESH KUMAR MAKHARIA</div></li>
+<li><div><strong>Costco Travel confirmation</strong>C491501176</div></li>
+<li><div><strong>Enterprise confirmation</strong>2112908572</div></li>
+<li><div><strong>Booked under</strong>Parul's email · paid by Ritesh</div></li>
+</ul>
+</div>
+
+<div class="logistics-card"><h3 class="logistics-card-title">Pickup &amp; drop</h3>
+<ul class="logistics-list">
+<li><div><strong>Pickup</strong>Sat Aug 22 · Jackson Hole Airport (JAC) · Enterprise counter</div></li>
+<li><div><strong>Drop-off</strong>Sat Aug 29 · Bozeman Airport (BZN) · one-way</div></li>
+<li><div><strong>Both vehicles</strong>Enterprise Mini Van — together seat 12 (typical Pacifica/Odyssey/Sienna config: 7 per van including driver)</div></li>
+</ul>
+</div>
+
+<div class="logistics-card"><h3 class="logistics-card-title">At the counter</h3>
+<ul class="logistics-list">
+<li><div><strong>Required</strong>Each driver must present their Costco membership card. No card, no pickup.</div></li>
+<li><div><strong>Additional drivers</strong>One additional driver fee waived for Costco members. All additional drivers must be present at pickup with valid license.</div></li>
+<li><div><strong>Age &amp; license</strong>All drivers 21+. International licenses accepted with the original from the issuing country.</div></li>
+</ul>
+</div>
+
+<div class="logistics-card"><h3 class="logistics-card-title">Phone numbers</h3>
+<ul class="logistics-list">
+<li><div><strong>Before your trip</strong>Costco Travel · <a href="tel:+18663281385" style="color:var(--accent)">1-866-328-1385</a> · M-F 5am-7pm PT · Sat-Sun 6am-5pm PT</div></li>
+<li><div><strong>During &amp; after</strong>Costco Travel · <a href="tel:+18663174711" style="color:var(--accent)">1-866-317-4711</a> · same hours</div></li>
+<li><div><strong>Enterprise direct</strong>Use the confirmation numbers above to manage online or call your local Enterprise after arrival</div></li>
+</ul>
+</div>
+
+<div class="logistics-card"><h3 class="logistics-card-title">Cancellation</h3>
+<ul class="logistics-list">
+<li><div><strong>Refundable</strong>Both vans refundable until <strong>2 days before pickup</strong> — final cancel date <strong>Thu Aug 20, 2026</strong>.</div></li>
+<li><div><strong>After Aug 20</strong>Standard Enterprise late-cancel / no-show terms apply.</div></li>
+<li><div><strong>Reminder</strong>The site's deadline banner will surface this Aug 13 (7 days before). Calendar `.ics` also covers it.</div></li>
+</ul>
+</div>
+
+</div>
+</div>
+</section>
+</div>
+
+<!-- ============ BOOKINGS PAGE ============ -->
 <div class="page" id="page-bookings">
 <section class="subpage-banner" style="background-image:url('img/day3-hidden-falls.jpg')"><div class="wrap"><div class="eyebrow">Bookings</div><h1>What to book now</h1></div></section>
 <section class="content">
@@ -1287,85 +1357,18 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="logistics-grid">
 <div class="logistics-card bookings"><h3 class="logistics-card-title">Booking priority — urgency order</h3>
 <ul class="logistics-list">
-<li><div><strong>Both rentals</strong>The two houses that hold the whole family. Shortlists on the <a href="#lodging" style="color:var(--accent);text-decoration:underline">Lodging page</a>. Lock these in first — the rest of the trip shapes around them.</div></li>
+<li data-status-key="rentalJacksonBooked"><div><strong>Jackson rental · Hal'e Teton (Stay 1)</strong>Booked Aug 22 → 26 · 5 BR / 5.5 BA · 10 adults + 2 children · order #112575 · $11,626.72 total · Rendezvous Mountain Rentals · 307-739-9050. Final payment due 2026-07-23.</div></li>
+<li data-status-key="rentalWyBooked"><div><strong>W. Yellowstone rental · Yellowstone Luxury Cabin Retreat (Stay 2)</strong>Booked Aug 26 → 29 · 5 BR / 5 BA · 5,000 sf, 10 min to West Entrance · Vrbo reservation <strong>ORB17812924</strong> · property 9746176ha · $6,030.90 charged + $1,500 refundable deposit at property. Check-in 4 PM Wed Aug 26 · Check-out 10 AM Sat Aug 29.</div></li>
 <li data-status-key="gloriettaConfirmed"><div><strong>Glorietta private dining room · Aug 23</strong>Dadu's 75th. Table of 12. Mention the milestone when booking. <a href="https://www.gloriettajackson.com" target="_blank" rel="noopener" style="color:var(--accent)">gloriettajackson.com</a> · 307-733-3888</div></li>
 <li data-status-key="floatBooked"><div><strong>Snake River scenic float · Aug 24 · 12:00 PM</strong>Booked with Barker-Ewing — private raft, 12 guests, $1,200 paid. Pickup at Moose Village Float Trip Parking (1 Teton Park Rd). Full refund ≥72 hr notice · forfeit inside 72 hr. <a href="https://barkerewing.com" target="_blank" rel="noopener" style="color:var(--accent)">barkerewing.com</a> · 307-733-1800</div></li>
-<li><div><strong>Two SUVs · one-way JAC → BZN</strong>Hertz, National, Enterprise, or Avis. Drop fees $300–500/vehicle. Reserve via your usual loyalty platform.</div></li>
-<li><div><strong>Whitewater raft · Aug 25 PM</strong>Active subgroup, two rafts (6 per boat). Dave Hansen is the strongest pick. ~$95–115/adult. <a href="https://www.davehansenwhitewater.com" target="_blank" rel="noopener" style="color:var(--accent)">davehansenwhitewater.com</a> · 307-201-4639</div></li>
-<li><div><strong>Other nightly dinners</strong>Hand Fire, Bin 22, Snake River Grill, Madison Crossing, Bar N Ranch / Embers. Phones + websites on the <a href="#dining" style="color:var(--accent);text-decoration:underline">Food &amp; Dining page</a>.</div></li>
+<li><div><strong>Two Enterprise mini vans · JAC → BZN · Aug 22 – 29</strong>Booked by Ritesh via Costco Travel. Both confirmations + driver details + Costco card requirements + cancellation terms live on the dedicated <a href="#vehicles" style="color:var(--accent);text-decoration:underline">Rental Car page</a>.</div></li>
+<li data-status-key="raftBooked"><div><strong>Whitewater raft · Aug 25 PM</strong>Active subgroup, one raft for the full group. Dave Hansen is the strongest pick. ~$95–115/adult. <a href="https://www.davehansenwhitewater.com" target="_blank" rel="noopener" style="color:var(--accent)">davehansenwhitewater.com</a> · 307-201-4639</div></li>
+<li><div><strong>Other nightly dinners</strong>Hand Fire (Aug 22, walk-in), carry-out at the rental (Aug 24 · Pinky G's or Teton Tiger), Snake River Grill (Aug 25), Madison Crossing (Aug 26), Bar N Ranch / Embers (Aug 27). Phones + websites on the <a href="#dining" style="color:var(--accent);text-decoration:underline">Food &amp; Dining page</a>.</div></li>
 <li><div><strong>Aerial Tram · Aug 25</strong>No reservation needed. Buy day-of at Tickets &amp; Guest Services. Tram runs 9 AM – 5 PM. <a href="https://www.jacksonhole.com/aerial-tram" target="_blank" rel="noopener" style="color:var(--accent)">jacksonhole.com/aerial-tram</a></div></li>
-<li><div><strong>Afternoon flight from BZN · Aug 29</strong>Minimum departure 12:30 PM. Morning flights are dangerously tight.</div></li>
 </ul>
 </div>
 </div>
 
-<details class="marketplace-details">
-<summary class="marketplace-summary">
-<span class="marketplace-summary-label">Vacation rental marketplaces</span>
-<span class="marketplace-summary-hint">If the shortlists don't deliver · Curated → mid-market</span>
-<span class="marketplace-summary-icon">+</span>
-</summary>
-<div class="booking-grid">
-
-<div class="booking-col">
-<h3 class="booking-area-header">Jackson Hole <em>&amp; Tetons</em></h3>
-<div class="booking-tier">
-<div class="booking-tier-label">Ultra Lux — curated &amp; concierge</div>
-<p class="booking-tier-desc">Hand-picked portfolios, in-house concierge, chefs and guides on call.</p>
-<div class="booking-link-list">
-<a href="https://abodejacksonhole.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Abode Luxury Rentals</span><span class="booking-link-url">abodejacksonhole.com</span></a>
-<a href="https://theclearcreekgroup.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">The Clear Creek Group</span><span class="booking-link-url">theclearcreekgroup.com</span></a>
-<a href="https://www.fourseasons.com/jacksonhole/villa-residence-rentals/" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Four Seasons Private Residences</span><span class="booking-link-url">fourseasons.com/jacksonhole</span></a>
-<a href="https://luxurypropertiesjh.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Luxury Properties Jackson Hole</span><span class="booking-link-url">luxurypropertiesjh.com</span></a>
-</div>
-</div>
-<div class="booking-tier">
-<div class="booking-tier-label">Lux — vetted platforms</div>
-<div class="booking-link-list">
-<a href="https://www.key.co" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Key.co</span><span class="booking-link-url">key.co</span></a>
-<a href="https://www.onefinestay.com/destination/the-rockies/jackson-hole" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">onefinestay</span><span class="booking-link-url">onefinestay.com</span></a>
-<a href="https://www.plumguide.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Plum Guide</span><span class="booking-link-url">plumguide.com</span></a>
-</div>
-</div>
-<div class="booking-tier">
-<div class="booking-tier-label">Mid Market — broad inventory</div>
-<div class="booking-link-list">
-<a href="https://www.jhrl.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Jackson Hole Resort Lodging</span><span class="booking-link-url">jhrl.com</span></a>
-<a href="https://www.vrbo.com/vacation-rentals/usa/wyoming/jackson-hole" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">VRBO Jackson Hole</span><span class="booking-link-url">vrbo.com</span></a>
-<a href="https://homes-and-villas.marriott.com/en/vacation-rentals/united-states/wyoming/jackson-hole" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Marriott Homes &amp; Villas</span><span class="booking-link-url">homes-and-villas.marriott.com</span></a>
-<a href="https://www.airbnb.com/jackson-hole-wy/stays" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Airbnb Jackson Hole</span><span class="booking-link-url">airbnb.com</span></a>
-</div>
-</div>
-</div>
-
-<div class="booking-col">
-<h3 class="booking-area-header">West Yellowstone <em>&amp; Hebgen</em></h3>
-<div class="booking-tier">
-<div class="booking-tier-label">Ultra Lux — limited inventory</div>
-<div class="booking-link-list">
-<a href="https://bar-n-ranch.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Bar N Ranch</span><span class="booking-link-url">bar-n-ranch.com</span></a>
-<a href="https://www.montage.com/bigsky" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Montage Big Sky (50 mi N)</span><span class="booking-link-url">montage.com/bigsky</span></a>
-</div>
-</div>
-<div class="booking-tier">
-<div class="booking-tier-label">Lux — large-group homes</div>
-<div class="booking-link-list">
-<a href="https://yellowstoneescapes.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Yellowstone Escapes</span><span class="booking-link-url">yellowstoneescapes.com</span></a>
-<a href="https://www.vrbo.com/vacation-rentals/usa/montana/yellowstone/west-yellowstone" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">VRBO — Hebgen luxury filter</span><span class="booking-link-url">vrbo.com</span></a>
-</div>
-</div>
-<div class="booking-tier">
-<div class="booking-tier-label">Mid Market — local operators</div>
-<div class="booking-link-list">
-<a href="https://cabinswestyellowstone.com" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Cabins West Lodging</span><span class="booking-link-url">cabinswestyellowstone.com</span></a>
-<a href="https://www.vrbo.com/vacation-rentals/usa/montana/yellowstone/west-yellowstone" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">VRBO West Yellowstone</span><span class="booking-link-url">vrbo.com</span></a>
-<a href="https://www.airbnb.com/west-yellowstone-mt/stays" target="_blank" rel="noopener" class="booking-link"><span class="booking-link-name">Airbnb West Yellowstone</span><span class="booking-link-url">airbnb.com</span></a>
-</div>
-</div>
-</div>
-
-</div>
-</details>
 </div>
 </section>
 </div>
@@ -1381,7 +1384,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <div class="logistics-card vehicles"><h3 class="logistics-card-title">Two-vehicle ops</h3>
 <ul class="logistics-list">
-<li><div><strong>Suburban or Tahoe</strong>7 seats + luggage + AWD. Two of these handle 12 + bags.</div></li>
+<li><div><strong>Two Enterprise mini vans</strong>~7 seats each (Pacifica/Odyssey/Sienna class) — together they carry the full party of 12 plus bags. Booking details on the <a href="#vehicles" style="color:var(--accent);text-decoration:underline">Rental Car page</a>.</div></li>
 <li><div><strong>Driver rotation</strong>No one drives both Aug 26 transit AND Aug 27 Canyon. Whoever drives Aug 27 dawn gets the easy Aug 29 morning.</div></li>
 <li><div><strong>Comms between cars</strong>Cell service is spotty in YNP. Set rendezvous landmarks each morning.</div></li>
 <li><div><strong>Bear spray</strong>4 cans total, 2 per vehicle. Buy in Jackson on Aug 22 — can't fly with it.</div></li>
@@ -1478,8 +1481,27 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="d">D05</div><div class="dt">Wed Aug 26</div><div class="what"><strong>Transit to West Yellowstone.</strong> Through GTNP via West Thumb Geyser Basin. Dinner Madison Crossing Lounge.</div>
 <div class="d">D06</div><div class="dt">Thu Aug 27</div><div class="what"><strong>Canyon &amp; Hayden Valley.</strong> Norris (optional dawn), Artist Point, Lower Falls, wildlife drive. Dinner Bar N Ranch Embers.</div>
 <div class="d">D07</div><div class="dt">Fri Aug 28</div><div class="what"><strong>Geyser day + Rakhi.</strong> 10 AM start. Old Faithful, Grand Prismatic. Back at rental 4 PM for Rakhi celebration.</div>
-<div class="d">D08</div><div class="dt">Sat Aug 29</div><div class="what"><strong>Drive to Bozeman.</strong> Through Gallatin Canyon (2.5 hrs). 3:38 PM DTW · 8 people fly to CA · drop SUVs at BZN.</div>
+<div class="d">D08</div><div class="dt">Sat Aug 29</div><div class="what"><strong>Drive to Bozeman.</strong> Through Gallatin Canyon (2.5 hrs). 3:38 PM DTW · 4:25 PM SFO (UA 1702) · drop vehicles at BZN.</div>
 </div>
+</div>
+
+<div class="print-section">
+<h2>Cancellation deadlines &amp; payment schedule</h2>
+<p style="font-size:12px;color:var(--ink-3);margin-bottom:8px">All times in property local time. Mark these on your calendar.</p>
+<table class="print-table">
+<thead><tr><th>Date</th><th>Booking</th><th>What happens</th></tr></thead>
+<tbody>
+<tr><td><strong>Jul 23, 2026</strong></td><td>Hal'e Teton (Jackson)</td><td>Final $5,813.36 payment due. Cancellation policy flips from 6% forfeit → 100% no refund. Trip insurance covers non-refundable.</td></tr>
+<tr><td><strong>Jul 27, 2026</strong></td><td>Yellowstone Luxury Cabin Retreat</td><td>100% refund deadline (by 11:59 PM property time). After: only 50% refund minus service fee.</td></tr>
+<tr><td>~Aug 9, 2026</td><td>Glorietta dinner</td><td>Finalize menu ~2 weeks before Aug 23 dinner.</td></tr>
+<tr><td><strong>Aug 12, 2026</strong></td><td>Yellowstone Luxury Cabin Retreat</td><td>50% refund deadline. After: no refund.</td></tr>
+<tr><td><strong>Aug 13, 2026</strong></td><td>Glorietta dinner</td><td>Cancellation deadline (10 days before Aug 23).</td></tr>
+<tr><td><strong>Aug 20, 2026</strong></td><td>Both Enterprise mini vans</td><td>Cancellation deadline (2 days before Aug 22 pickup).</td></tr>
+<tr><td><strong>Aug 21, 2026 · 12:00 PM</strong></td><td>Barker-Ewing float</td><td>72-hour cancellation deadline. After: full $1,200 forfeit.</td></tr>
+<tr><td>Aug 29, 2026</td><td>UA 1702 HVZD9X (Agarwal refundable return)</td><td>Last chance to cancel — refundable up until departure.</td></tr>
+</tbody>
+</table>
+<p style="font-size:12px;color:var(--ink-3);margin-top:6px"><strong>Non-refundable</strong> (no deadline to track): UA 2472 inbound (HTXHKY); UA 1702 HVFBCM return (5 of 8 tickets).</p>
 </div>
 
 <div class="print-section">
@@ -1496,14 +1518,36 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 
 <div class="print-section">
+<h2>Lodging</h2>
+<table class="print-table">
+<thead><tr><th>Stay</th><th>Dates</th><th>Property</th><th>Conf / Contact</th></tr></thead>
+<tbody>
+<tr><td><strong>Stay 1 · Jackson</strong></td><td>Sat Aug 22 → Wed Aug 26 (4 nights)</td><td><strong>Hal'e Teton</strong> · 5 BR / 5.5 BA · Teton Village</td><td>Order #112575 · Rendezvous Mountain Rentals · 307-739-9050 · rmrentals.com</td></tr>
+<tr><td><strong>Stay 2 · W. Yellowstone</strong></td><td>Wed Aug 26 → Sat Aug 29 (3 nights) · check-in 4 PM / check-out 10 AM</td><td><strong>Yellowstone Luxury Cabin Retreat</strong> · 5 BR / 5 BA · ~8 min from town</td><td>Vrbo res #ORB17812924 · property 9746176ha · $1,500 refundable deposit at property</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="print-section">
+<h2>Vehicles</h2>
+<table class="print-table">
+<thead><tr><th>Vehicle</th><th>Operator</th><th>Confirmation</th><th>Contact</th></tr></thead>
+<tbody>
+<tr><td><strong>Mini Van #1</strong> · JAC → BZN · Aug 22 → 29 · driver Ritesh Kumar Makharia</td><td>Enterprise via Costco Travel</td><td>Costco C491501172 · Enterprise 2112908075</td><td>Before: 1-866-328-1385 · During/after: 1-866-317-4711 · Bring Costco card · refundable through Aug 20</td></tr>
+<tr><td><strong>Mini Van #2</strong> · JAC → BZN · Aug 22 → 29 · driver Parul Ritesh Kumar Makharia</td><td>Enterprise via Costco Travel</td><td>Costco C491501176 · Enterprise 2112908572</td><td>Before: 1-866-328-1385 · During/after: 1-866-317-4711 · Bring Costco card · refundable through Aug 20</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="print-section">
 <h2>Dinner reservations</h2>
 <table class="print-table">
 <thead><tr><th>Date</th><th>Restaurant</th><th>Phone</th></tr></thead>
 <tbody>
 <tr><td>Sat Aug 22</td><td>Hand Fire Pizza (Jackson)</td><td>307-733-7199</td></tr>
-<tr><td><strong>Sat Aug 23 — Dadu's 75th</strong></td><td><strong>Glorietta — private room</strong></td><td><strong>307-733-3888</strong></td></tr>
+<tr><td><strong>Sun Aug 23 — Dadu's 75th</strong></td><td><strong>Glorietta — private room</strong></td><td><strong>307-733-3888</strong></td></tr>
 <tr><td>Mon Aug 24</td><td>Carry-out · Pinky G's or Teton Tiger</td><td>307-734-7465 (Pinky G's) · 307-733-4111 (Teton Tiger)</td></tr>
-<tr><td>Mon Aug 25</td><td>Snake River Grill (Jackson)</td><td>307-733-0557</td></tr>
+<tr><td>Tue Aug 25</td><td>Snake River Grill (Jackson)</td><td>307-733-0557</td></tr>
 <tr><td>Wed Aug 26</td><td>Madison Crossing Lounge (W. Yellowstone)</td><td>406-646-7621</td></tr>
 <tr><td>Thu Aug 27</td><td>Bar N Ranch — Embers</td><td>406-646-0300</td></tr>
 <tr><td>Fri Aug 28 — Rakhi</td><td>Bar N Ranch or pickup at rental</td><td>406-646-0300</td></tr>
@@ -1574,7 +1618,8 @@ Lower Falls (Day 7) · <a href="https://unsplash.com/@btwilkins" target="_blank"
 <div class="wrap">
 <img src="favicon.svg" class="footer-mark" alt="" aria-hidden="true">
 <div class="footer-title">Have a beautiful trip.</div>
-<div class="footer-meta">Drafted for August 2026<span class="footer-divider">·</span>Map needs internet for tiles<span class="footer-divider">·</span>Print to PDF for offline reference</div>
+<a href="#print" class="footer-print-btn">⎙ Open the print one-pager</a>
+<div class="footer-meta">Drafted for August 2026<span class="footer-divider">·</span>Map needs internet for tiles<span class="footer-divider">·</span>Save the one-pager as PDF for offline access</div>
 </div>
 </footer>
 
@@ -1582,7 +1627,7 @@ Lower Falls (Day 7) · <a href="https://unsplash.com/@btwilkins" target="_blank"
 'use strict';
 
 const DAYS=[
-{day:1,date:"Aug 22",year:"2026",title:"Arrive Jackson",narrative:"Land at JAC, drive thirty minutes to the rental, grocery run, bear spray pickup. First night together — group dinner at the house, early to bed.",driving:"30 min from JAC",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Jackson Hole Airport (JAC)",lat:43.608809,lng:-110.7375814,notes:"The only commercial airport inside a US national park. Pick up two SUVs here.",type:"airport"}]},
+{day:1,date:"Aug 22",year:"2026",title:"Arrive Jackson",narrative:"Land at JAC, pick up the two Enterprise mini vans, drive thirty minutes to <strong>Hal'e Teton in Teton Village</strong> (Stay 1 · order #112575 · 5 BR / 5.5 BA, sleeps the full party). Grocery run, bear spray pickup. First night together — group dinner at the house, early to bed.",driving:"30 min from JAC to Hal'e Teton",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Jackson Hole Airport (JAC)",lat:43.608809,lng:-110.7375814,notes:"The only commercial airport inside a US national park. Pick up two Enterprise mini vans here.",type:"airport"}]},
 {day:2,date:"Aug 23",year:"2026",title:"Jenny Lake + Dadu's 75th",narrative:"Late-morning Jenny Lake — shuttle boat across to Hidden Falls for everyone, Inspiration Point for kids and able adults. Lakeside picnic. Afternoon free at the rental — rest and gifts before the celebration dinner. Evening: private-room dinner at Glorietta in Jackson for Dadu's milestone birthday.",driving:"~1 hr local",stops:[
 {time:"10:00 AM",duration:"~4 hrs",name:"Jenny Lake Visitor Center",lat:43.7514813,lng:-110.7223421,notes:"Park at the South Jenny Lake overflow lot and take the shuttle bus — main lot fills by 9 AM in August, but the shuttle gets you in clean with a 10 AM arrival. Boat across the lake, Hidden Falls walk, optional Inspiration Point for the energetic."},
 {time:"5:30 PM",duration:"Evening",name:"Glorietta — Dadu's 75th Dinner",lat:43.483,lng:-110.763,notes:"Modern Italian, private dining room reserved. The celebration dinner. Vegetarian and meat-eater options across the menu. 15-min drive from Teton Village. Reserve this week and mention the 75th birthday."}
@@ -1593,8 +1638,8 @@ const DAYS=[
 {time:"4:00 PM",duration:"~1 hr",name:"Signal Mountain Summit",lat:43.8489165,lng:-110.5672136,notes:"Drive-up summit road. Panoramic Teton overview entirely from the car. Reliable cell signal — call pizza order in from up here."},
 {time:"6:00 PM",duration:"~1.5 hrs",name:"Schwabacher Landing",lat:43.7115652,lng:-110.6703898,notes:"Golden hour kicks in ~7:30 PM, sunset ~8:15 PM. Calm river reflections of the Tetons. Leave by 7:45 PM to make pizza pickup before 9 PM close."}
 ]},
-{day:4,date:"Aug 25",year:"2026",title:"Tetons flex day",narrative:"First real subgroup split. Both groups reconvene at the top of the tram for waffles at Corbet's Cabin. Town dinner in Jackson that evening.",driving:"<1 hr local",vehiclePlay:true,vehicleA:"Whitewater raft Snake River Canyon (half-day, Class II–III). Two rafts for 6 adults + 2 teens. Late-afternoon tram up.",vehicleB:"Sleep in. Late-morning tram together. Lunch at Corbet's Cabin, then back to rental for hot tub. Grandparents + younger kids.",stops:[{time:"11:30 AM",duration:"~3 hrs",name:"Jackson Hole Aerial Tram",lat:43.587535,lng:-110.8276971,notes:"12-min ride to 10,450 ft. Corbet's Cabin waffles at the top. All 12 converge here for lunch midday."}]},
-{day:5,date:"Aug 26",year:"2026",title:"Transit to West Yellowstone",narrative:"The only real driving day — about four hours with stops. Staggered start keeps check-in painless.",driving:"~4 hrs transit",type:"transit",vehiclePlay:true,vehicleA:"Leaves Jackson 9:30 AM. Longer at West Thumb. Arrives ~4 PM.",vehicleB:"Leaves Jackson 8 AM. Quick stops. Arrives ~2 PM, starts unpacking.",stops:[
+{day:4,date:"Aug 25",year:"2026",title:"Tetons flex day",narrative:"First real subgroup split. Both groups reconvene at the top of the tram for waffles at Corbet's Cabin. Town dinner in Jackson that evening.",driving:"<1 hr local",vehiclePlay:true,vehicleA:"Whitewater raft Snake River Canyon (half-day, Class II–III). One raft for the active subgroup (6 adults + 2 teens). Late-afternoon tram up.",vehicleB:"Sleep in. Late-morning tram together. Lunch at Corbet's Cabin, then back to rental for hot tub. Grandparents + younger kids.",stops:[{time:"11:30 AM",duration:"~3 hrs",name:"Jackson Hole Aerial Tram",lat:43.587535,lng:-110.8276971,notes:"12-min ride to 10,450 ft. Corbet's Cabin waffles at the top. All 12 converge here for lunch midday."}]},
+{day:5,date:"Aug 26",year:"2026",title:"Transit to West Yellowstone",narrative:"The only real driving day — about four hours with stops. Check out of Hal'e Teton by 10 AM, drive north through GTNP and into Yellowstone via the South Entrance. Destination: <strong>Yellowstone Luxury Cabin Retreat (Stay 2)</strong> in the Hebgen Lake area — Vrbo reservation ORB17812924 · check-in 4 PM. Staggered start keeps both stays painless.",driving:"~4 hrs transit",type:"transit",vehiclePlay:true,vehicleA:"Leaves Hal'e Teton 9:30 AM. Longer at West Thumb. Arrives Yellowstone Luxury ~4 PM.",vehicleB:"Leaves Hal'e Teton 10 AM. Quick stops. Arrives Yellowstone Luxury ~4 PM in time for check-in.",stops:[
 {time:"10:30 AM",duration:"~15 min",name:"Lewis Falls",lat:44.2673757,lng:-110.6369631,notes:"5-min roadside photo stop just past Yellowstone's South Entrance.",type:"transit"},
 {time:"11:30 AM",duration:"~1.5 hrs",name:"West Thumb Geyser Basin",lat:44.4155079,lng:-110.5730438,notes:"Perfect first-geyser introduction. Boardwalk loop over Yellowstone Lake. Picnic lunch.",type:"transit"},
 {time:"2:00 PM",duration:"",name:"West Yellowstone, MT",lat:44.6621493,lng:-111.1041092,notes:"Stay 2 base. Settle in. Market Place Foods for groceries.",type:"transit"}
@@ -1610,11 +1655,11 @@ const DAYS=[
 {time:"1:00 PM",duration:"~2 hrs",name:"Grand Prismatic Spring",lat:44.5250346,lng:-110.8381793,notes:"Fairy Falls Overlook trail (1.6 mi RT) for the iconic elevated shot — or stay on the boardwalk at lake level for an easier visit. Both work."},
 {time:"4:00 PM",duration:"Afternoon",name:"Rakhi at the rental",lat:44.6621493,lng:-111.1041092,notes:"Back at the West Yellowstone rental by 3:30–4 PM. The traditional sister-brother festival — tying of rakhis, family meal, gifts, hot tub. Daylight until ~8 PM gives 4+ hours of celebration."}
 ]},
-{day:8,date:"Aug 29",year:"2026",title:"Drive Bozeman, fly out",narrative:"West Yellowstone to Bozeman through Gallatin Canyon — 2.5 hours, one of the most scenic stretches in the West.",driving:"2.5 hrs to BZN",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Bozeman Yellowstone International Airport (BZN)",lat:45.7784043,lng:-111.1612273,notes:"Drop both SUVs. Flight must depart after ~12:30 PM minimum.",type:"airport"}]}
+{day:8,date:"Aug 29",year:"2026",title:"Drive Bozeman, fly out",narrative:"Check out of <strong>Yellowstone Luxury Cabin Retreat by 10 AM</strong> (Vrbo ORB17812924 — collect the $1,500 refundable deposit confirmation). Drive Gallatin Canyon to Bozeman — 2.5 hours, one of the most scenic stretches in the West. Drop both mini vans at BZN. DL 0364 boards 3:38 PM for Detroit; UA 1702 boards 4:25 PM for SFO.",driving:"2.5 hrs to BZN",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Bozeman Yellowstone International Airport (BZN)",lat:45.7784043,lng:-111.1612273,notes:"Drop both Enterprise mini vans. Flights depart 3:38 PM (DTW) and 4:25 PM (SFO).",type:"airport"}]}
 ];
 
 // ============ PAGE ROUTER ============
-const PAGES=['home','trip','nps','dining','lodging','flights','bookings','prep','print'];
+const PAGES=['home','trip','nps','dining','lodging','flights','vehicles','bookings','prep','print'];
 const DAY_PHOTOS={
   1:'img/day1-arrival.jpg',
   2:'img/day2-jenny-lake.jpg',
@@ -1702,8 +1747,12 @@ DAYS.forEach(d=>{mapDayBtns.insertAdjacentHTML('beforeend',`<button class="map-d
 // ============ LEAFLET MAP ============
 // Lodging anchor points — approximate centroids of each stay's area.
 // Update lat/lng once actual rentals are booked.
-const LODGING_JACKSON={lat:43.5870,lng:-110.8290,name:'Jackson rental (Stay 1)',short:'Stay 1',label:'S1'};
-const LODGING_WY={lat:44.6618,lng:-111.1041,name:'W. Yellowstone rental (Stay 2)',short:'Stay 2',label:'S2'};
+// Stay 1 = Hal'e Teton (Rendezvous Mountain Rentals · order #112575) · Aug 22–26.
+// Coords are Teton Village centroid placeholder — accurate within a few hundred meters; tighten if exact address is added.
+const LODGING_JACKSON={lat:43.5870,lng:-110.8290,name:"Hal'e Teton (Stay 1)",short:'Stay 1',label:'S1'};
+// Stay 2 = Yellowstone Luxury Cabin Retreat (Vrbo 9746176ha · res ORB17812924) · Aug 26–29.
+// Coords are W. Yellowstone town centroid placeholder — listing says ~8 min from town in the Hebgen Lake area.
+const LODGING_WY={lat:44.6618,lng:-111.1041,name:'Yellowstone Luxury Cabin Retreat (Stay 2)',short:'Stay 2',label:'S2'};
 
 // Which lodging anchors each day's route: { start: lodge|null, end: lodge|null }
 function dayLodging(dayNum){
@@ -2140,7 +2189,8 @@ document.querySelectorAll('.dining-tab').forEach(btn=>{
 // One source of truth. Body data attrs drive CSS visibility, JS renders dynamic content.
 // Flip STATUS flags as bookings/preps complete — pre-trip checklists strike them through.
 const STATUS={
-  rentalsBooked:false,
+  rentalJacksonBooked:true,
+  rentalWyBooked:true,
   gloriettaConfirmed:true,
   floatBooked:true,
   raftBooked:false,
@@ -2150,6 +2200,18 @@ const STATUS={
 
 // Anchor trip dates to viewer's local calendar — "tomorrow we fly" should mean tomorrow for whoever
 // is reading, regardless of timezone. During the trip everyone's in MT so local matches trip-time.
+// All cancellation / payment deadlines. Banner fires when within 7 days of any.
+// Add/edit entries here — the banner reads from this array on every page load.
+const DEADLINES=[
+  {date:'2026-07-23',title:"Hal'e Teton final payment + cancellation cliff",body:"Final $5,813.36 due today. Cancellation also flips from 6% forfeit to 100% no refund.",href:'#bookings'},
+  {date:'2026-07-27',title:'Yellowstone Luxury Cabin — 100% refund deadline',body:'Last day for a full refund on the W. Yellowstone Vrbo rental. After today: 50% refund only.',href:'#bookings'},
+  {date:'2026-08-09',title:'Glorietta — finalize menu',body:"~2 weeks before Dadu's 75th dinner. Call 307-733-3888.",href:'#dining'},
+  {date:'2026-08-12',title:'Yellowstone Luxury Cabin — 50% refund deadline',body:'Last chance for any refund on the Vrbo rental. After today: no refund.',href:'#bookings'},
+  {date:'2026-08-13',title:'Glorietta — cancellation deadline',body:'10 days before Aug 23 dinner. Last day to cancel without penalty.',href:'#bookings'},
+  {date:'2026-08-20',title:'Both Enterprise mini vans — cancellation deadline',body:'Refundable through today (2 days before Aug 22 pickup). Two bookings: C491501172 (Ritesh) + C491501176 (Parul).',href:'#bookings'},
+  {date:'2026-08-21',title:'Barker-Ewing float — 72-hour cancellation window',body:'Last hours before $1,200 forfeit. Float departs noon Aug 24. Conf #8L5Q8N9T7K3V2H7F.',href:'#bookings'}
+];
+
 const TRIP_START_LOCAL=new Date(2026,7,22); // 2026-08-22 00:00 in viewer's local TZ
 const TRIP_END_LOCAL=new Date(2026,7,30);   // 2026-08-30 00:00 (i.e., start of day AFTER the trip)
 const MS_DAY=86400000;
@@ -2283,6 +2345,26 @@ function renderDuringCard(s){
   el.innerHTML=html;
 }
 
+function renderDeadlineBanner(){
+  const host=document.getElementById('deadlineBanner');
+  if(!host)return;
+  const now=new Date();
+  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  // Find any deadline within 7 days (inclusive). Show the soonest as primary, count any others.
+  const upcoming=DEADLINES.map(d=>{
+    const [y,m,day]=d.date.split('-').map(Number);
+    const dt=new Date(y,m-1,day);
+    const daysUntil=Math.round((dt-today)/MS_DAY);
+    return{...d,dt,daysUntil};
+  }).filter(d=>d.daysUntil>=0&&d.daysUntil<=7).sort((a,b)=>a.daysUntil-b.daysUntil);
+  if(upcoming.length===0){host.innerHTML='';return;}
+  const next=upcoming[0];
+  const dStr=next.daysUntil===0?'TODAY':next.daysUntil===1?'TOMORROW':`IN ${next.daysUntil} DAYS`;
+  const dateStr=next.dt.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  const others=upcoming.length>1?` · +${upcoming.length-1} more this week`:'';
+  host.innerHTML=`<a href="${next.href}" class="deadline-banner-link"><div class="deadline-banner-pill">${dStr}</div><div class="deadline-banner-body"><div class="deadline-banner-title">${next.title}</div><div class="deadline-banner-sub">${dateStr} · ${next.body}${others}</div></div><div class="deadline-banner-arrow">→</div></a>`;
+}
+
 function syncTripState(){
   const s=tripState();
   document.body.dataset.tripPhase=s.phase;
@@ -2332,6 +2414,9 @@ function syncTripState(){
 
   // STATUS flags strike-through
   applyStatus();
+
+  // Deadline banner (cancellation / payment alerts within 7 days)
+  renderDeadlineBanner();
 }
 syncTripState();
 setInterval(syncTripState,60000);

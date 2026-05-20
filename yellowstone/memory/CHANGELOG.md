@@ -4,6 +4,256 @@ Session-by-session log of what shipped. Newest at top. Keep entries terse — on
 
 ---
 
+## 2026-05-20 · Audit pass 2 + 5 more fixes + global auditor rule
+
+Pass 2 of the audit caught 6 issues missed in pass 1 (46% miss rate on the first sweep). Five fixed in this entry; one (Day 5 vehicleB) restructured per Rohit's direction.
+
+- **A · Bookings raft `<li>` gained `data-status-key="raftBooked"`.** Now both the home ctx card and the Bookings priority list will strike through when raft is booked. Fixed at `index.html:1365`.
+- **B · Day 5 vehicleB rewritten.** Was "Leaves 8 AM ... Arrives ~2 PM, starts unpacking" — but check-in is 4 PM. Now: "Leaves Hal'e Teton 10 AM. Quick stops. Arrives Yellowstone Luxury ~4 PM in time for check-in." Per Rohit: "we just assumed we leave at 10 AM in the morning instead."
+- **C · Stale line refs in PROJECT_CONTEXT.md sec 10.** "lines 1691-1692" pointed at hamburger-menu code; LODGING_JACKSON/WY are actually at 1752/1755 now. Rewrote the bullet to use a grep instruction instead of a fixed line number.
+- **D · Stale "2,474 lines / 180,379 bytes" in three memory locations.** All updated to current "2,447 lines / 177,118 bytes" (PROJECT_CONTEXT.md sec 4, sec 10; auto-memory session_state.md). CHANGELOG line 84 left alone — it documents historical state at the time of that earlier entry.
+- **E · Day 4 + Bookings "two rafts" → "one raft".** Per Rohit: 12-person rafts exist; the active subgroup of 8 (6 adults + 2 teens) goes in one boat. Both narratives updated to match.
+
+**Global rule shipped (separate file):** `~/Documents/Claude/Projects/Automated Workflows/CLAUDE.md` gained **§9 Auditor mode** with 10 mandatory audit checks. Origin documented as the 2026-05-20 audit miss rate.
+
+**Verification:** 2,447 lines / JS parses clean / zero `two rafts` refs / zero `8 AM` vehicleB refs / zero stale `2,474` claims outside the historical CHANGELOG entry / zero stale `1691` line refs.
+
+---
+
+## 2026-05-20 · Audit + 13 fixes
+
+Self-audit found 13 inconsistencies. All fixed in this pass.
+
+**Load-bearing errors (4):**
+- "Sat Aug 23" → "Sun Aug 23" in dining list + print dinner table (Aug 23 is Sunday, not Saturday). Affected Dadu's birthday row twice.
+- "Wed Aug 20" → "Thu Aug 20" in vehicles cancellation card (Aug 20 is Thursday).
+- "Bear spray bought on the Aug 23 grocery run" → "Aug 22 arrival-day grocery run" in home t14 ctx card (5 other places already said Aug 22).
+- "Suburban or Tahoe" Prep two-vehicle-ops card → rewritten for the two booked Enterprise mini vans, with cross-link to Rental Car page.
+- "8 days · 14 stops" map header → "8 days · 19 stops" (matches DAYS array stop count).
+
+**Internal contradiction (1):**
+- "12-foot live-edge custom dining table seating all 14" → "seating all 12 of us" (trip has 12 people, not 14).
+
+**Stale references (5):**
+- Deleted dead "marketplace browse moved to Bookings page" note on Lodging (target was removed 2026-05-20).
+- PROJECT_CONTEXT.md sec 6 "update coords once rentals are booked" → "anchors point at actual booked properties" (both rentals now booked).
+- PROJECT_CONTEXT.md sec 8 header "six STATUS flags" → "seven STATUS flags" (post rentalsBooked split).
+- PROJECT_CONTEXT.md sec 8 final bullets: removed stale "Two SUVs reserved JAC → BZN", clarified remaining open items.
+- PROJECT_CONTEXT.md sec 6 added explicit note that Vehicles/Rental Car page is intentionally NOT in mobile thumb nav.
+
+**Cosmetic / dead code (3):**
+- Deleted empty `~$yellowstone-expenses.xlsx` lockfile from project root.
+- Removed 26 lines of dead marketplace CSS (`.marketplace-*`, `.booking-grid`, `.booking-tier*`, `.booking-col`, `.booking-area-header`, `.booking-link*`, `.booking-note`). Confirmed via grep that none of these classes are used in HTML. Also cleaned up two `@media`/general rules that referenced these classes.
+- DAY_PHOTOS swap (Day 6 ↔ Day 7 file mapping) noted in audit as intentional — left alone.
+
+**Verification:** 2,447 lines / 177,118 bytes (was 2,474 lines before fixes — net 27 lines removed from CSS cleanup). JS parses clean. DOM balanced (472 `<div>` opens = 472 closes). Re-grep confirms zero Suburban/Tahoe refs, zero "Sat Aug 23" refs, zero dead marketplace CSS classes still defined, all booking-page links and references intact.
+
+---
+
+## 2026-05-20 · Source Data folder + chain-of-custody backfill
+
+Rohit created `Source Data/` and dropped 8 previously-LOST source photos into it plus the 5 already-saved files (2 booking PDFs + 3 legacy JPEGs). Eight images recovered:
+
+- 3 Delta flight tickets from 2026-05-11 (DL 0935, DL 0417, DL 0364) — never previously saved as files.
+- 3 United flight tickets from 2026-05-19 (UA 1702 HVFBCM, UA 1702 HVZD9X, UA 2472 HTXHKY) — were on the LOST list.
+- 2 Costco Travel van reservations from 2026-05-20 (Van 1 Ritesh, Van 2 Parul) — were on the LOST list.
+
+Cross-verified every data point against `index.html` / `yellowstone-deadlines.ics` / `yellowstone-expenses.xlsx`. Seat letters, confirmation numbers, driver names, dates, email masks all match. No corrections needed.
+
+`memory/SOURCE_ARTIFACTS.md` updated — 8 items moved from LOST → preserved. 3 items still LOST: Vrbo cancellation policy screenshot, iMessage conf-numbers screenshot (originally mislabeled "Telegram" — corrected 2026-05-20 PM after Rohit clarified it was iMessage), mobile thumb-nav bug screenshot.
+
+`memory/PROJECT_CONTEXT.md` updated — sec 4 file inventory now shows `Source Data/` as canonical home for raw uploads. Stay 1/Stay 2 PDF refs updated.
+
+**New operating rule (effective 2026-05-20):** every raw upload Rohit provides (photo, PDF, document, anything) gets saved to `Source Data/` with filename `YYYY-MM-DD_short-slug.ext` *before* any data extraction. Rule mirrored to `~/Documents/Claude/Projects/Automated Workflows/CLAUDE.md` as Section 8.
+
+**Correction:** Initial assumption that Rohit "copied" the 5 booking files into Source Data/ was wrong — he MOVED them (verified by md5sum: root files don't exist). yellowstone/ root is already deduplicated.
+
+**Excel update (same session):** DL 0935 + DL 0417 row in `yellowstone-expenses.xlsx` updated with $304.19/ticket × 9 tickets paid by Rohit. Formula `=9*304.19` = $2,737.71. Sheet 1 total $18,857.62 → $21,595.33. Settlement auto-updated: Rohit pre-trip $21,595.33; by-category Flight $2,737.71. 50 formulas, 0 errors.
+
+**Three previously-LOST items reassessed:**
+- ~~Group-chat conf-numbers screenshot~~ — CLOSED. Per Rohit: "Forget about the WhatsApp messages. It's not important. It's already captured in the index.html." Standalone UA ticket photos in Source Data/ are the primary source for the PNRs.
+- ~~Mobile thumb-nav bug screenshot~~ — CLOSED. Per Rohit: "don't worry about the Safari scroll for now." Not load-bearing.
+- **Vrbo cancellation policy screenshot** — still pending. Rohit re-attached in chat 2026-05-20 PM but upload didn't land on disk. Awaiting manual save to `Source Data/2026-05-20_vrbo-cancellation-policy.png`.
+
+---
+
+## 2026-05-20 · Structural fixes + accuracy sweep (per Rohit's review)
+
+**New Rental Car page (#vehicles).** Standalone subpage with full van details. Home nav now promotes "Rental Car" instead of "Bookings"; Bookings demoted to the "Also" line. Top nav and mobile menu both gained a Rental Car link between Flights and Bookings. PAGES array grew to 10. The long vehicles `<li>` on Bookings became a short "see Rental Car page" stub. The Vehicles page itself has six cards: Van 1 (Ritesh), Van 2 (Parul), Pickup/drop, At-the-counter, Phone numbers, Cancellation.
+
+**Day 1 / 5 / 8 narratives updated with lodging context** in the DAYS array:
+- Day 1: "drive thirty minutes to **Hal'e Teton in Teton Village** (Stay 1 · order #112575 · 5 BR / 5.5 BA, sleeps the full party)." Driving label changed to "30 min from JAC to Hal'e Teton."
+- Day 5: "Check out of Hal'e Teton by 10 AM ... Destination: **Yellowstone Luxury Cabin Retreat (Stay 2)** in the Hebgen Lake area — Vrbo reservation ORB17812924 · check-in 4 PM." Vehicle plays now mention both Hal'e Teton departure and Yellowstone Luxury arrival.
+- Day 8: "Check out of **Yellowstone Luxury Cabin Retreat by 10 AM** (Vrbo ORB17812924 — collect the $1,500 refundable deposit confirmation). Drive Gallatin Canyon ... drop both mini vans at BZN. DL 0364 boards 3:38 PM for Detroit; UA 1702 boards 4:25 PM for SFO."
+
+**Lodging page rewritten for booked state.** Stay 1 / Stay 2 overview cards no longer describe shopping criteria — they now describe **Hal'e Teton** (6,600 sf · 5 BR / 5.5 BA · order #112575) and **Yellowstone Luxury Cabin Retreat** (5,000 sf · 5 BR / 5 BA · ORB17812924 · $1,500 deposit reminder) with actual booking details, contacts, and check-in/out times. Page intro text changed from "Both bases need to be locked in this week" → "Both rentals booked. One base in Jackson, one in West Yellowstone — all luggage moves on Aug 26." Shortlist headers retitled "(reference)" with "X was selected · the other(s) were considered" subline. Stay 2 dates fixed from "Aug 26 – 28" to actual "Aug 26 – 29" (3 nights).
+
+**Marketplace section deleted from Bookings.** Both rentals booked, marketplace browse no longer needed. ~67 lines of `<details>` + `<div class="booking-grid">` removed. The `.marketplace-details`, `.booking-grid`, etc. CSS rules remain but are now unused (didn't strip them — minor dead-CSS, can clean later).
+
+**Accuracy sweep results:**
+- "two SUVs" → "two mini vans" in 2 places (shortlist-watch line, flight-note line). Now zero SUV references in user-facing copy.
+- TBD / pending / "still open" — already zero before sweep (good sign).
+- "Mon Aug 25" → "Tue Aug 25" in two places (dining list, print reservations) — Aug 25, 2026 is a Tuesday.
+- "Other nightly dinners" item in Bookings updated to reflect current plan: Hand Fire (Aug 22, walk-in), carry-out at the rental (Aug 24 · Pinky G's or Teton Tiger), Snake River Grill (Aug 25), Madison Crossing (Aug 26), Bar N Ranch / Embers (Aug 27). Bin 22 dropped (was outdated placeholder).
+- "Afternoon flight from BZN · Aug 29 (12:30 PM floor reminder)" deleted from Bookings priority — both CA and DTW return flights are now booked for the afternoon, advice no longer actionable.
+
+**File: 2,422 → 2,474 lines, 177,484 → 180,379 bytes. JS clean. DOM balanced. 10 pages.**
+
+**Open thread:** marketplace CSS classes are now dead code but not stripped — minor cleanup waiting on the next pre-summary-approved cleanup batch.
+
+---
+
+## 2026-05-20 · Deadline notifications + Excel tracker (cleanup deferred)
+
+**Three new artifacts shipped. Tier 1/2/3 cleanup deliberately not started — Rohit wants a pre-cleanup check-in.**
+
+- **`yellowstone-deadlines.ics`** (4.7 KB at project root). Standard iCalendar file with 8 events covering every cancellation/payment deadline. Each event has a 7-day-prior VALARM. Distribution: Rohit AirDrops/emails the file once, each recipient taps it on their phone, the calendar app imports the 8 events and handles all OS-level notifications from then on.
+- **In-app deadline banner system** in `index.html`:
+  - New `DEADLINES` array in JS (7 entries — drops the Aug 29 HVZD9X-until-departure since it's noisy to surface as a deadline).
+  - New `renderDeadlineBanner()` function: on every page load, checks if today is within 7 days of any deadline. If yes, renders a bright accent-orange banner at the top of every page showing the nearest deadline + "+N more this week" if multiple. Clicking the banner deep-links to the relevant page.
+  - `#deadlineBanner` host element placed above the top nav so it's the first thing seen.
+  - CSS: `.deadline-banner-host`, pill, body, sub, arrow styling. Includes `body:has(#deadlineBanner:not(:empty))` selector that bumps page-top padding to make room when the banner is showing. Hidden in print.
+  - Rendered every 60s by `syncTripState()`.
+- **`yellowstone-expenses.xlsx`** (13.8 KB at project root). Three sheets, 49 formulas, zero errors verified via `scripts/recalc.py`:
+  - **Sheet 1 — Pre-trip bookings:** 12 rows pre-populated with every confirmed booking (date paid, category, description, paid by, amount, refundable status, cancel deadline, conf #, paid-to, who-benefits, notes). Known amounts hardcoded; unknowns marked $0 with yellow background.
+  - **Sheet 2 — During-trip log:** 30 blank rows with column headers (date, day #, category, description, paid by, amount, receipt-kept, notes) for entries during the trip. Auto-sum at the bottom.
+  - **Sheet 3 — Settlement:** auto-calculated. Three blocks — by-person totals (SUMIF cross-sheet), by-category totals (SUMIF cross-sheet), and a simple equal-split who-owes-who section with the 12-traveler share calculation.
+  - Color coding follows industry standard: blue inputs, black formulas, green cross-sheet references.
+
+**Tasks deleted from queue per Rohit's instruction (do not re-propose without check-in):**
+- Kill Park Maps page — Rohit wants it kept.
+- Kill PWA manifest — needs Rohit's explicit approval before any cleanup.
+- All other Tier 1/2/3 cleanup items still deferred per `project_yellowstone_design_deferred.md`.
+
+**Operating rule going forward:** Any structural cleanup (Tier 1/2/3) requires a pre-summary check-in with Rohit BEFORE making changes. Don't batch with feature work.
+
+**File: 2,422 → 2,477 lines, 177,484 → 181,891 bytes. JS clean, DOM balanced.**
+
+**Open from earlier ask:** if Rohit fills in flight dollar amounts and any unknowns in `yellowstone-expenses.xlsx`, the settlement view auto-updates.
+
+---
+
+## 2026-05-20 · Both vans fully wired + payment attribution finalized
+
+- **Both Enterprise mini van bookings confirmed and complete.** Ritesh forwarded both Costco Travel screenshots.
+  - **Van 1:** Costco C491501172 · Enterprise 2112908075 · driver **RITESH KUMAR MAKHARIA** · booking email ri****ia@gmail.com.
+  - **Van 2:** Costco C491501176 · Enterprise 2112908572 · driver **PARUL RITESH KUMAR MAKHARIA** · booking email pa****ia@gmail.com.
+- **Dates confirmed:** Pickup Sat Aug 22 at JAC · drop Sat Aug 29 at BZN (Rohit confirmed the earlier "27th to 29th" was a typo for "22nd to 29th"). Removed the date-confirmation flag from the Bookings item.
+- **Cancellation deadline both vans:** refundable through Aug 20 (2 days before Aug 22 pickup).
+- **Both vans paid by Ritesh** (two separate Costco accounts: his and Parul's).
+- **Payment attribution now complete** (per Rohit's confirmations):
+  - **Rohit paid:** 9 Detroit DL inbound (DL 0935 + DL 0417) + 4 Detroit DL return (DL 0364) + 3 Agarwal UA 2472 inbound (HTXHKY) + Hal'e Teton + Yellowstone Luxury Cabin Retreat + Glorietta (deposit $0 to date) + Barker-Ewing float.
+  - **Ritesh paid:** Both Enterprise mini vans + UA 1702 HVFBCM (5 non-refundable return) + UA 1702 HVZD9X (3 refundable return, Agarwal).
+- Surfaces updated: Bookings priority item (both vans inline with full details + dates); Print Vehicles table (two complete rows); date-confirmation flag removed.
+- **File: 2,422 lines / 177,484 bytes. JS clean, DOM balanced.**
+
+---
+
+## 2026-05-20 · Mobile thumb-nav fix + Print prominence + cancellation schedule + 2nd van
+
+**Thumb-nav floating mid-screen on mobile (iOS Safari fix):**
+- Root cause: `viewport-fit=cover` was missing from the viewport meta tag, so iOS Safari wasn't reserving the home-indicator safe area properly. The `position:fixed; bottom:0` then sat against the wrong baseline.
+- Fixes applied:
+  - Viewport meta: added `viewport-fit=cover`.
+  - Thumb-nav padding: rewrote with `max(8px, env(safe-area-inset-bottom))` instead of `calc(8px + env(...))`, plus explicit left/right safe-area padding.
+  - Body bottom padding (mobile): `calc(68px + env(safe-area-inset-bottom))` so content clears the nav even on notched devices.
+  - Added `will-change:transform` on the thumb-nav for GPU acceleration (helps iOS Safari with fixed-position quirks).
+- Flag: if the user's screenshot was actually a "Full Page" iOS screenshot, what they saw might also be a stitching artifact rather than a runtime bug. The CSS hardening above is defensive either way.
+
+**Print one-pager prominence:**
+- Added top-nav "⎙ Print" link styled as a pill (gold border, transparent) so it doesn't blend with the other text-style nav items — visible on every page on desktop.
+- Added footer "⎙ Open the print one-pager" button — gold border, prominent, on every page (footer is global).
+- Footer-meta text rewritten from "Print to PDF for offline reference" to "Save the one-pager as PDF for offline access" (the print page is the source; saving as PDF is the action).
+
+**Cancellation deadlines & payment schedule section added to Print page:**
+- New section sits right after "Itinerary at a glance" so deadlines are visible near the top of the printout.
+- 8 dated rows in chronological order: Hal'e Teton final payment / cancellation flip (Jul 23), Yellowstone Luxury Cabin Retreat 100% refund window (Jul 27), Glorietta menu finalize (~Aug 9), Yellowstone Luxury 50% refund window (Aug 12), Glorietta cancel (Aug 13), both vans cancel (Aug 20), Barker-Ewing 72-hr (Aug 21 noon), UA 1702 HVZD9X refundable until departure (Aug 29).
+- Non-refundable items called out separately below the table: UA 2472 (HTXHKY) + UA 1702 (HVFBCM).
+
+**Second mini van wired into Bookings + Print:**
+- Bookings priority item rewritten as "Two Enterprise mini vans · one-way JAC → BZN." Van 1 keeps full details. Van 2 shows "confirmation numbers + driver pending — to be added when Ritesh shares the second booking." Cancellation policy ("refundable until 2 days before pickup") + date assumption flagged.
+- Print Vehicles table now has TWO rows: Mini Van #1 (with conf numbers) and Mini Van #2 (pending). Both rows note the refundable-until-2-days-before policy.
+- DAYS array Day 1 stop note: "Pick up two SUVs" → "Pick up two Enterprise mini vans."
+
+**Date flag for Rohit to confirm:**
+- He said both vans are picked up at JAC and dropped at BZN "from the 27th to the 29th of August" — but the trip needs vehicles from Aug 22 onward (rental check-in Aug 22, transit drive Aug 26, etc.). Reading "27th" as a typo for "22nd"; flagged in the Bookings item explicitly so Rohit can correct.
+
+**Payment attribution learned 2026-05-20 PM:**
+- Rohit paid: all 9 Detroit DL flights inbound + return; HTXHKY (UA 2472 inbound Agarwal); Hal'e Teton; Yellowstone Luxury Cabin Retreat; Glorietta (deposit only — $0 to date); Barker-Ewing float.
+- Ritesh paid: both Enterprise mini van bookings (via Costco Travel); UA 1702 HVZD9X (refundable Agarwal return).
+- Open question: who paid HVFBCM (UA 1702, 5 non-refundable, Detroit-onward to CA)?
+
+**File: 2,396 → 2,422 lines, 174,202 → 177,550 bytes. JS clean, DOM balanced.**
+
+---
+
+## 2026-05-20 · W. Yellowstone (Stay 2) booked — Yellowstone Luxury Cabin Retreat
+
+**`rentalWyBooked` flipped to true. Only `raftBooked` remains open out of 7 STATUS flags.**
+
+- PDF dropped at project root 2026-05-20 14:45 UTC as `Confirmation.pdf` (105 KB, Vrbo confirmation page).
+- **Property:** Yellowstone Luxury Cabin Retreat — the Option A pick on the shortlist. Vrbo property `9746176ha`. 5 BR / 5 BA · 5,000 sf · Hebgen Lake area · 8 min to West Yellowstone town · 10 min to West Entrance.
+- **Dates:** Wed Aug 26 → Sat Aug 29, 2026 · 3 nights. Matches Stay 2 exactly.
+- **Check-in:** 4:00 PM. **Check-out:** 10:00 AM.
+- **Guests:** 10 adults + 2 children = 12 (full party).
+- **Reservation ID: ORB17812924.** Booked via Vrbo.
+- **Charged:** $6,030.90 on May 20 ($1,395/nt × 3 = $4,185 + host fees $609 + service fee $657 + tax $579.90).
+- **+ $1,500 refundable deposit** paid at the property (returned post-stay).
+- **Total committed: $7,530.90.**
+- Property address + access details are in the Vrbo Trip Details inbox once host accepts. Site card directs to Vrbo "Manage on Vrbo" for that.
+
+**Surfaces updated:**
+- `#lodging` page: Yellowstone Luxury Cabin Retreat card flipped to "✓ Booked · Stay 2" with full booking details + check-in/out times + deposit reminder. Bar N Ranch and Under Canvas cards marked "Not selected · Yellowstone Luxury Cabin Retreat was booked instead" and visually dimmed via the existing `.shortlist-card.not-selected` style.
+- `#bookings` priority list: WY rental `<li>` updated from "still open" to full booked state with Vrbo reservation + property ID + price + check-in/out + deposit.
+- Pre-trip ctx-cards: the WY rental checklist line now reads "Yellowstone Luxury Cabin Retreat booked (Aug 26-29, Vrbo ORB17812924)" and auto-strikes via `rentalWyBooked: true`.
+- `#print` page Lodging section: Stay 2 row replaced "TBD" with full property + reservation + deposit info.
+- Map JS: `LODGING_WY` name updated to "Yellowstone Luxury Cabin Retreat (Stay 2)". Coords left at W. Yellowstone town centroid (~8 min from the actual property per listing; close enough visually).
+- Memory: this CHANGELOG entry + PROJECT_CONTEXT.md lodging/STATUS/checklist sections + auto-memory session-state.
+- File: 2,394 → **2,396 lines, 173,312 → 174,202 bytes.**
+
+**Open STATUS flag remaining: just `raftBooked` (Dave Hansen Whitewater, Aug 25 PM).**
+
+---
+
+## 2026-05-20 · Hal'e Teton booked + Enterprise Mini Van booked + STATUS flag split
+
+**Two major bookings wired in. STATUS flag schema changed.**
+
+**Hal'e Teton (Jackson rental · Stay 1):**
+- Confirmed booking (PDF dropped at project root 2026-05-20 14:29 UTC as `Order Confirmation #112575 | Rendezvous Mountain Rentals.pdf`). PDF stayed at root rather than moving to `memory/` subfolder — different filing pattern from the Barker-Ewing float confirmation; flagging but not relocating.
+- **Property:** Hal'e Teton · 5 BR / 5.5 BA · 6,600 sf · Teton Village · sleeps up to 22.
+- **Dates:** Sat Aug 22 → Wed Aug 26, 2026 · 4 nights. **Matches Stay 1 exactly.**
+- **Guests:** 10 adults + 2 children = 12 (full party).
+- **Order #112575** · Rendezvous Rentals LLC · 307-739-9050 · rmrentals.com.
+- **Total: $11,626.72** = lodging $8,396 + clean $1,175 + service/hot-tub/wellness fees + tax + trip insurance $901.07.
+- **Payment:** $5,813.36 paid today; **$5,813.36 due 2026-07-23**.
+- **Cancellation:** 30+ days out = 6% of initial payment forfeit; within 30 days = no refund. Trip insurance purchased — covers non-refundable payments.
+
+**Enterprise Mini Van (vehicle, one-way JAC → BZN):**
+- Booked by Ritesh through Costco Travel on 2026-05-20.
+- **Costco conf C491501176 · Enterprise conf 2112908572.**
+- **Driver:** PARUL RITESH KUMAR MAKHARIA.
+- **Pickup requirements:** Driver must present Costco membership card. One additional driver fee waived for Costco members at participating locations. All additional drivers must be present at pickup.
+- **Contact:** 1-866-328-1385 (before trip) · 1-866-317-4711 (during/after).
+- **Pickup/drop dates and times NOT visible in the screenshots** — assumption is JAC pickup Aug 22 / BZN drop Aug 29 matching the trip. Flag for Rohit to confirm.
+- **Assumption surfaced:** standard mini van seats 7-8; the trip needs capacity for 12. A second vehicle is likely needed but not yet seen. Flagged in the Bookings priority `<li>` with an explicit "Assumption to verify."
+
+**STATUS flag schema change — `rentalsBooked` split into two:**
+- Removed: `rentalsBooked`.
+- Added: `rentalJacksonBooked: true` (Hal'e Teton confirmed) and `rentalWyBooked: false` (W. Yellowstone still open).
+- Rationale: one rental confirmed, the other open — a single boolean couldn't represent that cleanly. Splitting lets each line auto-strike independently.
+- All `data-status-key="rentalsBooked"` lines replaced with paired entries for Jackson + WY in both ctx-cards (`planning` + `t60`) and the Bookings priority list.
+
+**Site surfaces touched:**
+- `#lodging` page: Hal'e Teton shortlist-card flipped to "✓ Booked · Stay 1" with full booking details (order #, total, payment schedule, cancellation, operator); Moose Hideaway card marked "Not selected · Hal'e Teton was booked instead" and dimmed via new `.shortlist-card.not-selected` style. New CSS class `.shortlist-card.booked` adds a forest-green left bar.
+- `#bookings` priority list: "Both rentals" item replaced with two items (Jackson booked / WY open); "Two SUVs" item replaced with the Enterprise Mini Van booking + driver + confs + Costco/Enterprise help numbers.
+- Pre-trip ctx-cards: rentals checklist lines split into Jackson + WY.
+- `#print` page: new "Lodging" and "Vehicles" sections inserted between Flights and Dinners. Day 8 description updated from "drop SUVs" to "drop vehicles."
+- Map JS: `LODGING_JACKSON` name changed from "Jackson rental (Stay 1)" to "Hal'e Teton (Stay 1)". Coords left at Teton Village centroid placeholder (within a few hundred meters; accurate enough visually).
+- File: 2,362 → **2,394 lines, 170,022 → 173,312 bytes.**
+
+---
+
 ## 2026-05-19 · Confirmation numbers wired in (Ritesh forwarded them)
 
 - Ritesh sent three confirmation numbers for the CA-direction tickets. Wired into every relevant surface in the site.
