@@ -4,25 +4,27 @@ Session-by-session log of what shipped. Newest at top. Keep entries terse — on
 
 ---
 
-## 2026-05-21 · Print stylesheet fix — only print page now prints
+## 2026-05-21 · Print stylesheet — context-aware (prints active page, not always the one-pager)
 
-**Bug:** Cmd+P or the in-page Print button was printing the entire HTML (all 10 pages + hero + footer + credits), not just the Print one-pager.
+**Iteration 1 fixed the bug** where Cmd+P printed all 10 routed pages — root cause was `.page{display:block!important}` in `@media print` forcing everything visible.
 
-**Root cause:** the old `@media print` block at line 637 had `.page{display:block!important}` — which forced every routed page visible during print. Combined with no hide rules for hero/footer/credits/deadline-banner/top-nav-in-print, the printed output was the full SPA dump.
+**Iteration 2 (per Rohit feedback):** the fix was too aggressive. Forcing only `#page-print` meant Cmd+P always printed the one-pager regardless of which page the user was on. Rohit wanted Cmd+P to print whatever the user is currently looking at — the print one-pager when on `#print`, the Bookings page when on `#bookings`, etc.
 
-**Fix:** rewrote the `@media print` block. Now:
-- Hides every routed page EXCEPT `#page-print` (`.page{display:none!important}` + `#page-print{display:block!important}`).
-- Hides global chrome: `.top-nav`, `.hamburger`, `.mobile-menu*`, `.thumb-nav`, `.deadline-banner-host`, `.hero`, `.credits`, `footer`, `.print-btn-wrap`, `#mainMap`, `.leaflet-container`.
-- `@page{size:letter;margin:0.55in}` sets sensible paper margins.
-- Switches print font to Georgia / Times New Roman serif at 10.5pt with tighter table sizes (9.5pt body, 8.5pt headers) so the one-pager fits in 2–3 pages.
-- All print text forced to black (`color:#000!important`), backgrounds to white.
-- Links lose color/underline in print (they aren't useful on paper).
+**Final implementation:**
+- `@media print` now hides only global chrome (top-nav, hamburger, mobile-menu, thumb-nav, deadline-banner, credits, footer, print button wrapper, Leaflet map).
+- `.hero` removed from hide list — home page hero will print.
+- Page visibility is NOT touched by `@media print`. The default `.page.active{display:block}` rule determines what prints — whichever page the user is on.
+- Print-specific typography (Georgia/Times serif, 10.5pt, table sizing, etc.) is scoped to `#page-print .print-*` selectors, so it ONLY applies on the print one-pager. Other pages print with their normal styling minus chrome.
+- `@page{size:letter;margin:0.55in}` still applies globally.
 
-**Two older redundant `@media print` rules left in place** (lines 43 + 501) — they hide `.deadline-banner-host`, `.print-btn-wrap`, and reset `.print-sheet` padding. Same effect as the new block, no conflict; consolidation deferred.
+**Behavior:**
+- Cmd+P on `#print` → clean one-pager (Georgia serif, 2–3 pages)
+- Cmd+P on `#home` → home page content (hero + countdown + planning ctx card)
+- Cmd+P on `#bookings` → bookings priority list
+- Cmd+P on `#trip` → day-by-day timeline (map hidden, narrative + stops print)
+- ...and so on for every page.
 
-**Verification:** JS parses, DOM balanced (472 = 472), 2,458 lines / 177,239 bytes. Selector-coverage check: all 10 hide-targets match at least one element; all 10 page divs except `#page-print` will be hidden. Manual print test = Rohit's job (Cmd+P in Safari to confirm).
-
-**To test:** open the site, navigate anywhere (doesn't matter — Cmd+P from any page should still produce only the print one-pager), hit Cmd+P. Or click the "⎙ Print this page" button on the Print page.
+**Verification:** JS parses, 2,454 lines, no `.page{display:none!important}` or `#page-print{display:block!important}` in @media print, `.hero` not in hide list, `#page-print .print-sheet` scoped styling confirmed.
 
 ---
 
