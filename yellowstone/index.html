@@ -90,7 +90,7 @@ body:has(#deadlineBanner:not(:empty)){padding-top:126px}
 .hero-eyebrow::before{content:'';width:56px;height:1px;background:var(--gold)}
 h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:0.88;letter-spacing:-0.045em;font-weight:400;font-variation-settings:"opsz" 144;margin-bottom:40px;text-shadow:0 4px 32px rgba(0,0,0,0.4)}
 h1 .italic{font-style:italic;color:var(--gold);font-weight:300}
-.home-nav-title em,.home-overview-title em,.shortlist-title em,.booking-guide-header h3 em,.trip-itinerary-header h3 em,.nps-section-head h3 em{color:var(--forest)}
+.home-nav-title em,.home-overview-title em,.shortlist-title em,.trip-itinerary-header h3 em,.nps-section-head h3 em{color:var(--forest)}
 .hero-lede{font-family:var(--font-display);font-size:clamp(20px,2.3vw,28px);font-weight:300;font-style:italic;line-height:1.4;max-width:760px;color:rgba(250,247,240,0.95);letter-spacing:-0.01em;text-shadow:0 2px 16px rgba(0,0,0,0.3)}
 .hero-countdown{position:relative;z-index:2;padding-top:36px;margin-top:48px;border-top:1px solid rgba(250,247,240,0.15);display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .countdown-label{font-family:var(--font-mono);font-size:12px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(250,247,240,0.55)}
@@ -237,9 +237,6 @@ section.content{padding:80px 0;position:relative}
 .lodge-nights{font-family:var(--font-mono);font-size:13px;color:var(--ink-3);margin-bottom:12px;letter-spacing:0.05em}
 .lodge-name{font-family:var(--font-display);font-size:36px;font-weight:500;line-height:1.1;letter-spacing:-0.02em;margin-bottom:24px}
 .lodge-desc{font-size:15px;color:var(--ink-2);line-height:1.65;margin-bottom:28px}
-.lodge-targets{padding-top:24px;border-top:1px solid var(--rule)}
-.lodge-targets-label{font-family:var(--font-mono);font-size:10px;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:12px}
-.lodge-targets-list{font-size:14px;color:var(--ink-2);line-height:1.6}
 
 /* ============ SHORTLIST ============ */
 .shortlist-header{margin-top:64px;padding-bottom:18px;border-bottom:1px solid var(--rule);display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -295,7 +292,6 @@ section.content{padding:80px 0;position:relative}
 .flight-card.outbound::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--forest)}
 .flight-card.return-dtw::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gold)}
 .flight-card.return-ca::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--accent);opacity:0.6}
-.flight-card.tbd{background:repeating-linear-gradient(135deg,var(--canvas),var(--canvas) 10px,var(--canvas-2) 10px,var(--canvas-2) 20px)}
 .flight-stamp{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:600}
 .flight-card.outbound .flight-stamp{color:var(--forest)}
 .flight-card.return-dtw .flight-stamp{color:#A88128}
@@ -312,8 +308,6 @@ section.content{padding:80px 0;position:relative}
 .flight-leg-meta{color:var(--ink-3);font-size:10px;letter-spacing:0.05em}
 .flight-layover{text-align:center;font-family:var(--font-mono);font-size:10px;color:var(--ink-3);letter-spacing:0.15em;text-transform:uppercase;padding:4px 0}
 .flight-note{margin-top:auto;padding-top:14px;border-top:1px solid var(--rule-soft);font-family:var(--font-display);font-style:italic;font-size:13px;color:var(--ink-2);line-height:1.5}
-.flight-tbd{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;padding:24px 0;color:var(--ink-2);font-family:var(--font-display);font-style:italic}
-.flight-tbd-tag{font-family:var(--font-mono);font-style:normal;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);background:rgba(196,74,30,0.08);padding:5px 10px;border-radius:99px;font-weight:600}
 
 /* ============ MAP ============ */
 .map-section-wrap{background:var(--canvas-2);border-radius:6px;overflow:hidden;box-shadow:0 32px 80px -20px rgba(15,20,16,0.18)}
@@ -641,14 +635,37 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
   .home-nav-card h2{font-size:20px}
 }
 @media print{
-  body{background:white;padding-top:0}
-  .top-nav,.hamburger,.mobile-menu,.mobile-menu-backdrop,.thumb-nav{display:none}
-  body{padding-bottom:0!important}
-  .page{display:block!important}
-  .hero,.vehicle-play,footer{background:white!important;color:var(--ink)!important}
-  .day-card{page-break-inside:avoid;border:1px solid #999}
-  #mainMap{display:none}
-  .leaflet-container{display:none}
+  /* Page setup — letter size, comfortable margins */
+  @page{size:letter;margin:0.55in}
+  /* Hide ALL global chrome */
+  .top-nav,.hamburger,.mobile-menu,.mobile-menu-backdrop,.thumb-nav,
+  .deadline-banner-host,.hero,.credits,footer,.print-btn-wrap,
+  #mainMap,.leaflet-container{display:none!important}
+  /* Hide every page EXCEPT the print page (the prior rule forced all pages visible) */
+  .page{display:none!important}
+  #page-print{display:block!important}
+  /* Clean body, no PWA chrome padding */
+  body{background:white!important;padding:0!important;margin:0!important;color:#000!important}
+  /* Print sheet — let the @page margins do the work */
+  .print-sheet{max-width:none!important;margin:0!important;padding:0!important;background:white!important;color:#000!important;font-family:Georgia,'Times New Roman',serif;font-size:10.5pt;line-height:1.4}
+  /* Headings/typography for paper */
+  .print-header{border-bottom:2px solid #000;padding-bottom:10px;margin-bottom:14px}
+  .print-header h1{font-family:Georgia,'Times New Roman',serif;font-size:22pt;color:#000;margin:0}
+  .print-header h1 em{font-style:italic;color:#000}
+  .print-header .meta{font-size:9pt;color:#000;letter-spacing:0.1em}
+  .print-section{margin-bottom:14px;page-break-inside:avoid}
+  .print-section h2{font-family:Georgia,'Times New Roman',serif;font-size:12pt;color:#000;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 6px;border-bottom:1px solid #000;padding-bottom:3px}
+  /* Tables compact for paper */
+  .print-table{font-size:9.5pt}
+  .print-table th{font-size:8.5pt;color:#000;border-bottom:1px solid #000;padding:4px 6px}
+  .print-table td{padding:4px 6px;border-bottom:1px solid #ccc;color:#000}
+  .print-table td strong{color:#000}
+  .print-day-grid{font-size:9.5pt;gap:6px 14px}
+  .print-day-grid .d{color:#000;font-size:8.5pt}
+  .print-day-grid .dt{color:#000;font-size:8.5pt}
+  .print-day-grid .what{color:#000;font-size:9.5pt;line-height:1.35}
+  /* Links — show URL inline only for external; print-internal links lose color */
+  a{color:#000!important;text-decoration:none}
 }
 .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
@@ -991,7 +1008,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div><span class="shortlist-stat-label">Bed</span><span class="shortlist-stat-value">5 BR</span></div>
 <div><span class="shortlist-stat-label">Bath</span><span class="shortlist-stat-value">5 BA</span></div>
 <div><span class="shortlist-stat-label">Size</span><span class="shortlist-stat-value">5,000 sf</span></div>
-<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">14</span></div>
+<div><span class="shortlist-stat-label">Sleeps</span><span class="shortlist-stat-value">12</span></div>
 </div>
 <div class="shortlist-pros">
 <div class="shortlist-pro">10/10 "Exceptional" rating across 68 VRBO reviews — strongest review profile of any 5BR in the area</div>
@@ -1151,7 +1168,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <div class="wrap">
 <div class="section-head"><div><h2 class="section-title">Map &amp; itinerary</h2><p class="section-desc">Click any day below the map (or any day filter pill) to see only that day's route. Click "All Days" to see the full arc from JAC to BZN.</p></div></div>
 <div class="map-section-wrap">
-<div class="map-header"><span class="map-header-title"><img src="favicon.svg" class="brand-mark" alt="" aria-hidden="true">JAC to BZN · 8 days · 19 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
+<div class="map-header"><span class="map-header-title"><img src="favicon.svg" class="brand-mark" alt="" aria-hidden="true">JAC to BZN · 8 days · 18 stops</span><span class="map-header-hint">Tap a marker or pick a day</span></div>
 <div class="map-canvas" id="mapCanvas">
 <div id="mainMap" role="application" aria-label="Interactive map of the trip route"></div>
 </div>
@@ -1190,7 +1207,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 </div>
 <div class="nps-credit">Map © U.S. National Park Service · hosted by NPMaps.com</div>
 
-<div class="nps-section-head" style="margin-top:48px"><h3>Yellowstone National Park</h3><div class="sub">Days 05 – 07 · Aug 26 – 28</div></div>
+<div class="nps-section-head" style="margin-top:48px"><h3>Yellowstone National Park</h3><div class="sub">Days 05 – 08 · Aug 26 – 29</div></div>
 <div class="nps-map-wrap" id="npsYellowWrap">
 <img class="nps-map-img" id="npsYellowImg" src="img/nps-yellowstone.jpg" alt="Yellowstone National Park official NPS brochure map"/>
 <div id="npsYellowMarkers"></div>
@@ -1550,7 +1567,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 <tr><td>Tue Aug 25</td><td>Snake River Grill (Jackson)</td><td>307-733-0557</td></tr>
 <tr><td>Wed Aug 26</td><td>Madison Crossing Lounge (W. Yellowstone)</td><td>406-646-7621</td></tr>
 <tr><td>Thu Aug 27</td><td>Bar N Ranch — Embers</td><td>406-646-0300</td></tr>
-<tr><td>Fri Aug 28 — Rakhi</td><td>Bar N Ranch or pickup at rental</td><td>406-646-0300</td></tr>
+<tr><td>Fri Aug 28 — Rakhi</td><td>Your call · Madison Crossing OR Bar N Ranch OR Wild West Pizzeria pickup</td><td>Madison Crossing 406-646-7621 · Bar N Ranch 406-646-0300 · Wild West yellowstonepizza.com</td></tr>
 </tbody>
 </table>
 </div>
@@ -1605,12 +1622,7 @@ footer{background:var(--dark);color:rgba(250,247,240,0.6);padding:60px 0 48px;te
 
 <div class="credits">
 <div class="wrap">
-<strong>Photography &amp; Map Credits</strong>
-Tetons hero · <a href="https://unsplash.com/@ndam" target="_blank" rel="noopener">Nandita Damaraju</a> &nbsp;·&nbsp;
-Hidden Falls (Day 3) · <a href="https://unsplash.com/@ojrupp" target="_blank" rel="noopener">Owen Rupp</a> &nbsp;·&nbsp;
-Old Faithful (Day 6) · <a href="https://unsplash.com/@windagh" target="_blank" rel="noopener">Dennis Zhang</a> &nbsp;·&nbsp;
-Lower Falls (Day 7) · <a href="https://unsplash.com/@btwilkins" target="_blank" rel="noopener">Ben Wilkins</a>
-<br>All photos via the <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a> &nbsp;·&nbsp; Park brochure maps © <a href="https://www.nps.gov" target="_blank" rel="noopener">U.S. National Park Service</a>, hosted by <a href="https://npmaps.com" target="_blank" rel="noopener">NPMaps</a>
+Photos via <a href="https://unsplash.com/license" target="_blank" rel="noopener">Unsplash License</a> · Park brochures © <a href="https://www.nps.gov" target="_blank" rel="noopener">NPS</a> via <a href="https://npmaps.com" target="_blank" rel="noopener">NPMaps</a>
 </div>
 </div>
 
@@ -1653,7 +1665,6 @@ const DAYS=[
 {day:7,date:"Aug 28",year:"2026",title:"Geyser day + Rakhi",narrative:"Lighter Yellowstone day — closest activities to the West Yellowstone base. Wrap by 3:30–4 PM and head back to the rental for Rakhi celebration. Sunset around 8 PM gives 4+ hours of daylight family time.",driving:"~1.5 hrs total",stops:[
 {time:"10:00 AM",duration:"~3 hrs",name:"Old Faithful",lat:44.4586009,lng:-110.8292436,notes:"Catch an eruption (~94 min interval). Walk the Upper Geyser Basin paved loop. Lunch at Old Faithful Inn or picnic."},
 {time:"1:00 PM",duration:"~2 hrs",name:"Grand Prismatic Spring",lat:44.5250346,lng:-110.8381793,notes:"Fairy Falls Overlook trail (1.6 mi RT) for the iconic elevated shot — or stay on the boardwalk at lake level for an easier visit. Both work."},
-{time:"4:00 PM",duration:"Afternoon",name:"Rakhi at the rental",lat:44.6621493,lng:-111.1041092,notes:"Back at the West Yellowstone rental by 3:30–4 PM. The traditional sister-brother festival — tying of rakhis, family meal, gifts, hot tub. Daylight until ~8 PM gives 4+ hours of celebration."}
 ]},
 {day:8,date:"Aug 29",year:"2026",title:"Drive Bozeman, fly out",narrative:"Check out of <strong>Yellowstone Luxury Cabin Retreat by 10 AM</strong> (Vrbo ORB17812924 — collect the $1,500 refundable deposit confirmation). Drive Gallatin Canyon to Bozeman — 2.5 hours, one of the most scenic stretches in the West. Drop both mini vans at BZN. DL 0364 boards 3:38 PM for Detroit; UA 1702 boards 4:25 PM for SFO.",driving:"2.5 hrs to BZN",type:"airport",stops:[{time:"Afternoon",duration:"",name:"Bozeman Yellowstone International Airport (BZN)",lat:45.7784043,lng:-111.1612273,notes:"Drop both Enterprise mini vans. Flights depart 3:38 PM (DTW) and 4:25 PM (SFO).",type:"airport"}]}
 ];

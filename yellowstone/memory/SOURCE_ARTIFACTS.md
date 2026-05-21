@@ -20,6 +20,8 @@ Chain-of-custody log for every photo, screenshot, and PDF Rohit shared during th
 | `PHOTO-2026-05-20-09-53-14.jpg` | 2026-05-20 | Van 2 reservation — Costco **C491501176** · Enterprise **2112908572** · driver PARUL RITESH KUMAR MAKHARIA · booking email pa\*\*\*\*ia@gmail.com · booked May 20, 2026 |
 | `Confirmation.pdf` | 2026-05-20 | Vrbo Yellowstone Luxury Cabin Retreat — reservation **ORB17812924**, property 9746176ha, Aug 26-29, $6,030.90 charged + $1,500 deposit at property |
 | `Order Confirmation #112575 \| Rendezvous Mountain Rentals.pdf` | 2026-05-20 | Hal'e Teton — order **#112575**, Rendezvous Mountain Rentals, Aug 22-26, $11,626.72 total ($5,813.36 paid, $5,813.36 due 2026-07-23) |
+| `Screenshot 2026-05-20 at 12.45.59 PM.png` | 2026-05-20 | Vrbo cancellation policy — 100% refund by Jul 27, 50% (minus service fee) by Aug 12, no refund after Aug 12, cancel by 11:59 PM property local time. Reservation ORB17812924. **(Moved from Pending — found on disk in 2026-05-21 resume sweep.)** |
+| `Screenshot 2026-05-20 at 12.45.11 PM.png` | 2026-05-20 | Group-chat (Rajkumar Family iMessage) with Ritesh sending HVFBCM, HVZD9X (Agarwal refundable), HTXHKY conf numbers + embedded UA ticket screenshots. Originally marked Closed; **found preserved on disk in 2026-05-21 resume sweep — logging for completeness.** |
 | `0B9B77CB-...jpeg`, `A223BED6-...jpeg`, `A5667687-...jpeg` | 2026-05-11 | Legacy planning photos from initial conversation — not referenced by site |
 
 ## Preserved elsewhere
@@ -27,15 +29,13 @@ Chain-of-custody log for every photo, screenshot, and PDF Rohit shared during th
 | File | Location | What it documents |
 |---|---|---|
 | `2026-08-24_barker-ewing-confirmation.pdf` | `memory/` | Barker-Ewing private float — Aug 24 noon, conf 8L5Q8N9T7K3V2H7F, $1,200 paid, 72-hr cancellation policy |
-| `yellowstone-tetons-chat-transcript.pdf` | project root | Prior planning chat from May 9-11 (v1-v6 build cycle) |
+| `yellowstone-tetons-chat-transcript.pdf` | `Source Data/` | Prior planning chat from May 9-11 (v1-v6 build cycle) — moved from project root to Source Data/ in Tier-1 cleanup 2026-05-20 |
 
 ---
 
 ## Pending — re-attached in chat but did not land on disk
 
-| Expected filename | What it documents | Data already preserved in |
-|---|---|---|
-| `2026-05-20_vrbo-cancellation-policy.png` (or .jpg) | Vrbo cancellation policy — 100% refund by Jul 27, 50% (minus service fee) by Aug 12, no refund after Aug 12, cancel by 11:59 PM property local time | `yellowstone-deadlines.ics` (2 events) + Print page cancellation table + CHANGELOG 2026-05-20 |
+(none — Vrbo cancellation policy was preserved as `Screenshot 2026-05-20 at 12.45.59 PM.png`, discovered in 2026-05-21 resume sweep)
 
 ---
 
@@ -43,8 +43,7 @@ Chain-of-custody log for every photo, screenshot, and PDF Rohit shared during th
 
 | Item | Why dropped |
 |---|---|
-| Mobile thumb-nav floating bug screenshot | Per Rohit 2026-05-20: "don't worry about the Safari scroll for now." Not load-bearing — was a bug-report image; fix is in `index.html` + CHANGELOG. |
-| Group-chat conf-numbers screenshot (variously called Telegram/iMessage/WhatsApp) | Per Rohit 2026-05-20: "Forget about the WhatsApp messages. It's not important. It's already captured in the index.html." Data preserved in `index.html` flight cards + the 3 standalone UA ticket photos in Source Data/. |
+| Mobile thumb-nav floating bug screenshot | Per Rohit 2026-05-20: "don't worry about the Safari scroll for now." Not load-bearing — was a bug-report image; fix is in `index.html` + CHANGELOG. Never saved to disk. |
 
 ---
 

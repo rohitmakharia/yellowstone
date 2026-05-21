@@ -45,13 +45,11 @@ A single-file Progressive Web App (`index.html`) that serves as the family's sha
 
 ```
 yellowstone/
-├── index.html                                            # The site. 2,447 lines / 177,118 bytes (2026-05-20 EOD).
+├── index.html                                            # The site. 2,435 lines / 175,543 bytes (2026-05-20 EOD, post Tier-1 cleanup).
 ├── manifest.webmanifest                                  # PWA manifest (installable to home screen)
 ├── favicon.svg                                           # App icon / brand mark
-├── download-images.sh                                    # Re-downloads all Unsplash + NPS images to img/
 ├── yellowstone-deadlines.ics                             # 8-event iCalendar with 7-day-prior reminders (2026-05-20)
 ├── yellowstone-expenses.xlsx                             # 3-sheet expense tracker with SUMIF settlement (2026-05-20)
-├── yellowstone-tetons-chat-transcript.pdf                # Prior planning chat (May 9–11, 2026)
 ├── Source Data/                                          # Raw uploads, preserved (folder added 2026-05-20)
 │   ├── PHOTO-2026-05-11-18-18-40.jpg                       # DL 0935 DTW→SLC ticket
 │   ├── PHOTO-2026-05-11-18-18-40 2.jpg                     # DL 0417 SLC→JAC ticket
@@ -63,6 +61,7 @@ yellowstone/
 │   ├── PHOTO-2026-05-20-09-53-14.jpg                       # Van 2 Costco C491501176 (Parul)
 │   ├── Confirmation.pdf                                    # Vrbo Yellowstone Luxury (ORB17812924)
 │   ├── Order Confirmation #112575 | Rendezvous Mountain Rentals.pdf  # Hal'e Teton
+│   ├── yellowstone-tetons-chat-transcript.pdf              # Prior planning chat (May 9–11) — moved here in Tier-1 cleanup
 │   └── 0B9B77CB-..., A223BED6-..., A5667687-...jpeg        # Legacy May-11 originals
 ├── img/                                                  # Hero + 8 day photos + 2 NPS brochure maps
 │   ├── hero-tetons.jpg
@@ -78,7 +77,7 @@ yellowstone/
 
 **`Source Data/` is the canonical home for every raw upload Rohit provides.** Rule effective 2026-05-20: any photo, screenshot, PDF, document, audio, or video gets saved here with filename `YYYY-MM-DD_short-slug.ext` before any data extraction. See `memory/SOURCE_ARTIFACTS.md` for the full chain-of-custody manifest.
 
-**Pending after 2026-05-20 backfill:** one screenshot awaiting manual save — Vrbo cancellation policy. Closed (not tracked): group-chat conf-numbers screenshot (data captured in `index.html`) and mobile thumb-nav bug screenshot (not load-bearing). See `SOURCE_ARTIFACTS.md` for detail.
+**Source-artifact pending list: empty as of 2026-05-21.** Vrbo cancellation policy + group-chat conf-numbers were both found preserved on disk in the 2026-05-21 resume sweep (as `Screenshot 2026-05-20 at 12.45.{11,59} PM.png`). Mobile thumb-nav bug screenshot remains closed (not load-bearing, never saved). See `SOURCE_ARTIFACTS.md`.
 
 ---
 
@@ -170,7 +169,7 @@ For non-traveling viewers in other timezones during the trip. `viewerSharesJacks
 
 ### STATUS flag system (added 2026-05-12)
 
-Six booleans in a `STATUS` object (lines 2128–2135). When `true`, the matching checklist item gets `class="done"`, which strikes it through and dims it. The flags are referenced from multiple pre-trip cards via `data-status-key` attributes — flip once, every card updates.
+Seven booleans in a `STATUS` object (grep `^const STATUS=` for current line — line numbers shift). When `true`, the matching checklist item gets `class="done"`, which strikes it through and dims it. The flags are referenced from multiple pre-trip cards via `data-status-key` attributes — flip once, every card updates.
 
 | Flag | What it tracks |
 |---|---|
@@ -244,8 +243,8 @@ These belong in `memory/CHANGELOG.md` only if they get reopened.
 - **All phone numbers verified May 2026** per the dining-card note. If a number gets revised, re-check before flipping STATUS flags.
 - **Bear spray cannot fly.** The trip plan depends on buying it in Jackson on Aug 22. Don't try to optimize this away.
 - **BZN departure floor: 12:30 PM.** Earlier flights are dangerously tight on the Gallatin Canyon drive (2.5 hrs from West Yellowstone). If a CA return ticket gets booked for, say, 11 AM, the whole departure morning breaks.
-- **Audience extremes.** Site is designed for 10-year-olds and 75-year-olds. Don't shrink mono labels below 12px on mobile (`@media (max-width:480px)` block enforces this — see lines 622–629). Don't shrink tap targets below 48px.
-- **~2,447-line single file (as of 2026-05-20 EOD; was 2,474 before audit-fix CSS cleanup).** Edits are line-anchored. Any structural refactor needs to keep the JS state machine, the `DAYS` array, the `STATUS` flag object, the `DEADLINES` array, and the CSS visibility rules in sync. Line numbers shift session to session; re-grep before quoting line refs. After any size change, re-grep memory files for the old size string and update.
+- **Audience extremes.** Site is designed for 10-year-olds and 75-year-olds. Don't shrink mono labels below 12px on mobile (grep `@media (max-width:480px)` for the enforcing blocks — line numbers shift session to session). Don't shrink tap targets below 48px.
+- **~2,435-line single file (as of 2026-05-20 EOD; was 2,474 before audit fixes, 2,447 before Tier-1 cleanup).** Edits are line-anchored. Any structural refactor needs to keep the JS state machine, the `DAYS` array, the `STATUS` flag object, the `DEADLINES` array, and the CSS visibility rules in sync. Line numbers shift session to session; re-grep before quoting line refs. After any size change, re-grep memory files for the old size string and update.
 
 ---
 

@@ -4,6 +4,47 @@ Session-by-session log of what shipped. Newest at top. Keep entries terse — on
 
 ---
 
+## 2026-05-21 · Print stylesheet fix — only print page now prints
+
+**Bug:** Cmd+P or the in-page Print button was printing the entire HTML (all 10 pages + hero + footer + credits), not just the Print one-pager.
+
+**Root cause:** the old `@media print` block at line 637 had `.page{display:block!important}` — which forced every routed page visible during print. Combined with no hide rules for hero/footer/credits/deadline-banner/top-nav-in-print, the printed output was the full SPA dump.
+
+**Fix:** rewrote the `@media print` block. Now:
+- Hides every routed page EXCEPT `#page-print` (`.page{display:none!important}` + `#page-print{display:block!important}`).
+- Hides global chrome: `.top-nav`, `.hamburger`, `.mobile-menu*`, `.thumb-nav`, `.deadline-banner-host`, `.hero`, `.credits`, `footer`, `.print-btn-wrap`, `#mainMap`, `.leaflet-container`.
+- `@page{size:letter;margin:0.55in}` sets sensible paper margins.
+- Switches print font to Georgia / Times New Roman serif at 10.5pt with tighter table sizes (9.5pt body, 8.5pt headers) so the one-pager fits in 2–3 pages.
+- All print text forced to black (`color:#000!important`), backgrounds to white.
+- Links lose color/underline in print (they aren't useful on paper).
+
+**Two older redundant `@media print` rules left in place** (lines 43 + 501) — they hide `.deadline-banner-host`, `.print-btn-wrap`, and reset `.print-sheet` padding. Same effect as the new block, no conflict; consolidation deferred.
+
+**Verification:** JS parses, DOM balanced (472 = 472), 2,458 lines / 177,239 bytes. Selector-coverage check: all 10 hide-targets match at least one element; all 10 page divs except `#page-print` will be hidden. Manual print test = Rohit's job (Cmd+P in Safari to confirm).
+
+**To test:** open the site, navigate anywhere (doesn't matter — Cmd+P from any page should still produce only the print one-pager), hit Cmd+P. Or click the "⎙ Print this page" button on the Print page.
+
+---
+
+## 2026-05-20 · Tier 1 cleanup (8 items)
+
+Pre-summary check-in given before edits; Rohit approved 7 of 9 candidates plus an added 8th (compress footer).
+
+- **T1.2** Deleted `download-images.sh` from project root (script ran once long ago to populate `img/`; now dead).
+- **T1.3** Moved `yellowstone-tetons-chat-transcript.pdf` from project root → `Source Data/` for chain-of-custody consistency.
+- **T1.4** Dead CSS sweep beyond marketplace: removed `.lodge-targets`, `.lodge-targets-label`, `.lodge-targets-list` (old shortlist machinery), `.flight-card.tbd`, `.flight-tbd`, `.flight-tbd-tag` (TBD flight styling — all flights now confirmed), and `.booking-guide-header h3 em` chain selector. Verified via JS-aware grep that none of these are added by classList/className at runtime. ~8 lines of CSS gone.
+- **T1.5** Yellowstone Luxury "Sleeps 14" stat → "Sleeps 12" (trip is 12 people; the 14 was max capacity, misleading).
+- **T1.6** Print page Aug 28 Rakhi dinner row: was "Bar N Ranch or pickup at rental, 406-646-0300" → now lists all 3 dining options (Madison Crossing 406-646-7621 · Bar N Ranch 406-646-0300 · Wild West yellowstonepizza.com), per Rohit: "leave the options in there. We don't know what we're going to do."
+- **T1.8** NPS Yellowstone section header "Days 05 – 07 · Aug 26 – 28" → "Days 05 – 08 · Aug 26 – 29" (Day 8 / Aug 29 is also Yellowstone-adjacent).
+- **T1.9** Removed the fake "Rakhi at the rental" stop from Day 7 in the DAYS array (it had W. Yellowstone town centroid coords, not a real geographic stop). Map header "19 stops" → "18 stops". Rakhi content stays in narrative.
+- **T1.10 (added mid-session)** Footer photo credits compressed: was a 6-line block with per-photographer attribution → now a single line ("Photos via Unsplash License · Park brochures © NPS via NPMaps"). Per-photo attribution available at the Unsplash links in dev tools / source HTML if needed.
+
+**Skipped per Rohit:** T1.1 (PWA manifest stays — "we keep it all the way") and T1.7 (date typography normalize — Rohit didn't explicitly approve).
+
+**Verification:** 2,435 lines / 175,543 bytes (was 2,447 / 177,177 — net -12 lines / -1,634 bytes). JS parses. DOM balanced (472 `<div>` opens = 472 closes). All seven verifications re-greppеd clean.
+
+---
+
 ## 2026-05-20 · Audit pass 2 + 5 more fixes + global auditor rule
 
 Pass 2 of the audit caught 6 issues missed in pass 1 (46% miss rate on the first sweep). Five fixed in this entry; one (Day 5 vehicleB) restructured per Rohit's direction.
